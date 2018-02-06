@@ -4,7 +4,8 @@
   "description": "Bachelro Thesis without title yet.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack",
+    "prod": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
     "source-map-loader": "^0.2.3",
-    "typescript": "^2.7.1"
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0"
   }
 }
