@@ -1,9 +1,23 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Hello } from "./components/Hello";
+import { Tree } from "./components/Tree";
 
 ReactDOM.render(
-    <Hello compiler="TypeScript 2" framework="React" />,
+    <Tree
+        id={"0"}
+        list={{
+            items: [
+                {label: "First node"},
+                {label: "Parent node", list: {
+                    items: [
+                        {label: "Child node 1"},
+                        {label: "Child node 2"}
+                    ]
+                    }}
+                ]
+        }}
+
+    />,
     document.getElementById("app")
 );
