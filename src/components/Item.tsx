@@ -1,16 +1,14 @@
 import * as React from "react";
-import {List, ListProps} from "./List";
-import { defaultIfNotExists } from "./Helpers";
-import {Checkbox} from "./Checkbox";
+import {List} from "./List";
+import { defVal } from "./Helpers";
+import {Checkbox, CheckboxData} from "./Checkbox";
 import {FormEvent} from "react";
 
 export interface ItemProps {
-    id?: string,
+    id: string,
     label: string,
-    list?: ListProps,
-
-    checked?: boolean,
-    handleCheckChange?: (checked: boolean) => void,
+    items: ItemProps[],
+    checkbox: CheckboxData
 }
 
 interface ItemState {
@@ -22,18 +20,23 @@ export class Item extends React.Component<ItemProps, ItemState> {
         super(props);
 
         this.state = {
-            checked: defaultIfNotExists( this.props.checked, false),
+            checked: this.props.checkbox.checked,
         };
 
         this.handleOwnCheckChange = this.handleOwnCheckChange.bind(this);
         this.handleListCheckChange = this.handleListCheckChange.bind(this);
-        this.checkChange = this.checkChange.bind(this);
     }
 
+    /**
+     * When receiving new props updates:
+     * checked: If parent changes children should reflect it.
+     *
+     * @param {ItemProps} nextProps
+     */
     componentWillReceiveProps(nextProps : ItemProps) {
-        if ( nextProps.checked != this.props.checked ) {
+        if ( nextProps.checkbox.checked != this.props.checkbox.checked ) {
             this.setState((currState, nextProps) => {
-                return {checked: nextProps.checked};
+                return {checked: nextProps.checkbox.checked};
             });
         }
     }
@@ -44,7 +47,7 @@ export class Item extends React.Component<ItemProps, ItemState> {
      */
     checkChange(checked : boolean) : void {
         this.setState({checked: checked});
-        this.props.handleCheckChange(checked);
+        this.props.checkbox.onChange(checked);
     }
 
     /**
@@ -65,16 +68,18 @@ export class Item extends React.Component<ItemProps, ItemState> {
     }
 
     renderSublist() : JSX.Element {
-        if (this.props.list) {
-            let id = defaultIfNotExists(this.props.id, '1');
-            let list = defaultIfNotExists(this.props.list, null);
+        if (this.props.items) {
+            let id = defVal(this.props.id, '1');
 
             return (
                 <List
                     id={id}
-                    {...list}
-                    checked={this.state.checked}
-                    handleCheckChange={this.handleListCheckChange}
+                    items={this.props.items}
+                    checkbox={{
+                        visible: this.props.checkbox.visible,
+                        checked: this.state.checked,
+                        onChange: this.handleListCheckChange
+                    }}
                 />
             );
         } else return null;

@@ -1,16 +1,18 @@
 import * as React from "react";
 import {FormEventHandler} from "react";
 
-export interface CheckboxProps {
+export interface CheckboxData {
+    visible: boolean,
+    checked: boolean,
+    onChange: (checked: boolean) => void
+}
+
+interface CheckboxProps {
     onChange: FormEventHandler<HTMLInputElement>
     checked: boolean
 }
 
-interface CheckboxState {
-
-}
-
-export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+export class Checkbox extends React.Component<CheckboxProps, {}> {
     render() {
         return (
             <input type="checkbox"

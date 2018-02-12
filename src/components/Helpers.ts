@@ -1,3 +1,3 @@
-export function defaultIfNotExists(variable:any, defaultValue:any) {
-    return variable ? variable : defaultValue;
+export function defVal<T>(variable:T, defaultValue:T) : T {
+    return variable != null ? variable : defaultValue;
 }
