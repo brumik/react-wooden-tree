@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -100,139 +100,33 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var Item_1 = __webpack_require__(6);
 var Helpers_1 = __webpack_require__(1);
-var List = /** @class */ (function (_super) {
-    __extends(List, _super);
-    function List(props) {
-        var _this = _super.call(this, props) || this;
-        /**
-         * Values which are not displayed therefore no need to store them in state.
-         *
-         * @type ListVal
-         */
-        _this.val = {
-            checkedItemNumber: 0,
+function CheckboxDataFactory(checkbox, onChange) {
+    if (checkbox != null)
+        return {
+            visible: Helpers_1.defVal(checkbox.visible, false),
+            checked: Helpers_1.defVal(checkbox.checked, false),
+            onChange: onChange,
         };
-        _this.handleOwnCheckChange = _this.handleOwnCheckChange.bind(_this);
-        _this.handleItemCheckChange = _this.handleItemCheckChange.bind(_this);
-        return _this;
+    else
+        return { visible: false, checked: false, onChange: onChange };
+}
+exports.CheckboxDataFactory = CheckboxDataFactory;
+var Checkbox = /** @class */ (function (_super) {
+    __extends(Checkbox, _super);
+    function Checkbox() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    List.prototype.componentWillReceiveProps = function (nextProps) {
-        if (nextProps.checkbox.checked != this.props.checkbox.checked) {
-            this.val.checkedItemNumber = nextProps.checkbox.checked ? this.props.items.length : 0;
-        }
+    Checkbox.prototype.render = function () {
+        return (React.createElement("input", { type: "checkbox", checked: this.props.checked, onChange: this.props.onChange }));
     };
-    /**
-     * Updates the checked and checkedItemNumber state.
-     * If checked the checkedItemNumber will be the max
-     * and if not the checkedItemNumber will be zero.
-     * @param {boolean} checked Indicates the required checked state.
-     */
-    List.prototype.checkChange = function (checked) {
-        this.val.checkedItemNumber = (checked ? this.props.items.length : 0);
-        if (this.props.checkbox.checked !== checked)
-            this.props.checkbox.onChange(checked);
-    };
-    /**
-     * Item change handler.
-     *
-     * @param {boolean} checked The list checkbox state.
-     */
-    List.prototype.handleItemCheckChange = function (checked) {
-        var checkedItemNumber = this.val.checkedItemNumber;
-        console.log("ID: " + this.props.id + " " + this.props.checkbox.checked + " and got: " + checked);
-        checkedItemNumber += (checked ? 1 : -1);
-        console.log(checkedItemNumber);
-        if (checkedItemNumber === this.props.items.length) {
-            this.checkChange(true);
-        }
-        else if (checkedItemNumber === 0) {
-            this.checkChange(false);
-        }
-        else
-            this.val.checkedItemNumber = checkedItemNumber;
-    };
-    /**
-     * Own checkbox handler.
-     * @param {React.FormEvent<HTMLInputElement>} event Contains the input field value.
-     */
-    List.prototype.handleOwnCheckChange = function (event) {
-        var target = event.target;
-        this.checkChange(target.checked);
-    };
-    /**
-     * Creates a checkbox if not provided with item value then whit own values.
-     * Makes sure to passing default value forward.
-     *
-     * @param {ItemProps} item
-     * @returns {CheckboxData}
-     */
-    List.prototype.defaultCheckbox = function (item) {
-        var checkbox = {
-            visible: this.props.checkbox.visible,
-            checked: this.props.checkbox.checked,
-            onChange: this.handleItemCheckChange,
-        };
-        if (item.checkbox) {
-            checkbox.visible = Helpers_1.defVal(item.checkbox.visible, checkbox.visible);
-            // TODO inheritance checked.
-        }
-        return checkbox;
-    };
-    /**
-     * Renders items in list. Sets default ID of parent if not given to 1.
-     *
-     * @returns {JSX.Element[]}
-     */
-    List.prototype.renderItems = function () {
-        var _this = this;
-        var id = Helpers_1.defVal(this.props.id, '1');
-        return this.props.items.map(function (item, idx) {
-            return (React.createElement(Item_1.Item, { key: id + '.' + idx, id: id + '.' + idx, label: item.label, items: item.items, opened: Helpers_1.defVal(item.opened, false), checkbox: _this.defaultCheckbox(item) }));
-        });
-    };
-    List.prototype.render = function () {
-        return (React.createElement("ul", null, this.renderItems()));
-    };
-    return List;
+    return Checkbox;
 }(React.Component));
-exports.List = List;
+exports.Checkbox = Checkbox;
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var ReactDOM = __webpack_require__(4);
-var Tree_1 = __webpack_require__(5);
-ReactDOM.render(React.createElement(Tree_1.Tree, { id: "0", items: [
-        { label: "First node" },
-        { label: "Parent node", opened: true,
-            items: [
-                { label: "Child node 1" },
-                { label: "Child node 2",
-                    items: [
-                        { label: "Child node 2.1" },
-                        { label: "Child node 2.2" }
-                    ] }
-            ]
-        }
-    ] }), document.getElementById("app"));
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = ReactDOM;
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -249,31 +143,77 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var List_1 = __webpack_require__(2);
+var Item_1 = __webpack_require__(7);
 var Helpers_1 = __webpack_require__(1);
-var Tree = /** @class */ (function (_super) {
-    __extends(Tree, _super);
-    function Tree(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            checked: false
-        };
-        return _this;
-    }
-    Tree.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", null,
-            React.createElement("p", null, "Will be a tree 2"),
-            React.createElement(List_1.List, { id: this.props.id, items: this.props.items, checkbox: {
-                    visible: Helpers_1.defVal(this.props.checkboxes, false),
-                    checked: this.state.checked,
-                    onChange: function (checked) { return _this.setState({ checked: checked }); },
-                } })));
+var Checkbox_1 = __webpack_require__(2);
+function ListPropsFactory(list) {
+    var items = [];
+    if (list.items != null)
+        for (var i = 0; i < list.items.length; i++) {
+            list.items[i].checkbox = Checkbox_1.CheckboxDataFactory(list.items[i].checkbox, list.checkbox.onChange);
+            list.items[i].id = list.id + "." + i;
+            items.push(Item_1.ItemPropsFactory(list.items[i]));
+        }
+    return {
+        id: list.id,
+        items: items,
+        checkbox: list.checkbox,
     };
-    return Tree;
+}
+exports.ListPropsFactory = ListPropsFactory;
+var List = /** @class */ (function (_super) {
+    __extends(List, _super);
+    function List() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    List.prototype.render = function () {
+        var items = this.props.items.map(function (item) {
+            return (React.createElement(Item_1.Item, { key: item.id, id: item.id, label: item.label, list: item.list, opened: Helpers_1.defVal(item.opened, false), checkbox: item.checkbox }));
+        });
+        return (React.createElement("ul", null, items));
+    };
+    return List;
 }(React.Component));
-exports.Tree = Tree;
+exports.List = List;
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var ReactDOM = __webpack_require__(5);
+var Tree_1 = __webpack_require__(6);
+ReactDOM.render(React.createElement(Tree_1.Tree, { list: {
+        items: [
+            { label: "First node" },
+            { label: "Parent node", opened: true,
+                list: {
+                    items: [
+                        { label: "Child node 1" },
+                        { label: "Child node 2", opened: true,
+                            list: {
+                                items: [
+                                    { label: "Child node 2.1" },
+                                    { label: "Child node 2.2" }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    } }), document.getElementById("app"));
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
 
 /***/ }),
 /* 6 */
@@ -293,79 +233,36 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var List_1 = __webpack_require__(2);
-var Helpers_1 = __webpack_require__(1);
-var Checkbox_1 = __webpack_require__(7);
-var Item = /** @class */ (function (_super) {
-    __extends(Item, _super);
-    function Item(props) {
+var List_1 = __webpack_require__(3);
+var Checkbox_1 = __webpack_require__(2);
+var Tree = /** @class */ (function (_super) {
+    __extends(Tree, _super);
+    function Tree(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            checked: _this.props.checkbox.checked,
-            opened: _this.props.opened,
+            checked: false,
+            list: _this.initList(_this.props.list),
         };
-        _this.handleOwnCheckChange = _this.handleOwnCheckChange.bind(_this);
-        _this.handleListCheckChange = _this.handleListCheckChange.bind(_this);
+        _this.handleCheckboxChange = _this.handleCheckboxChange.bind(_this);
         return _this;
     }
-    /**
-     * When receiving new props updates:
-     * checked: If parent changes children should reflect it.
-     *
-     * @param {ItemProps} nextProps
-     */
-    Item.prototype.componentWillReceiveProps = function (nextProps) {
-        if (nextProps.checkbox.checked != this.props.checkbox.checked) {
-            this.setState(function (currState, nextProps) {
-                return { checked: nextProps.checkbox.checked };
-            });
-        }
+    Tree.prototype.initList = function (list) {
+        list.id = "0";
+        list.checkbox = Checkbox_1.CheckboxDataFactory(list.checkbox, this.handleCheckboxChange);
+        list = List_1.ListPropsFactory(list);
+        return list;
     };
-    /**
-     * Updates the state and informs parent about change.
-     * @param {boolean} checked Indicates checkbox state.
-     */
-    Item.prototype.checkChange = function (checked) {
-        this.setState({ checked: checked });
-        this.props.checkbox.onChange(checked);
+    Tree.prototype.handleCheckboxChange = function (checked, id) {
+        console.log("Check: " + checked + " id: " + id);
     };
-    /**
-     * List change handler.
-     * @param {boolean} checked The list checkbox state.
-     */
-    Item.prototype.handleListCheckChange = function (checked) {
-        this.checkChange(checked);
+    Tree.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement("p", null, "Will be a tree 2"),
+            React.createElement(List_1.List, { items: this.state.list.items, checkbox: this.state.list.checkbox })));
     };
-    /**
-     * Own checkbox handler.
-     * @param {React.FormEvent<HTMLInputElement>} event Contains the input field value.
-     */
-    Item.prototype.handleOwnCheckChange = function (event) {
-        var target = event.target;
-        this.checkChange(target.checked);
-    };
-    Item.prototype.renderSublist = function () {
-        console.log("ID: " + this.props.id + " - opened: " + this.state.opened);
-        if (this.props.items && this.state.opened) {
-            var id = Helpers_1.defVal(this.props.id, '1');
-            return (React.createElement(List_1.List, { id: id, items: this.props.items, checkbox: {
-                    visible: this.props.checkbox.visible,
-                    checked: this.state.checked,
-                    onChange: this.handleListCheckChange
-                } }));
-        }
-        else
-            return null;
-    };
-    Item.prototype.render = function () {
-        return (React.createElement("li", null,
-            React.createElement(Checkbox_1.Checkbox, { onChange: this.handleOwnCheckChange, checked: this.state.checked }),
-            this.props.label,
-            this.renderSublist()));
-    };
-    return Item;
+    return Tree;
 }(React.Component));
-exports.Item = Item;
+exports.Tree = Tree;
 
 
 /***/ }),
@@ -386,17 +283,56 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var Checkbox = /** @class */ (function (_super) {
-    __extends(Checkbox, _super);
-    function Checkbox() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var List_1 = __webpack_require__(3);
+var Helpers_1 = __webpack_require__(1);
+var Checkbox_1 = __webpack_require__(2);
+function ItemPropsFactory(item) {
+    var list = item.list;
+    if (list != null) {
+        list.id = item.id;
+        list.checkbox = Checkbox_1.CheckboxDataFactory(list.checkbox, item.checkbox.onChange);
+        list = List_1.ListPropsFactory(list);
     }
-    Checkbox.prototype.render = function () {
-        return (React.createElement("input", { type: "checkbox", checked: this.props.checked, onChange: this.props.onChange }));
+    return {
+        id: item.id,
+        label: item.label,
+        list: list,
+        checkbox: item.checkbox,
+        opened: Helpers_1.defVal(item.opened, false)
     };
-    return Checkbox;
+}
+exports.ItemPropsFactory = ItemPropsFactory;
+var Item = /** @class */ (function (_super) {
+    __extends(Item, _super);
+    function Item(props) {
+        var _this = _super.call(this, props) || this;
+        _this.handleCheckChange = _this.handleCheckChange.bind(_this);
+        return _this;
+    }
+    /**
+     * Own checkbox handler.
+     * @param {React.FormEvent<HTMLInputElement>} event Contains the input field value.
+     */
+    Item.prototype.handleCheckChange = function (event) {
+        var target = event.target;
+        this.props.checkbox.onChange(target.checked, this.props.id);
+    };
+    Item.prototype.renderSublist = function () {
+        if (this.props.list && this.props.list.items && this.props.opened) {
+            return (React.createElement(List_1.List, { id: this.props.id, items: this.props.list.items, checkbox: this.props.checkbox }));
+        }
+        else
+            return null;
+    };
+    Item.prototype.render = function () {
+        return (React.createElement("li", null,
+            React.createElement(Checkbox_1.Checkbox, { onChange: this.handleCheckChange, checked: this.props.checkbox.checked }),
+            this.props.label,
+            this.renderSublist()));
+    };
+    return Item;
 }(React.Component));
-exports.Checkbox = Checkbox;
+exports.Item = Item;
 
 
 /***/ })

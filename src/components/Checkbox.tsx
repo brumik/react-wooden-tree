@@ -1,10 +1,25 @@
 import * as React from "react";
 import {FormEventHandler} from "react";
+import {defVal} from "./Helpers";
+
+export interface CheckboxOnChange {
+    (checked: boolean, id : string) : void
+}
 
 export interface CheckboxData {
     visible: boolean,
     checked: boolean,
-    onChange: (checked: boolean) => void
+    onChange: CheckboxOnChange
+}
+
+export function CheckboxDataFactory(checkbox : CheckboxData, onChange : CheckboxOnChange) : CheckboxData {
+    if ( checkbox != null )
+        return {
+            visible: defVal(checkbox.visible, false),
+            checked: defVal(checkbox.checked, false),
+            onChange: onChange,
+        };
+    else return {visible: false, checked: false, onChange: onChange};
 }
 
 interface CheckboxProps {

@@ -1,15 +1,17 @@
 import * as React from "react";
-import { List } from "./List";
+import {List, ListProps, ListPropsFactory} from "./List";
 import {defVal} from "./Helpers";
+import {ItemProps, ItemPropsFactory} from "./Item";
+import {CheckboxData, CheckboxDataFactory} from "./Checkbox";
 
 export interface TreeProps {
-    id: string
-    items?: any
+    list: ListProps,
     checkboxes?: boolean
 }
 
 interface TreeState {
     checked: boolean,
+    list: ListProps,
 }
 
 export class Tree extends React.Component<TreeProps, TreeState> {
@@ -17,8 +19,21 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         super(props);
 
         this.state = {
-            checked: false
-        }
+            checked: false,
+            list: this.initList(this.props.list),
+        };
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    }
+
+    initList(list : ListProps) : ListProps {
+        list.id = "0";
+        list.checkbox = CheckboxDataFactory(list.checkbox, this.handleCheckboxChange);
+        list = ListPropsFactory(list);
+        return list;
+    }
+
+    handleCheckboxChange(checked : boolean, id : string) : void {
+        console.log("Check: " + checked + " id: " + id);
     }
 
     render() {
@@ -26,13 +41,8 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             <div >
                 <p>Will be a tree 2</p>
                 <List
-                    id={this.props.id}
-                    items={this.props.items}
-                    checkbox={{
-                        visible: defVal(this.props.checkboxes, false),
-                        checked: this.state.checked,
-                        onChange: (checked) => this.setState({checked: checked}),
-                    }}
+                    items={this.state.list.items}
+                    checkbox={this.state.list.checkbox}
                 />
             </div>
         );
