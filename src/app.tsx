@@ -9,7 +9,7 @@ ReactDOM.render(
         items={
             [
                 {label: "First node"},
-                {label: "Parent node",
+                {label: "Parent node", opened: true,
                     items: [
                         {label: "Child node 1"},
                         {label: "Child node 2",

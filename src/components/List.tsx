@@ -120,6 +120,7 @@ export class List extends React.Component<ListProps, ListState> {
                       id={id + '.' + idx}
                       label={item.label}
                       items={item.items}
+                      opened={defVal(item.opened, false)}
                       checkbox={this.defaultCheckbox(item)}
                 />
             )

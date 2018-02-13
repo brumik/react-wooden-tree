@@ -8,11 +8,13 @@ export interface ItemProps {
     id: string,
     label: string,
     items: ItemProps[],
-    checkbox: CheckboxData
+    checkbox: CheckboxData,
+    opened: boolean,
 }
 
 interface ItemState {
     checked: boolean,
+    opened: boolean,
 }
 
 export class Item extends React.Component<ItemProps, ItemState> {
@@ -21,6 +23,7 @@ export class Item extends React.Component<ItemProps, ItemState> {
 
         this.state = {
             checked: this.props.checkbox.checked,
+            opened: this.props.opened,
         };
 
         this.handleOwnCheckChange = this.handleOwnCheckChange.bind(this);
@@ -68,7 +71,9 @@ export class Item extends React.Component<ItemProps, ItemState> {
     }
 
     renderSublist() : JSX.Element {
-        if (this.props.items) {
+        console.log("ID: " + this.props.id + " - opened: " + this.state.opened);
+
+        if (this.props.items && this.state.opened) {
             let id = defVal(this.props.id, '1');
 
             return (

@@ -189,7 +189,7 @@ var List = /** @class */ (function (_super) {
         var _this = this;
         var id = Helpers_1.defVal(this.props.id, '1');
         return this.props.items.map(function (item, idx) {
-            return (React.createElement(Item_1.Item, { key: id + '.' + idx, id: id + '.' + idx, label: item.label, items: item.items, checkbox: _this.defaultCheckbox(item) }));
+            return (React.createElement(Item_1.Item, { key: id + '.' + idx, id: id + '.' + idx, label: item.label, items: item.items, opened: Helpers_1.defVal(item.opened, false), checkbox: _this.defaultCheckbox(item) }));
         });
     };
     List.prototype.render = function () {
@@ -212,7 +212,7 @@ var ReactDOM = __webpack_require__(4);
 var Tree_1 = __webpack_require__(5);
 ReactDOM.render(React.createElement(Tree_1.Tree, { id: "0", items: [
         { label: "First node" },
-        { label: "Parent node",
+        { label: "Parent node", opened: true,
             items: [
                 { label: "Child node 1" },
                 { label: "Child node 2",
@@ -302,6 +302,7 @@ var Item = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             checked: _this.props.checkbox.checked,
+            opened: _this.props.opened,
         };
         _this.handleOwnCheckChange = _this.handleOwnCheckChange.bind(_this);
         _this.handleListCheckChange = _this.handleListCheckChange.bind(_this);
@@ -344,7 +345,8 @@ var Item = /** @class */ (function (_super) {
         this.checkChange(target.checked);
     };
     Item.prototype.renderSublist = function () {
-        if (this.props.items) {
+        console.log("ID: " + this.props.id + " - opened: " + this.state.opened);
+        if (this.props.items && this.state.opened) {
             var id = Helpers_1.defVal(this.props.id, '1');
             return (React.createElement(List_1.List, { id: id, items: this.props.items, checkbox: {
                     visible: this.props.checkbox.visible,
