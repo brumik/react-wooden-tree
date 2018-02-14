@@ -1,17 +1,15 @@
 import * as React from "react";
-import {List, ListProps, ListPropsFactory} from "./List";
-import {defVal} from "./Helpers";
-import {ItemProps, ItemPropsFactory} from "./Item";
-import {CheckboxData, CheckboxDataFactory} from "./Checkbox";
+import {Item, ItemProps, ItemPropsFactory} from "./Item";
+import {CheckboxDataFactory} from "./Checkbox";
 
 export interface TreeProps {
-    list: ListProps,
+    tree: ItemProps,
     checkboxes?: boolean
 }
 
 interface TreeState {
     checked: boolean,
-    list: ListProps,
+    item: ItemProps
 }
 
 export class Tree extends React.Component<TreeProps, TreeState> {
@@ -20,30 +18,58 @@ export class Tree extends React.Component<TreeProps, TreeState> {
 
         this.state = {
             checked: false,
-            list: this.initList(this.props.list),
+            item: this.initList(this.props.tree),
         };
-        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
-    initList(list : ListProps) : ListProps {
-        list.id = "0";
-        list.checkbox = CheckboxDataFactory(list.checkbox, this.handleCheckboxChange);
-        list = ListPropsFactory(list);
-        return list;
+    initList(item : ItemProps) : ItemProps {
+        item.id = "0";
+        item.checkbox = CheckboxDataFactory(item.checkbox, this.handleCheckboxChange);
+        item = ItemPropsFactory(item);
+
+        let items: ItemProps[] = [];
+        if ( item.items != null )
+            for (let i = 0; i < item.items.length; i++) {
+                item.items[i].checkbox = CheckboxDataFactory(item.items[i].checkbox, item.checkbox.onChange);
+                item.items[i].id = item.id + "." + i;
+                items.push(ItemPropsFactory(item.items[i]));
+            }
+
+        item.items = items;
+        item.opened = true;
+        return item;
     }
 
-    handleCheckboxChange(checked : boolean, id : string) : void {
-        console.log("Check: " + checked + " id: " + id);
+    nodeSelector(id : string) : ItemProps {
+        let path : number[] = id.split('.').map(function(item) {
+            return parseInt(item, 10);
+        });
+
+        let node = this.state.item;
+        for(let i = 1; i < path.length; i++) {
+            node = node.items[path[i]];
+        }
+        return node;
     }
+
+    handleCheckboxChange = (checked : boolean, id : string) : void => {
+        console.log("Check: " + checked + " id: " + id, this);
+        let node : ItemProps = this.nodeSelector(id);
+        node.checkbox.checked = checked;
+    };
 
     render() {
         return (
             <div >
-                <p>Will be a tree 2</p>
-                <List
-                    items={this.state.list.items}
-                    checkbox={this.state.list.checkbox}
-                />
+                <ul>
+                    <Item key={this.state.item.id}
+                          id={this.state.item.id}
+                          label={this.state.item.label}
+                          items={this.state.item.items}
+                          opened={this.state.item.opened}
+                          checkbox={this.state.item.checkbox}
+                    />
+                </ul>
             </div>
         );
     }

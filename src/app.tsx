@@ -5,23 +5,22 @@ import { Tree } from "./components/Tree";
 
 ReactDOM.render(
     <Tree
-        list={{
-            items: [
+        tree={{
+            label: "Root",
+            items:[
                 {label: "First node"},
                 {label: "Parent node", opened: true,
-                    list: {
-                        items: [
+                    items: [
                             {label: "Child node 1"},
                             {label: "Child node 2", opened: true,
-                                list: {
-                                    items: [
+                                items: [
                                         {label: "Child node 2.1"},
                                         {label: "Child node 2.2"}
                                     ]
-                                }
+
                             }
                         ]
-                    }
+
                 }
             ]
         }}
