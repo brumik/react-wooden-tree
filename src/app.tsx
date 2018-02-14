@@ -6,21 +6,19 @@ import { Tree } from "./components/Tree";
 ReactDOM.render(
     <Tree
         tree={{
-            label: "Root",
-            items:[
-                {label: "First node"},
-                {label: "Parent node", opened: true,
-                    items: [
-                            {label: "Child node 1"},
-                            {label: "Child node 2", opened: true,
-                                items: [
-                                        {label: "Child node 2.1"},
-                                        {label: "Child node 2.2"}
-                                    ]
-
-                            }
-                        ]
-
+            text: "Root",
+            nodes:[
+                {text: "First node"},
+                {text: "Parent node", opened: true,
+                    nodes: [
+                        {text: "Child node 1"},
+                        {text: "Child node 2", opened: true,
+                            nodes: [
+                                {text: "Child node 2.1"},
+                                {text: "Child node 2.2"}
+                            ]
+                        }
+                    ]
                 }
             ]
         }}

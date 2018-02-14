@@ -9,7 +9,8 @@ export interface CheckboxOnChange {
 export interface CheckboxData {
     visible: boolean,
     checked: boolean,
-    onChange: CheckboxOnChange
+    onChange: CheckboxOnChange,
+    childrenCheckedCount: number,
 }
 
 export function CheckboxDataFactory(checkbox : CheckboxData, onChange : CheckboxOnChange) : CheckboxData {
@@ -18,8 +19,9 @@ export function CheckboxDataFactory(checkbox : CheckboxData, onChange : Checkbox
             visible: defVal(checkbox.visible, false),
             checked: defVal(checkbox.checked, false),
             onChange: onChange,
+            childrenCheckedCount: 0
         };
-    else return {visible: false, checked: false, onChange: onChange};
+    else return {visible: false, checked: false, onChange: onChange, childrenCheckedCount: 0};
 }
 
 interface CheckboxProps {
