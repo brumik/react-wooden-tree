@@ -33,9 +33,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     initList(node : NodeProps) : NodeProps {
         node.id = "0";
-        node.checkbox = CheckboxDataFactory(node.checkbox, this.handleCheckboxChange);
-        node = NodePropsFactory(node);
+        node.checkbox = CheckboxDataFactory(node.checkbox, this.handleCheckboxChange, this.props.checkboxes);
+        node.onOpen = this.handleOpenChange;
         node.opened = true;
+        node = NodePropsFactory(node);
         return node;
     }
 
@@ -56,7 +57,12 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         return node;
     }
 
-
+    /**
+     * Uses recurse to update all parent if a checkbox is checked.
+     *
+     * @param {boolean} checked The new state of the child.
+     * @param {NodeProps} node The child node.
+     */
     parentCheckboxChange(checked: boolean, node : NodeProps) : void {
         // Root node:
         if ( node.id === "0" ) return;
@@ -79,7 +85,6 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {boolean} checked The new state of the node.
      * @param {NodeProps} node The node to change the state.
      *
-     * Todo If all children are selected select parent.
      */
     nodeCheckboxChange(checked: boolean, node : NodeProps) : void {
         if ( node.nodes ) {
@@ -101,21 +106,26 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     handleCheckboxChange = (checked : boolean, id : string) : void => {
         let node : NodeProps = this.nodeSelector(id);
         this.nodeCheckboxChange(checked, node);
-        this.setState({node: this.node})
+        this.setState({node: this.node});
+    };
+
+    handleOpenChange = (id: string, opened: boolean) : void => {
+        let node : NodeProps = this.nodeSelector(id);
+        node.opened = opened;
+        this.setState({node: this.node});
     };
 
     render() {
         return (
             <div >
-                <ul>
-                    <Item key={this.state.node.id}
-                          id={this.state.node.id}
-                          text={this.state.node.text}
-                          nodes={this.state.node.nodes}
-                          opened={this.state.node.opened}
-                          checkbox={this.state.node.checkbox}
-                    />
-                </ul>
+                <Item key={this.state.node.id}
+                      id={this.state.node.id}
+                      text={this.state.node.text}
+                      nodes={this.state.node.nodes}
+                      opened={this.state.node.opened}
+                      onOpen={this.state.node.onOpen}
+                      checkbox={this.state.node.checkbox}
+                />
             </div>
         );
     }
