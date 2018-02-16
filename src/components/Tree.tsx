@@ -1,11 +1,11 @@
 import * as React from "react";
-import {Node, NodeProps, NodePropsFactory} from "./Node";
-import {CheckboxDataFactory} from "./Checkbox";
-import {ExpandboxDataFactory} from "./Expandbox";
+import {Node, NodeProps, NodePropsFactory, NodeStateFactory} from "./Node";
+import {SelectButtonState, SelectButtonDataFactory} from "./SelectButton";
+import {ExpandButtonDataFactory} from "./ExpandButton";
 
 export interface TreeProps {
     tree: NodeProps,
-    checkboxes?: boolean
+    checkable?: boolean
 }
 
 interface TreeState {
@@ -34,9 +34,13 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     initList(node : NodeProps) : NodeProps {
         node.id = "0";
-        node.checkbox = CheckboxDataFactory(node.checkbox, this.handleCheckboxChange, this.props.checkboxes);
-        node.expandButton = ExpandboxDataFactory(node.expanded, this.handleExpandedChange);
-        node.expanded = true;
+
+        node.state = NodeStateFactory(node.state);
+        node.state.expanded = true;
+
+        node.checkbox = SelectButtonDataFactory(node.state.checked, this.handleSelectButtonChange);
+        node.expandButton = ExpandButtonDataFactory(node.state.expanded, this.handleExpandedChange);
+
         node = NodePropsFactory(node);
         return node;
     }
@@ -59,26 +63,37 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     }
 
     /**
-     * Uses recurse to update all parent if a checkbox is checked.
+     * Uses recurse to update all parent if a checkbox is changed.
+     * Iterates over all children to determine the parent state.
      *
-     * @param {boolean} checked The new state of the child.
+     * @param {SelectButtonState} checked The new state of the child.
      * @param {NodeProps} node The child node.
      */
-    parentCheckboxChange(checked: boolean, node : NodeProps) : void {
+    parentSelectButtonChange(checked: SelectButtonState, node : NodeProps) : void {
         // Root node:
         if ( node.id === "0" ) return;
         // Others:
         let parentID : string = node.id.substring(0, node.id.length - 2);
         let parentNode : NodeProps = this.nodeSelector(parentID);
 
-        parentNode.checkbox.childrenCheckedCount += checked ? 1 : -1;
-        if ( parentNode.checkbox.childrenCheckedCount === parentNode.nodes.length ) {
-            parentNode.checkbox.checked = true;
-            this.parentCheckboxChange(true, parentNode);
-        } else {
-            parentNode.checkbox.checked = false;
-            this.parentCheckboxChange(false, parentNode);
+        let state = SelectButtonState.Unselected;
+        let checked_counter = 0;
+        for (let i = 0; i < parentNode.nodes.length; i++) {
+            let curr_state = parentNode.nodes[i].checkbox.checked;
+
+            if ( curr_state === SelectButtonState.PartiallySelected ) {
+                state = SelectButtonState.PartiallySelected;
+                break;
+            } else if ( curr_state === SelectButtonState.Selected )
+                checked_counter++;
         }
+
+        if ( state === SelectButtonState.Unselected )
+            if ( checked_counter === parentNode.nodes.length ) state = SelectButtonState.Selected;
+            else if ( checked_counter > 0 ) state = SelectButtonState.PartiallySelected;
+
+        parentNode.checkbox.checked = state;
+        this.parentSelectButtonChange(state, parentNode);
     }
 
     /**
@@ -88,16 +103,16 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {NodeProps} node The node to change the state.
      * @param {boolean} directlyChanged Defines if changed by user or just the recursive call.
      */
-    nodeCheckboxChange(checked: boolean, node : NodeProps, directlyChanged = false) : void {
+    nodeSelectButtonChange(checked: boolean, node : NodeProps, directlyChanged = false) : void {
         if ( node.nodes ) {
-            node.checkbox.checked = checked;
-            node.checkbox.childrenCheckedCount = checked ? node.nodes.length : 0;
+            node.checkbox.checked = checked ? SelectButtonState.Selected : SelectButtonState.Unselected;
             for(let i = 0; i < node.nodes.length; i++)
-                this.nodeCheckboxChange(checked, node.nodes[i]);
+                this.nodeSelectButtonChange(checked, node.nodes[i]);
         }
 
-        if ( directlyChanged )
-            this.parentCheckboxChange(checked, node);
+        if ( directlyChanged ) {
+            this.parentSelectButtonChange(node.checkbox.checked, node);
+        }
     }
 
     /**
@@ -106,9 +121,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {boolean} checked The checkbox new state.
      * @param {string} id The element which checkbox was changed.
      */
-    handleCheckboxChange = (checked : boolean, id : string) : void => {
+    handleSelectButtonChange = (checked : boolean, id : string) : void => {
         let node : NodeProps = this.nodeSelector(id);
-        this.nodeCheckboxChange(checked, node, true);
+        this.nodeSelectButtonChange(checked, node, true);
         this.setState({node: this.node});
     };
 
@@ -119,20 +134,21 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     handleExpandedChange = (id: string, expanded: boolean) : void => {
         let node : NodeProps = this.nodeSelector(id);
-        node.expanded = expanded;
+        node.state.expanded = expanded;
         this.setState({node: this.node});
     };
 
     render() {
         return (
-            <div >
+            <div className="Tree">
                 <Node key={this.state.node.id}
                       id={this.state.node.id}
                       text={this.state.node.text}
                       nodes={this.state.node.nodes}
-                      expanded={this.state.node.expanded}
+                      state={this.state.node.state}
                       expandButton={this.state.node.expandButton}
                       checkbox={this.state.node.checkbox}
+                      checkable={this.state.node.checkable}
                 />
             </div>
         );

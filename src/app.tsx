@@ -5,15 +5,15 @@ import { Tree } from "./components/Tree";
 
 ReactDOM.render(
     <Tree
-        checkboxes={false}
+        checkable={false}
         tree={{
             text: "Root",
             nodes:[
                 {text: "First node"},
-                {text: "Parent node", expanded: true, checkbox: {visible: true},
+                {text: "Parent node", state: {expanded: true}, checkable: true,
                     nodes: [
-                        {text: "Child node 1", checkbox: {checked: true}},
-                        {text: "Child node 2", expanded: false,
+                        {text: "Child node 1", state: {expanded: false, checked: true}},
+                        {text: "Child node 2", state: {checked: true},
                             nodes: [
                                 {text: "Child node 2.1"},
                                 {text: "Child node 2.2"}

@@ -1,14 +1,28 @@
 import * as React from "react";
 import { defVal } from "./Helpers";
-import {Checkbox, CheckboxData, CheckboxDataFactory} from "./Checkbox";
-import {FormEvent} from "react";
-import {Expandbox, ExpandboxData, ExpandboxDataFactory} from "./Expandbox";
+import {SelectButton, SelectButtonData, SelectButtonDataFactory} from "./SelectButton";
+import {ExpandButton, ExpandButtonData, ExpandButtonDataFactory} from "./ExpandButton";
 
+/**
+ * Interface for the node's state property.
+ */
+interface NodeState {
+    checked?: boolean,
+    disabled?: boolean,
+    expanded?: boolean,
+    selected?: boolean,
+}
+
+/**
+ * Node properties interface.
+ */
 export interface NodeProps {
     id?: string,
     text: string,
     nodes?: NodeProps[],
-    expanded?: boolean,
+    state?: NodeState,
+    checkable?: boolean,
+
 
     // TODO
     icon?: string,
@@ -18,49 +32,90 @@ export interface NodeProps {
     backColor?: string,
     iconColor?: string,
     selectable?: boolean,
-    checkable?: boolean,
-    state?: {
-        checked?: boolean,
-        disabled?: boolean,
-        expanded?: boolean,
-        selected?: boolean,
-    },
     classes?: string,
-    hideCheckbox?: boolean,
+    hideSelectButton?: boolean,
 
     // Private
-    checkbox?: CheckboxData,
-    expandButton?: ExpandboxData,
+    checkbox?: SelectButtonData,
+    expandButton?: ExpandButtonData,
 }
 
+/**
+ * Generates a new state from given values or by default all values false.
+ *
+ * @param {NodeState} state The already existing state. Top priority value.
+ * @param {NodeState} parentState The parent state. Optional. Second priority value (expect expanded -> false if not in state).
+ *                                A copy of this is returned if state is null.
+ * @returns {NodeState} The new state. If state and parentState are both null then all values are set as false.
+ * @constructor
+ */
+export function NodeStateFactory(state: NodeState, parentState: NodeState = null) : NodeState {
+    if ( state != null && parentState != null ) {
+        return {
+            checked: defVal(state.checked, parentState.checked),
+            disabled: defVal(state.disabled, parentState.disabled),
+            expanded: defVal(state.expanded, false),
+            selected: defVal(state.selected, parentState.selected)
+        }
+    } else if ( state != null && parentState == null ) {
+        return {
+            checked: defVal(state.checked, false),
+            disabled: defVal(state.disabled, false),
+            expanded: defVal(state.expanded, false),
+            selected: defVal(state.selected, false)
+        }
+    } else if ( state == null && parentState != null )
+        return {
+            checked: parentState.checked,
+            disabled: parentState.disabled,
+            expanded: false,
+            selected: parentState.selected
+    };
+    else
+        return { checked: false, disabled: false, expanded: false, selected: false }
+}
+
+/**
+ * TODO Commentary
+ *
+ * @param {NodeProps} node
+ * @returns {NodeProps}
+ * @constructor
+ */
 export function NodePropsFactory(node : NodeProps) : NodeProps {
     let nodes: NodeProps[] = [];
     if ( node.nodes != null )
         for (let i = 0; i < node.nodes.length; i++) {
-            node.nodes[i].checkbox = CheckboxDataFactory(node.nodes[i].checkbox, node.checkbox.onChange, node.checkbox.visible);
+            let current = node.nodes[i];
+            current.id = node.id + "." + i;
+            current.state = NodeStateFactory(current.state, node.state);
 
-            // Count the checked children nodes.
-            if (node.nodes[i].checkbox.checked)
-                node.checkbox.childrenCheckedCount++;
+            current.checkbox = SelectButtonDataFactory(current.state.checked, node.checkbox.onChange);
+            current.checkable = defVal(current.checkable, node.checkable);
 
-            node.nodes[i].id = node.id + "." + i;
-            node.nodes[i].expandButton = ExpandboxDataFactory(node.nodes[i].expanded, node.expandButton.onChange);
-            nodes.push(NodePropsFactory(node.nodes[i]));
+            current.expandButton = ExpandButtonDataFactory(current.state.expanded, node.expandButton.onChange);
+
+            nodes.push(NodePropsFactory(current));
         }
 
     return {
         id: node.id,
         text: node.text,
         nodes: nodes,
+        checkable: node.checkable,
         checkbox: node.checkbox,
-        expanded: defVal(node.expanded, false),
+        state: node.state,
         expandButton: node.expandButton,
     }
 }
 
-interface NodeState {}
-
-export class Node extends React.Component<NodeProps, NodeState> {
+/**
+ * @class Node
+ * @extends React.Component
+ *
+ * Displays a node and communicates with submodules and tree.
+ */
+export class Node extends React.Component<NodeProps, {}> {
     constructor(props: NodeProps) {
         super(props);
 
@@ -76,16 +131,15 @@ export class Node extends React.Component<NodeProps, NodeState> {
         this.props.checkbox.onChange(checked, this.props.id);
     }
 
-    handleOpenChange(event : FormEvent<HTMLInputElement>) : void {
-        const target = event.target as HTMLInputElement;
-        this.props.expandButton.onChange(this.props.id, target.checked);
+    handleOpenChange(expanded: boolean) : void {
+        this.props.expandButton.onChange(this.props.id, expanded);
     }
 
     /**
      * @returns {JSX.Element[]} The rendered nodes.
      */
     renderSublist() : JSX.Element[] {
-        if (this.props.nodes  && this.props.expanded) {
+        if (this.props.nodes && this.props.state.expanded) {
             let nodes : JSX.Element[] = [];
             for(let i = 0; i < this.props.nodes.length; i++) {
                 nodes.push(
@@ -93,9 +147,10 @@ export class Node extends React.Component<NodeProps, NodeState> {
                           id={this.props.nodes[i].id}
                           text={this.props.nodes[i].text}
                           nodes={this.props.nodes[i].nodes}
-                          expanded={this.props.nodes[i].expanded}
+                          state={this.props.nodes[i].state}
                           expandButton={this.props.nodes[i].expandButton}
                           checkbox={this.props.nodes[i].checkbox}
+                          checkable={this.props.nodes[i].checkable}
                     />
                 );
             }
@@ -104,19 +159,19 @@ export class Node extends React.Component<NodeProps, NodeState> {
     }
 
     render () {
-        let checkbox = this.props.checkbox.visible ? (
-            <Checkbox onChange={this.handleCheckChange} checked={this.props.checkbox.checked} />
+        let checkbox = this.props.checkable ? (
+            <SelectButton onChange={this.handleCheckChange} checked={this.props.checkbox.checked} />
         ) : null;
 
         let openButton = this.props.nodes.length > 0 ? (
-            <Expandbox onChange={this.handleOpenChange} expanded={this.props.expanded}/>
-        ) : null;
+            <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded}/>
+        ) : <span className="Placeholder"> </span>;
 
         return (
             <li>
+                {openButton}
                 {checkbox}
                 {this.props.text}
-                {openButton}
                 <ul>{this.renderSublist()}</ul>
             </li>
         )
