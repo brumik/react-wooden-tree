@@ -1,6 +1,7 @@
 import * as React from "react";
-import {Item, NodeProps, NodePropsFactory} from "./Item";
+import {Node, NodeProps, NodePropsFactory} from "./Node";
 import {CheckboxDataFactory} from "./Checkbox";
+import {ExpandboxDataFactory} from "./Expandbox";
 
 export interface TreeProps {
     tree: NodeProps,
@@ -34,8 +35,8 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     initList(node : NodeProps) : NodeProps {
         node.id = "0";
         node.checkbox = CheckboxDataFactory(node.checkbox, this.handleCheckboxChange, this.props.checkboxes);
-        node.onOpen = this.handleOpenChange;
-        node.opened = true;
+        node.expandButton = ExpandboxDataFactory(node.expanded, this.handleExpandedChange);
+        node.expanded = true;
         node = NodePropsFactory(node);
         return node;
     }
@@ -74,19 +75,20 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         if ( parentNode.checkbox.childrenCheckedCount === parentNode.nodes.length ) {
             parentNode.checkbox.checked = true;
             this.parentCheckboxChange(true, parentNode);
-        } else if ( parentNode.checkbox.childrenCheckedCount === 0 ) {
+        } else {
             parentNode.checkbox.checked = false;
+            this.parentCheckboxChange(false, parentNode);
         }
     }
 
     /**
-     * Changes sthe sate of the node and all children recursively.
+     * Changes the sate of the node and all children recursively.
      *
      * @param {boolean} checked The new state of the node.
      * @param {NodeProps} node The node to change the state.
-     *
+     * @param {boolean} directlyChanged Defines if changed by user or just the recursive call.
      */
-    nodeCheckboxChange(checked: boolean, node : NodeProps) : void {
+    nodeCheckboxChange(checked: boolean, node : NodeProps, directlyChanged = false) : void {
         if ( node.nodes ) {
             node.checkbox.checked = checked;
             node.checkbox.childrenCheckedCount = checked ? node.nodes.length : 0;
@@ -94,7 +96,8 @@ export class Tree extends React.Component<TreeProps, TreeState> {
                 this.nodeCheckboxChange(checked, node.nodes[i]);
         }
 
-        this.parentCheckboxChange(checked, node);
+        if ( directlyChanged )
+            this.parentCheckboxChange(checked, node);
     }
 
     /**
@@ -105,25 +108,30 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     handleCheckboxChange = (checked : boolean, id : string) : void => {
         let node : NodeProps = this.nodeSelector(id);
-        this.nodeCheckboxChange(checked, node);
+        this.nodeCheckboxChange(checked, node, true);
         this.setState({node: this.node});
     };
 
-    handleOpenChange = (id: string, opened: boolean) : void => {
+    /**
+     * Handles the expanding and collapsing elements.
+     * @param {string} id The id of node which has changed.
+     * @param {boolean} expanded The current state
+     */
+    handleExpandedChange = (id: string, expanded: boolean) : void => {
         let node : NodeProps = this.nodeSelector(id);
-        node.opened = opened;
+        node.expanded = expanded;
         this.setState({node: this.node});
     };
 
     render() {
         return (
             <div >
-                <Item key={this.state.node.id}
+                <Node key={this.state.node.id}
                       id={this.state.node.id}
                       text={this.state.node.text}
                       nodes={this.state.node.nodes}
-                      opened={this.state.node.opened}
-                      onOpen={this.state.node.onOpen}
+                      expanded={this.state.node.expanded}
+                      expandButton={this.state.node.expandButton}
                       checkbox={this.state.node.checkbox}
                 />
             </div>

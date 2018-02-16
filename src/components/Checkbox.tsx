@@ -1,5 +1,5 @@
 import * as React from "react";
-import {FormEventHandler} from "react";
+import {FaSquareO, FaCheckSquare} from 'react-icons/lib/fa';
 import {defVal} from "./Helpers";
 
 export interface CheckboxOnChange {
@@ -25,17 +25,16 @@ export function CheckboxDataFactory(checkbox : CheckboxData, onChange : Checkbox
 }
 
 interface CheckboxProps {
-    onChange: FormEventHandler<HTMLInputElement>
+    onChange: (checked : boolean) => void,
     checked: boolean
 }
 
 export class Checkbox extends React.Component<CheckboxProps, {}> {
     render() {
         return (
-            <input type="checkbox"
-                   checked={this.props.checked}
-                   onChange={this.props.onChange}
-            />
+            <button onClick={() => this.props.onChange(!this.props.checked)}>
+                    {this.props.checked ? <FaCheckSquare/> : <FaSquareO/>}
+            </button>
         )
     }
 }

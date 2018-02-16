@@ -26,13 +26,17 @@
   "dependencies": {
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
+    "@types/react-icons": "^2.2.5",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-icons": "^2.2.5"
   },
   "devDependencies": {
+    "css-loader": "^0.28.9",
+    "style-loader": "^0.20.2",
     "awesome-typescript-loader": "^3.4.1",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.7.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.11.0"
   }
 }
