@@ -160,36 +160,22 @@ export class Node extends React.Component<NodeProps, {}> {
         } else { return null; }
     }
 
-    /**
-     * Returns the computed padding size for the current list item for indent.
-     * @returns {number} The computed padding size in pixels.
-     */
-    getItemIndentSize(): number {
-        return (this.props.id.split('.').length - 1) * 15;
-    }
-
     render () {
-        const checkbox = this.props.checkable ? (
+        let checkbox = this.props.checkable ? (
             <SelectButton onChange={this.handleCheckChange} checked={this.props.checkbox.checked} />
         ) : null;
 
-        const openButton = this.props.nodes.length > 0 ? (
+        let openButton = this.props.nodes.length > 0 ? (
             <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded}/>
         ) : <span className="Placeholder" />;
 
-        const ItemStyle = {
-            paddingLeft: this.getItemIndentSize() + 'px'
-        };
-
         return (
-            <React.Fragment>
-                <li style={ItemStyle}>
-                    {openButton}
-                    {checkbox}
-                    {this.props.text}
-                </li>
-                {this.renderSublist()}
-            </React.Fragment>
+            <li>
+                {openButton}
+                {checkbox}
+                {this.props.text}
+                <ul>{this.renderSublist()}</ul>
+            </li>
         );
     }
 }
