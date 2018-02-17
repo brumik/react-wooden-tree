@@ -11,6 +11,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
+    "prod": "react-scripts-ts build && serve -s build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
@@ -19,6 +20,7 @@
     "@types/node": "^9.4.6",
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
+    "serve": "^6.4.9",
     "typescript": "^2.7.2"
   }
 }

@@ -24,7 +24,7 @@ export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
         if (this.props.expanded) {
             icon = <i className="fa fa-angle-down" />;
         } else {
-            icon = <i className="fa fa-angle-left" />;
+            icon = <i className="fa fa-angle-right" />;
         }
 
         return (
