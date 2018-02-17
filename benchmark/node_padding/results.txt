@@ -1,0 +1,3 @@
+./benchmark/node_padding/inline_style's first meaningful value: "1,660 ms"
+./benchmark/node_padding/nested_lists's first meaningful value: "1,620 ms"
+./benchmark/node_padding/span_indent's first meaningful value: "1,620 ms"
