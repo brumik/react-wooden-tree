@@ -141,15 +141,17 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     render() {
         return (
             <div className="Tree">
-                <Node key={this.state.node.id}
-                      id={this.state.node.id}
-                      text={this.state.node.text}
-                      nodes={this.state.node.nodes}
-                      state={this.state.node.state}
-                      expandButton={this.state.node.expandButton}
-                      checkbox={this.state.node.checkbox}
-                      checkable={this.state.node.checkable}
-                />
+                <ul>
+                    <Node key={this.state.node.id}
+                          id={this.state.node.id}
+                          text={this.state.node.text}
+                          nodes={this.state.node.nodes}
+                          state={this.state.node.state}
+                          expandButton={this.state.node.expandButton}
+                          checkbox={this.state.node.checkbox}
+                          checkable={this.state.node.checkable}
+                    />
+                </ul>
             </div>
         );
     }
