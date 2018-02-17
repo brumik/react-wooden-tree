@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './app.css';
+import './App.css';
 import { Tree } from './components/Tree';
 
 class App extends React.Component {
