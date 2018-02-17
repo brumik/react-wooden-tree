@@ -1,13 +1,10 @@
-import * as React from "react";
-import FaSquareO = require("react-icons/lib/fa/square-o");
-import FaSquare = require("react-icons/lib/fa/square");
-import FaCheckSquare = require("react-icons/lib/fa/check-square");
+import * as React from 'react';
 
 /**
  * Callback function for SelectButton.
  */
 interface SelectButtonOnChange {
-    (checked: boolean, id: string) : void
+    (checked: boolean, id: string): void;
 }
 
 /**
@@ -22,19 +19,20 @@ export enum SelectButtonState {
  *
  */
 export interface SelectButtonData {
-    checked?: SelectButtonState,
-    onChange?: SelectButtonOnChange,
+    checked?: SelectButtonState;
+    onChange?: SelectButtonOnChange;
 }
 
 /**
  * Generates the button data from given values.
  *
  * @param {boolean} checked The already defined select button data on element. Used if available.
- * @param {SelectButtonOnChange} onChange The callback function on change. Usually uses parent's function (passing recursively the root's function)
+ * @param {SelectButtonOnChange} onChange The callback function on change.
+ * Usually uses parent's function (passing recursively the root's function)
  * @returns {SelectButtonData} The new SelectButtonData.
  * @constructor
  */
-export function SelectButtonDataFactory(checked : boolean, onChange : SelectButtonOnChange) : SelectButtonData {
+export function SelectButtonDataFactory(checked: boolean, onChange: SelectButtonOnChange): SelectButtonData {
     return {
         checked: checked ? SelectButtonState.Selected : SelectButtonState.Unselected,
         onChange: onChange,
@@ -45,8 +43,8 @@ export function SelectButtonDataFactory(checked : boolean, onChange : SelectButt
  * SelectButton properties definition.
  */
 interface SelectButtonProps {
-    onChange: (checked : boolean) => void,
-    checked: SelectButtonState
+    onChange: (checked: boolean) => void;
+    checked: SelectButtonState;
 }
 
 /**
@@ -58,30 +56,30 @@ interface SelectButtonProps {
  */
 export class SelectButton extends React.Component<SelectButtonProps, {}> {
     render() {
-        let icon : JSX.Element;
-        let switchVal : boolean;
+        let icon: JSX.Element;
+        let switchVal: boolean;
 
         switch (this.props.checked) {
             case SelectButtonState.Unselected:
-                icon = <FaSquareO/>;
+                icon = <i className="fa fa-square-o" />;
                 switchVal = true;
                 break;
             case SelectButtonState.PartiallySelected:
-                icon = <FaSquare/>;
+                icon = <i className="fa fa-square" />;
                 switchVal = true;
                 break;
             case SelectButtonState.Selected:
-                icon = <FaCheckSquare/>;
+                icon = <i className="fa fa-check-square" />;
                 switchVal = false;
                 break;
-            default: console.log("Invalid value passed to SelectButton:", this.props.checked);
+            default:
+                icon = <i className="fa fa-question-circle" />;
         }
-
 
         return (
             <button className="SelectButton" onClick={() => this.props.onChange(switchVal)}>
                     {icon}
             </button>
-        )
+        );
     }
 }
