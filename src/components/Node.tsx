@@ -2,6 +2,7 @@ import * as React from 'react';
 import { defVal } from './Helpers';
 import { SelectButton, SelectButtonData, SelectButtonDataFactory } from './SelectButton';
 import { ExpandButton, ExpandButtonData, ExpandButtonDataFactory } from './ExpandButton';
+import './Node.css';
 
 /**
  * Interface for the node's state property.
@@ -162,10 +163,10 @@ export class Node extends React.Component<NodeProps, {}> {
 
     /**
      * Returns the computed padding size for the current list item for indent.
-     * @returns {number} The computed padding size in pixels.
+     * @returns {number} The computed padding level.
      */
     getItemIndentSize(): number {
-        return (this.props.id.split('.').length - 1) * 15;
+        return (this.props.id.split('.').length - 1);
     }
 
     render () {
@@ -177,13 +178,11 @@ export class Node extends React.Component<NodeProps, {}> {
             <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded}/>
         ) : <span className="Placeholder" />;
 
-        const ItemStyle = {
-            paddingLeft: this.getItemIndentSize() + 'px'
-        };
+        const indentCLass = 'indent-' + this.getItemIndentSize();
 
         return (
             <React.Fragment>
-                <li style={ItemStyle}>
+                <li className={indentCLass}>
                     {openButton}
                     {checkbox}
                     {this.props.text}
