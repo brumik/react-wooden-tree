@@ -19,6 +19,6 @@ function generate_object(size: number): NodeProps[] {
 export function generator(): NodeProps {
     return {
         text: 'Root',
-        nodes: generate_object(27)
+        nodes: generate_object(100)
     };
 }
