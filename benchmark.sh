@@ -9,7 +9,7 @@
 #
 # WARNING: Requirements:
 # The program: jq --> for extracting values from js
-# An running instance of local server on port 3000. This can be started with command: `npm run start`.
+# An running instance of local server on port 5000. This can be started with command: `npm run prod`.
 #
 ########################################################################################################################
 
@@ -53,7 +53,7 @@ for dir in ${BASE_DIR}/*; do
             printf "Test Case: %s:" $(basename ${generator}) >> ${REPORT_FILE}
 
             npm run build
-            ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:3000 --quiet -perf --output json --output-path ${JSON_FILE}
+            ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:5000 --quiet -perf --output json --output-path ${JSON_FILE}
             printf "first meaningful paint: " >> ${REPORT_FILE}
             jq '.audits["first-meaningful-paint"].displayValue' ${JSON_FILE} >> ${REPORT_FILE}
             rm ${JSON_FILE}
