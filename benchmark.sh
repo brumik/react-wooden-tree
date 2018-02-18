@@ -18,14 +18,17 @@ if [ ! -d "./benchmark/$1" ]; then
     exit 1
 fi
 
+TEST_CASES_FOLDER=./benchmark/TestCases/
+BACKUP_FOLDER=./benchmark/Backup
+
 BASE_DIR=./benchmark/$1/
 JSON_FILE=result.json
 REPORT_FILE=results.txt
 
 
 echo "Backup current ./scr"
-mkdir ./benchmark/backup
-mv ./src/* ./benchmark/backup
+mkdir ${BACKUP_FOLDER}
+mv ./src/* ${BACKUP_FOLDER}
 
 echo "Running benchmark for: $1"
 
@@ -33,7 +36,7 @@ echo "Running benchmark for: $1"
 rm ${BASE_DIR}/${REPORT_FILE}
 
 # For each directory...
-for dir in ./benchmark/$1/*; do
+for dir in ${BASE_DIR}/*; do
     if [ -d "${dir}" ]; then
         echo "Running benchmark for: ${dir}..."
         mv ${dir}/src/* ./src/
@@ -49,7 +52,7 @@ for dir in ./benchmark/$1/*; do
 done
 
 echo "Restoring the original ./src:"
-mv ./benchmark/backup/* ./src/
-rmdir ./benchmark/backup
+mv ${BACKUP_FOLDER}/* ./src/
+rmdir ${BACKUP_FOLDER}
 
 echo "Done"
