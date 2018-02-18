@@ -22,8 +22,8 @@ TEST_CASES_FOLDER=./benchmark/TestCases/
 BACKUP_FOLDER=./benchmark/Backup
 
 BASE_DIR=./benchmark/$1/
-JSON_FILE=result.json
-REPORT_FILE=results.txt
+JSON_FILE=${BASE_DIR}/result.json
+REPORT_FILE=${BASE_DIR}/results.txt
 
 
 echo "Backup current ./scr"
@@ -33,20 +33,37 @@ mv ./src/* ${BACKUP_FOLDER}
 echo "Running benchmark for: $1"
 
 # Removes if already existed an old file.
-rm ${BASE_DIR}/${REPORT_FILE}
+rm ${REPORT_FILE}
 
 # For each directory...
 for dir in ${BASE_DIR}/*; do
     if [ -d "${dir}" ]; then
         echo "Running benchmark for: ${dir}..."
+
+        printf "Tests for: %s\n" $(basename ${dir}) >> ${REPORT_FILE}
+
+        # Moving the src files
         mv ${dir}/src/* ./src/
 
-        npm run build
-        ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:5000 --quiet -perf --output json --output-path ${BASE_DIR}/${JSON_FILE}
-        printf "%s's first meaningful value: " ${dir} >> ${BASE_DIR}/${REPORT_FILE}
-        jq '.audits["first-meaningful-paint"].displayValue' ${BASE_DIR}/${JSON_FILE} >> ${BASE_DIR}/${REPORT_FILE}
-        rm ${BASE_DIR}/${JSON_FILE}
+        # Tests cases: go trough all test cases
+        for generator in ${TEST_CASES_FOLDER}/*; do
 
+            # Copy generator to location
+            mv ${generator} ./src/Generator.tsx
+            printf "Test Case: %s:" $(basename ${generator}) >> ${REPORT_FILE}
+
+            npm run build
+            ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:5000 --quiet -perf --output json --output-path ${JSON_FILE}
+            printf "first meaningful paint: " >> ${REPORT_FILE}
+            jq '.audits["first-meaningful-paint"].displayValue' ${JSON_FILE} >> ${REPORT_FILE}
+            rm ${JSON_FILE}
+
+            # Restore generator
+            mv ./src/Generator.tsx ${generator}
+
+        done
+
+        # Restoring the scr files
         mv ./src/* ${dir}/src/
     fi
 done
