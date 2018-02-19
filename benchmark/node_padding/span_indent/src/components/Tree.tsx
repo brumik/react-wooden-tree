@@ -38,7 +38,6 @@ export class Tree extends React.Component<TreeProps, TreeState> {
 
         node.state = NodeStateFactory(node.state);
         node.state.expanded = true;
-        node.checkable = this.props.checkable;
 
         node.checkbox = SelectButtonDataFactory(node.state.checked, this.handleSelectButtonChange);
         node.expandButton = ExpandButtonDataFactory(node.state.expanded, this.handleExpandedChange);

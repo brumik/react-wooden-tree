@@ -1,0 +1,40 @@
+Tests for: class_indent
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: "1,570 ms"
+		 first interactive: "1,570 ms"
+	Test Case: Generator-100.tsx:
+		 first meaningful paint: "1,670 ms"
+		 first interactive: "1,670 ms"
+	Test Case: Generator-1000.tsx:
+		 first meaningful paint: "1,930 ms"
+		 first interactive: "2,890 ms"
+Tests for: inline_style
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: "1,600 ms"
+		 first interactive: "1,600 ms"
+	Test Case: Generator-100.tsx:
+		 first meaningful paint: "1,680 ms"
+		 first interactive: "2,670 ms"
+	Test Case: Generator-1000.tsx:
+		 first meaningful paint: "2,090 ms"
+		 first interactive: "3,060 ms"
+Tests for: nested_lists
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: "1,590 ms"
+		 first interactive: "1,590 ms"
+	Test Case: Generator-100.tsx:
+		 first meaningful paint: "1,790 ms"
+		 first interactive: "2,720 ms"
+	Test Case: Generator-1000.tsx:
+		 first meaningful paint: "2,040 ms"
+		 first interactive: "2,980 ms"
+Tests for: span_indent
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: "1,600 ms"
+		 first interactive: "1,600 ms"
+	Test Case: Generator-100.tsx:
+		 first meaningful paint: "1,670 ms"
+		 first interactive: "2,630 ms"
+	Test Case: Generator-1000.tsx:
+		 first meaningful paint: "2,040 ms"
+		 first interactive: "3,000 ms"
