@@ -50,12 +50,14 @@ for dir in ${BASE_DIR}/*; do
 
             # Copy generator to location
             mv ${generator} ./src/Generator.tsx
-            printf "Test Case: %s:" $(basename ${generator}) >> ${REPORT_FILE}
+            printf "\tTest Case: %s:\n" $(basename ${generator}) >> ${REPORT_FILE}
 
             npm run build
             ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:5000 --quiet -perf --output json --output-path ${JSON_FILE}
-            printf "first meaningful paint: " >> ${REPORT_FILE}
+            printf "\t\t first meaningful paint: " >> ${REPORT_FILE}
             jq '.audits["first-meaningful-paint"].displayValue' ${JSON_FILE} >> ${REPORT_FILE}
+            printf "\t\t first interactive: " >> ${REPORT_FILE}
+            jq '.audits["first-interactive"].displayValue' ${JSON_FILE} >> ${REPORT_FILE}
             rm ${JSON_FILE}
 
             # Restore generator
