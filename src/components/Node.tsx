@@ -2,7 +2,6 @@ import * as React from 'react';
 import { defVal } from './Helpers';
 import { SelectButton, SelectButtonData, SelectButtonDataFactory } from './SelectButton';
 import { ExpandButton, ExpandButtonData, ExpandButtonDataFactory } from './ExpandButton';
-import './Node.css';
 
 /**
  * Interface for the node's state property.

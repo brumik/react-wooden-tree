@@ -17,6 +17,44 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     /** The variable to maintain hierarchical changes on state. */
     treeNodes: NodeProps;
 
+    /**
+     * Recursively gets the max depth of the tree.
+     *
+     * @param {NodeProps} node The root node of the tree.
+     * @returns {number} The max depth of the tree.
+     */
+    private static getDepth(node: NodeProps): number {
+        let depth = 0;
+        if (node.nodes) {
+            for (let i = 0; i < node.nodes.length; i++) {
+                let newDepth = Tree.getDepth(node.nodes[i]);
+                if ( depth < newDepth) {
+                    depth = newDepth;
+                }
+            }
+        }
+        return 1 + depth;
+    }
+
+    /**
+     * Generates the css classes for indenting the nodes.
+     *
+     * @param {number} depth Max depth of the tree. This is how many classes will be generated.
+     * @returns {string} CSS: .indent-X{padding-left:X*15px}
+     */
+    private static generateIndentCSS(depth: number): string {
+        let cssRules: string = '';
+        let indentSize = 15;
+        for (let i = 1; i < depth; i++) {
+            cssRules += '.indent-' + i + '{padding-left:' + indentSize * i + 'px}';
+        }
+        return cssRules;
+    }
+
+    /**
+     * Constructor.
+     * @param {TreeProps} props
+     */
     constructor(props: TreeProps) {
         super(props);
 
@@ -25,6 +63,8 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         this.state = {
             node: this.treeNodes,
         };
+
+        console.log(Tree.getDepth(this.treeNodes));
     }
 
     /**
@@ -48,7 +88,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     }
 
     /**
-     * Searches for the node by id. And returns it.
+     * Searches for the node by id, and returns it.
+     * Search is done by walking the tree by index numbers got form the id.
+     *
      * @param {string} id
      * @returns {NodeProps}
      */
@@ -74,6 +116,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     parentSelectButtonChange(checked: SelectButtonState, node: NodeProps): void {
         // Root node:
         if ( node.id === '0' ) { return; }
+
         // Others:
         let parentID: string = node.id.substring(0, node.id.length - 2);
         let parentNode: NodeProps = this.nodeSelector(parentID);
@@ -83,14 +126,19 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         for (let i = 0; i < parentNode.nodes.length; i++) {
             let currState = parentNode.nodes[i].checkbox.checked;
 
+            // If even one is partially selected then the parent will be too.
             if ( currState === SelectButtonState.PartiallySelected ) {
                 state = SelectButtonState.PartiallySelected;
                 break;
+
+            // Otherwise we start to count the number of selected boxes.
             } else if ( currState === SelectButtonState.Selected ) {
                 checkedCounter++;
             }
         }
 
+        // Evaluating the state of children:
+        // If even one was partially selected we don't look at the counter
         if ( state === SelectButtonState.Unselected ) {
             if (checkedCounter === parentNode.nodes.length) {
                 state = SelectButtonState.Selected;
@@ -161,6 +209,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
                         checkable={this.state.node.checkable}
                     />
                 </ul>
+                <style>
+                    {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
+                </style>
             </div>
         );
     }
