@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Tree
-            checkable={true}
+            checkable={false}
             tree={generator()}
         />
       </div>

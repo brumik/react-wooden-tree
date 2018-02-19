@@ -3,6 +3,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, NodePropsFactory, NodeStateFactory } from './Node';
 import { SelectButtonState, SelectButtonDataFactory } from './SelectButton';
 import { ExpandButtonDataFactory } from './ExpandButton';
+import './Node.css';
 
 export interface TreeProps {
     tree: NodeProps;
@@ -17,6 +18,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     /** The variable to maintain hierarchical changes on state. */
     treeNodes: NodeProps;
 
+    /**
+     * Constructor.
+     * @param {TreeProps} props
+     */
     constructor(props: TreeProps) {
         super(props);
 
@@ -38,6 +43,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
 
         node.state = NodeStateFactory(node.state);
         node.state.expanded = true;
+        node.checkable = this.props.checkable;
 
         node.checkbox = SelectButtonDataFactory(node.state.checked, this.handleSelectButtonChange);
         node.expandButton = ExpandButtonDataFactory(node.state.expanded, this.handleExpandedChange);
@@ -47,7 +53,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     }
 
     /**
-     * Searches for the node by id. And returns it.
+     * Searches for the node by id, and returns it.
+     * Search is done by walking the tree by index numbers got form the id.
+     *
      * @param {string} id
      * @returns {NodeProps}
      */
@@ -73,6 +81,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     parentSelectButtonChange(checked: SelectButtonState, node: NodeProps): void {
         // Root node:
         if ( node.id === '0' ) { return; }
+
         // Others:
         let parentID: string = node.id.substring(0, node.id.length - 2);
         let parentNode: NodeProps = this.nodeSelector(parentID);
@@ -82,14 +91,19 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         for (let i = 0; i < parentNode.nodes.length; i++) {
             let currState = parentNode.nodes[i].checkbox.checked;
 
+            // If even one is partially selected then the parent will be too.
             if ( currState === SelectButtonState.PartiallySelected ) {
                 state = SelectButtonState.PartiallySelected;
                 break;
+
+            // Otherwise we start to count the number of selected boxes.
             } else if ( currState === SelectButtonState.Selected ) {
                 checkedCounter++;
             }
         }
 
+        // Evaluating the state of children:
+        // If even one was partially selected we don't look at the counter
         if ( state === SelectButtonState.Unselected ) {
             if (checkedCounter === parentNode.nodes.length) {
                 state = SelectButtonState.Selected;
