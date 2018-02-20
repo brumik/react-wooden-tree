@@ -3,7 +3,7 @@ import * as React from 'react';
 /**
  * Callback function for SelectButton.
  */
-interface SelectButtonOnChange {
+export interface SelectButtonOnChange {
     (checked: boolean, id: string): void;
 }
 
@@ -12,31 +12,6 @@ interface SelectButtonOnChange {
  */
 export enum SelectButtonState {
     Unselected = -1, PartiallySelected = 0, Selected = 1,
-}
-
-/**
- * The interface which is used to store all required data for a SelectButton.
- *
- */
-export interface SelectButtonData {
-    checked?: SelectButtonState;
-    onChange?: SelectButtonOnChange;
-}
-
-/**
- * Generates the button data from given values.
- *
- * @param {boolean} checked The already defined select button data on element. Used if available.
- * @param {SelectButtonOnChange} onChange The callback function on change.
- * Usually uses parent's function (passing recursively the root's function)
- * @returns {SelectButtonData} The new SelectButtonData.
- * @constructor
- */
-export function SelectButtonDataFactory(checked: boolean, onChange: SelectButtonOnChange): SelectButtonData {
-    return {
-        checked: checked ? SelectButtonState.Selected : SelectButtonState.Unselected,
-        onChange: onChange,
-    };
 }
 
 /**

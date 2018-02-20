@@ -5,17 +5,8 @@ interface ExpandButtonProps {
     expanded: boolean;
 }
 
-interface ExpandButtonOnChange {
+export interface ExpandButtonOnChange {
     (id: string, opened: boolean): void;
-}
-
-export interface ExpandButtonData {
-    expanded: boolean;
-    onChange: ExpandButtonOnChange;
-}
-
-export function ExpandButtonDataFactory(expanded: boolean, onChange: ExpandButtonOnChange): ExpandButtonData {
-    return {expanded: expanded, onChange: onChange};
 }
 
 export class ExpandButton extends React.Component<ExpandButtonProps, {}> {

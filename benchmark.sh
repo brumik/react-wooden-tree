@@ -55,9 +55,9 @@ for dir in ${BASE_DIR}/*; do
             npm run build
             ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:5000 --quiet -perf --output json --output-path ${JSON_FILE}
             printf "\t\t first meaningful paint: " >> ${REPORT_FILE}
-            jq '.audits["first-meaningful-paint"].displayValue' ${JSON_FILE} >> ${REPORT_FILE}
+            jq '.audits["first-meaningful-paint"].rawValue' ${JSON_FILE} >> ${REPORT_FILE}
             printf "\t\t first interactive: " >> ${REPORT_FILE}
-            jq '.audits["first-interactive"].displayValue' ${JSON_FILE} >> ${REPORT_FILE}
+            jq '.audits["first-interactive"].rawValue' ${JSON_FILE} >> ${REPORT_FILE}
             rm ${JSON_FILE}
 
             # Restore generator

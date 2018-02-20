@@ -16,28 +16,25 @@ import { NodeProps } from './components/Node';
 //     return obj;
 // }
 
-export function generator(): NodeProps {
-    return {
-        text: 'Root',
-        nodes: [
-            {text: 'Node 1',
-                nodes: [
-                    {text: 'Node 1.1', state: {checked: true}},
-                    {text: 'Node 1.2', checkable: false}
-                ]
-            },
-            {text: 'Node 2', state: {expanded: true}, checkable: false,
-                nodes: [
-                    {text: 'Node 2.1', state: {checked: true}},
-                    {text: 'Node 2.2'}
-                ]
-            },
-            {text: 'Node 3', state: {expanded: false},
-                nodes: [
-                    {text: 'Node 3.1', state: {checked: false}},
-                    {text: 'Node 3.2', state: {checked: true}}
-                ]
-            }
-        ]
-    };
+export function generator(): NodeProps[] {
+    return [
+        {text: 'Node 1',
+            nodes: [
+                {text: 'Node 1.1', state: {checked: 1}},
+                {text: 'Node 1.2', checkable: false}
+            ]
+        },
+        {text: 'Node 2', state: {expanded: true}, checkable: false,
+            nodes: [
+                {text: 'Node 2.1', state: {checked: 1}},
+                {text: 'Node 2.2'}
+            ]
+        },
+        {text: 'Node 3', state: {expanded: false},
+            nodes: [
+                {text: 'Node 3.1', state: {checked: -1}},
+                {text: 'Node 3.2', state: {checked: 1}}
+            ]
+        }
+    ];
 }

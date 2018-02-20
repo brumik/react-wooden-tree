@@ -8,8 +8,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <Tree
-            checkable={true}
-            tree={generator()}
+            hierarchicalCheck={true}
+            showCheckbox={true}
+            data={generator()}
         />
       </div>
     );

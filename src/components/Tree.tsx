@@ -1,33 +1,36 @@
 import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import { Node, NodeProps, NodePropsFactory, NodeStateFactory } from './Node';
-import { SelectButtonState, SelectButtonDataFactory } from './SelectButton';
-import { ExpandButtonDataFactory } from './ExpandButton';
+import { Node, NodeProps, ParentData } from './Node';
+import { SelectButtonState } from './SelectButton';
 
 export interface TreeProps {
-    tree: NodeProps;
-    checkable?: boolean;
+    data: NodeProps[];
+    showCheckbox?: boolean;
+    hierarchicalCheck?: boolean;
+    propagateCheckEvent?: boolean;
 }
 
 interface TreeState {
-    node: NodeProps;
+    nodes: NodeProps[];
 }
 
 export class Tree extends React.Component<TreeProps, TreeState> {
     /** The variable to maintain hierarchical changes on state. */
-    treeNodes: NodeProps;
+    treeNodes: NodeProps[];
+
+    parentData: ParentData;
 
     /**
      * Recursively gets the max depth of the tree.
      *
-     * @param {NodeProps} node The root node of the tree.
+     * @param {NodeProps[]} nodes The root node of the tree.
      * @returns {number} The max depth of the tree.
      */
-    private static getDepth(node: NodeProps): number {
+    private static getDepth(nodes: NodeProps[]): number {
         let depth = 0;
-        if (node.nodes) {
-            for (let i = 0; i < node.nodes.length; i++) {
-                let newDepth = Tree.getDepth(node.nodes[i]);
+        if (nodes) {
+            for (let i = 0; i < nodes.length; i++) {
+                let newDepth = Tree.getDepth(nodes[i].nodes);
                 if ( depth < newDepth) {
                     depth = newDepth;
                 }
@@ -58,31 +61,30 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     constructor(props: TreeProps) {
         super(props);
 
-        this.treeNodes = this.initList(this.props.tree);
+        this.parentData = {
+            checkboxOnChange: this.handleSelectButtonChange,
+            expandOnChange: this.handleExpandedChange,
+            showCheckbox: this.props.showCheckbox,
+        };
+
+        this.treeNodes = this.props.data;
+        Node.ChildrenFactory(this.treeNodes, '', this.parentData);
 
         this.state = {
-            node: this.treeNodes,
+            nodes: this.treeNodes,
         };
     }
 
     /**
-     * Initializes the first list node and other are initialized recursively.
+     * Initializes the given node's children if were not already initialized.
      *
-     * @param {NodeProps} node
-     * @returns {NodeProps}
+     * @param {NodeProps} node The not to initialize the children.
      */
-    initList(node: NodeProps): NodeProps {
-        node.id = '0';
-
-        node.state = NodeStateFactory(node.state);
-        node.state.expanded = true;
-        node.checkable = this.props.checkable;
-
-        node.checkbox = SelectButtonDataFactory(node.state.checked, this.handleSelectButtonChange);
-        node.expandButton = ExpandButtonDataFactory(node.state.expanded, this.handleExpandedChange);
-
-        node = NodePropsFactory(node);
-        return node;
+    initNode(node: NodeProps): void {
+        if ( !node.initialized ) {
+            Node.ChildrenFactory(node.nodes, node.id, this.parentData);
+            node.initialized = true;
+        }
     }
 
     /**
@@ -97,7 +99,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             return parseInt(nodeId, 10);
         });
 
-        let node = this.treeNodes;
+        let node = this.treeNodes[path[0]];
         for (let i = 1; i < path.length; i++) {
             node = node.nodes[path[i]];
         }
@@ -113,7 +115,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     parentSelectButtonChange(checked: SelectButtonState, node: NodeProps): void {
         // Root node:
-        if ( node.id === '0' ) { return; }
+        if ( node.id.length === 1 ) { return; }
 
         // Others:
         let parentID: string = node.id.substring(0, node.id.length - 2);
@@ -122,7 +124,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         let state = SelectButtonState.Unselected;
         let checkedCounter = 0;
         for (let i = 0; i < parentNode.nodes.length; i++) {
-            let currState = parentNode.nodes[i].checkbox.checked;
+            let currState = parentNode.nodes[i].state.checked;
 
             // If even one is partially selected then the parent will be too.
             if ( currState === SelectButtonState.PartiallySelected ) {
@@ -145,7 +147,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             }
         }
 
-        parentNode.checkbox.checked = state;
+        parentNode.state.checked = state;
         this.parentSelectButtonChange(state, parentNode);
     }
 
@@ -158,14 +160,23 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     nodeSelectButtonChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
         if ( node.nodes ) {
-            node.checkbox.checked = checked ? SelectButtonState.Selected : SelectButtonState.Unselected;
-            for (let i = 0; i < node.nodes.length; i++) {
-                this.nodeSelectButtonChange(checked, node.nodes[i]);
+            node.state.checked = checked ? SelectButtonState.Selected : SelectButtonState.Unselected;
+            if ( this.props.hierarchicalCheck ) {
+
+                // Init node because if we don't do it children with no state property wont be selected.
+                if ( !node.initialized ) {
+                    this.initNode(node);
+                }
+
+                // Set checkbox state for all children nodes.
+                for (let i = 0; i < node.nodes.length; i++) {
+                    this.nodeSelectButtonChange(checked, node.nodes[i]);
+                }
             }
         }
 
-        if ( directlyChanged ) {
-            this.parentSelectButtonChange(node.checkbox.checked, node);
+        if ( directlyChanged && this.props.hierarchicalCheck ) {
+            this.parentSelectButtonChange(node.state.checked, node);
         }
     }
 
@@ -178,7 +189,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     handleSelectButtonChange = (checked: boolean, id: string): void => {
         let node: NodeProps = this.nodeSelector(id);
         this.nodeSelectButtonChange(checked, node, true);
-        this.setState({node: this.treeNodes});
+        this.setState({nodes: this.treeNodes});
     }
 
     /**
@@ -188,24 +199,16 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     handleExpandedChange = (id: string, expanded: boolean): void => {
         let node: NodeProps = this.nodeSelector(id);
+        this.initNode(node);
         node.state.expanded = expanded;
-        this.setState({node: this.treeNodes});
+        this.setState({nodes: this.treeNodes});
     }
 
     render() {
         return (
             <div className="Tree">
                 <ul>
-                    <Node
-                        key={this.state.node.id}
-                        id={this.state.node.id}
-                        text={this.state.node.text}
-                        nodes={this.state.node.nodes}
-                        state={this.state.node.state}
-                        expandButton={this.state.node.expandButton}
-                        checkbox={this.state.node.checkbox}
-                        checkable={this.state.node.checkable}
-                    />
+                    {Node.renderSublist(this.state.nodes)}
                 </ul>
                 <style>
                     {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
