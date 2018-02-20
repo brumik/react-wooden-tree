@@ -174,9 +174,16 @@ export class Node extends React.Component<NodeProps, {}> {
             <SelectButton onChange={this.handleCheckChange} checked={this.props.state.checked} />
         ) : null;
 
-        const openButton = this.props.nodes.length > 0 ? (
-            <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded} />
-        ) : <span className="Placeholder" />;
+        // Dropdown button if not displayed added padding
+        let openButton: JSX.Element;
+        let noOpenButtonPadding: string;
+        if ( this.props.nodes.length > 0 ) {
+            openButton = <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded}/>;
+            noOpenButtonPadding = '';
+        } else {
+            openButton = null;
+            noOpenButtonPadding = 'NoOpenButtonPadding';
+        }
 
         const indentCLass = 'indent-' + this.getItemIndentSize();
 
@@ -186,7 +193,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         return (
             <React.Fragment>
-                <li className={indentCLass}>
+                <li className={indentCLass + ' ' + noOpenButtonPadding}>
                     {openButton}
                     {checkbox}
                     {this.props.text}

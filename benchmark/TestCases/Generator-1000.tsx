@@ -16,9 +16,6 @@ function generate_object(size: number): NodeProps[] {
     return obj;
 }
 
-export function generator(): NodeProps {
-    return {
-        text: 'Root',
-        nodes: generate_object(1000)
-    };
+export function generator(): NodeProps[] {
+    return generate_object(1000);
 }

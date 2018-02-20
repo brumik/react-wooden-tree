@@ -2,6 +2,7 @@ import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, ParentData } from './Node';
 import { SelectButtonState } from './SelectButton';
+import './Tree.css';
 
 export interface TreeProps {
     data: NodeProps[];

@@ -26,9 +26,10 @@ JSON_FILE=${BASE_DIR}/result.json
 REPORT_FILE=${BASE_DIR}/results.txt
 
 
-echo "Backup current ./scr"
+echo "Backup current ./scr/components"
 mkdir ${BACKUP_FOLDER}
-mv ./src/* ${BACKUP_FOLDER}
+mv ./src/components/* ${BACKUP_FOLDER}/components/
+mv ./src/Generator.tsx ${BACKUP_FOLDER}/Generator.tsx
 
 echo "Running benchmark for: $1"
 
@@ -42,8 +43,8 @@ for dir in ${BASE_DIR}/*; do
 
         printf "Tests for: %s\n" $(basename ${dir}) >> ${REPORT_FILE}
 
-        # Moving the src files
-        mv ${dir}/src/* ./src/
+        # Moving the replaced files
+        mv ${dir}/src/components/* ./src/components/
 
         # Tests cases: go trough all test cases
         for generator in ${TEST_CASES_FOLDER}/*; do
@@ -66,12 +67,13 @@ for dir in ${BASE_DIR}/*; do
         done
 
         # Restoring the scr files
-        mv ./src/* ${dir}/src/
+        mv ./src/components/* ${dir}/src/components/
     fi
 done
 
 echo "Restoring the original ./src:"
-mv ${BACKUP_FOLDER}/* ./src/
+mv ${BACKUP_FOLDER}/* ./src/components/
+mv ${BACKUP_FOLDER}/Generator.tsx ./src/Generator.tsx
 rmdir ${BACKUP_FOLDER}
 
 echo "Done"
