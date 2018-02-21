@@ -1,0 +1,20 @@
+Tests for: class_indent
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: 1596.5
+		 first interactive: 1596.495
+Tests for: generated_class_indent
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: 1612.2
+		 first interactive: 1612.246
+Tests for: inline_style
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: 1591.9
+		 first interactive: 1591.946
+Tests for: nested_lists
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: 1599.4
+		 first interactive: 1599.391
+Tests for: span_indent
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: 1606.2
+		 first interactive: 1606.243
