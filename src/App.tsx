@@ -9,7 +9,7 @@ class App extends React.Component {
       <div className="App">
         <Tree
             hierarchicalCheck={true}
-            showCheckbox={true}
+            showCheckbox={false}
             data={generator()}
         />
       </div>

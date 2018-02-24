@@ -1,38 +1,57 @@
 Tests for: at_startup
 	Test Case: Generator-10.tsx:
-		 first meaningful paint: 1595.5
-		 first interactive: 1595.486
+		 first meaningful paint: 1715.6
+		 first interactive: 1715.632
 	Test Case: Generator-100.tsx:
-		 first meaningful paint: 1634.1
-		 first interactive: 2614.22
+		 first meaningful paint: 1705.8
+		 first interactive: 2668.874
 	Test Case: Generator-1000.tsx:
-		 first meaningful paint: 1913
-		 first interactive: 2869.279
+		 first meaningful paint: 2097.4
+		 first interactive: 3056.612
 	Test Case: Generator-Closed-10.tsx:
-		 first meaningful paint: 1577.2
-		 first interactive: 1577.24
+		 first meaningful paint: 1640.6
+		 first interactive: 1640.595
 	Test Case: Generator-Closed-100.tsx:
-		 first meaningful paint: 1574.5
-		 first interactive: 1574.491
+		 first meaningful paint: 1618.7
+		 first interactive: 1618.746
 	Test Case: Generator-Closed-1000.tsx:
-		 first meaningful paint: 1593.9
-		 first interactive: 1593.882
+		 first meaningful paint: 1652.7
+		 first interactive: 1652.707
 Tests for: on_demand
 	Test Case: Generator-10.tsx:
-		 first meaningful paint: 1608.2
-		 first interactive: 1608.2
+		 first meaningful paint: 1650.3
+		 first interactive: 1650.324
 	Test Case: Generator-100.tsx:
-		 first meaningful paint: 1697
-		 first interactive: 2652.774
+		 first meaningful paint: 1683.2
+		 first interactive: 2650.057
 	Test Case: Generator-1000.tsx:
-		 first meaningful paint: 2366
-		 first interactive: 3176.366
+		 first meaningful paint: 2073
+		 first interactive: 3008.439
 	Test Case: Generator-Closed-10.tsx:
-		 first meaningful paint: 1570
-		 first interactive: 1570.027
+		 first meaningful paint: 1645.6
+		 first interactive: 1645.639
 	Test Case: Generator-Closed-100.tsx:
-		 first meaningful paint: 1571.6
-		 first interactive: 1571.637
+		 first meaningful paint: 1622
+		 first interactive: 1622.027
 	Test Case: Generator-Closed-1000.tsx:
-		 first meaningful paint: 1600.4
-		 first interactive: 1600.393
+		 first meaningful paint: 1618
+		 first interactive: 1617.951
+Tests for: on_demand_functions
+	Test Case: Generator-10.tsx:
+		 first meaningful paint: 1699.8
+		 first interactive: 1699.771
+	Test Case: Generator-100.tsx:
+		 first meaningful paint: 1697.7
+		 first interactive: 2662.139
+	Test Case: Generator-1000.tsx:
+		 first meaningful paint: 2046.8
+		 first interactive: 3015.445
+	Test Case: Generator-Closed-10.tsx:
+		 first meaningful paint: 1623.4
+		 first interactive: 1623.384
+	Test Case: Generator-Closed-100.tsx:
+		 first meaningful paint: 1642.4
+		 first interactive: 1642.434
+	Test Case: Generator-Closed-1000.tsx:
+		 first meaningful paint: 1624.8
+		 first interactive: 1624.832

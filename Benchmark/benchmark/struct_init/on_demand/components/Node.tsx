@@ -170,7 +170,7 @@ export class Node extends React.Component<NodeProps, {}> {
     }
 
     render () {
-        const checkbox = !this.props.hideCheckbox ? (
+        const checkbox = !this.props.hideCheckbox && this.props.parentData.showCheckbox ? (
             <SelectButton onChange={this.handleCheckChange} checked={this.props.state.checked} />
         ) : null;
 

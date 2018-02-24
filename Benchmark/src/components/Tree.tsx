@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import { Node, NodeProps, ParentData } from './Node';
+import { NodeRenderSublist, NodeProps, ParentData, NodeChildrenFactory } from './Node';
 import { SelectButtonState } from './SelectButton';
 import './Tree.css';
 
@@ -15,45 +15,48 @@ interface TreeState {
     nodes: NodeProps[];
 }
 
+/**
+ * Recursively gets the max depth of the tree.
+ *
+ * @param {NodeProps[]} nodes The root node of the tree.
+ * @returns {number} The max depth of the tree.
+ */
+function TreeGetDepth(nodes: NodeProps[]): number {
+    let depth = 0;
+    if (nodes) {
+        for (let i = 0; i < nodes.length; i++) {
+            let newDepth = TreeGetDepth(nodes[i].nodes);
+            if ( depth < newDepth) {
+                depth = newDepth;
+            }
+        }
+    }
+    return 1 + depth;
+}
+
+/**
+ * Generates the css classes for indenting the nodes.
+ *
+ * @param {number} depth Max depth of the tree. This is how many classes will be generated.
+ * @returns {string} CSS: .indent-X{padding-left:X*15px}
+ */
+function TreeGenerateIndentCSS(depth: number): string {
+    let cssRules: string = '';
+    let indentSize = 15;
+    for (let i = 1; i < depth; i++) {
+        cssRules += '.indent-' + i + '{padding-left:' + indentSize * i + 'px}';
+    }
+    return cssRules;
+}
+
+/**
+ * Class Tree
+ */
 export class Tree extends React.Component<TreeProps, TreeState> {
     /** The variable to maintain hierarchical changes on state. */
     treeNodes: NodeProps[];
 
     parentData: ParentData;
-
-    /**
-     * Recursively gets the max depth of the tree.
-     *
-     * @param {NodeProps[]} nodes The root node of the tree.
-     * @returns {number} The max depth of the tree.
-     */
-    private static getDepth(nodes: NodeProps[]): number {
-        let depth = 0;
-        if (nodes) {
-            for (let i = 0; i < nodes.length; i++) {
-                let newDepth = Tree.getDepth(nodes[i].nodes);
-                if ( depth < newDepth) {
-                    depth = newDepth;
-                }
-            }
-        }
-        return 1 + depth;
-    }
-
-    /**
-     * Generates the css classes for indenting the nodes.
-     *
-     * @param {number} depth Max depth of the tree. This is how many classes will be generated.
-     * @returns {string} CSS: .indent-X{padding-left:X*15px}
-     */
-    private static generateIndentCSS(depth: number): string {
-        let cssRules: string = '';
-        let indentSize = 15;
-        for (let i = 1; i < depth; i++) {
-            cssRules += '.indent-' + i + '{padding-left:' + indentSize * i + 'px}';
-        }
-        return cssRules;
-    }
 
     /**
      * Constructor.
@@ -69,7 +72,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         };
 
         this.treeNodes = this.props.data;
-        Node.ChildrenFactory(this.treeNodes, '', this.parentData);
+        NodeChildrenFactory(this.treeNodes, '', this.parentData);
 
         this.state = {
             nodes: this.treeNodes,
@@ -83,7 +86,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     initNode(node: NodeProps): void {
         if ( !node.initialized ) {
-            Node.ChildrenFactory(node.nodes, node.id, this.parentData);
+            NodeChildrenFactory(node.nodes, node.id, this.parentData);
             node.initialized = true;
         }
     }
@@ -209,10 +212,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         return (
             <div className="Tree">
                 <ul>
-                    {Node.renderSublist(this.state.nodes)}
+                    {NodeRenderSublist(this.state.nodes)}
                 </ul>
                 <style>
-                    {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
+                    {TreeGenerateIndentCSS(TreeGetDepth(this.treeNodes))}
                 </style>
             </div>
         );
