@@ -2,7 +2,7 @@ li {
     list-style: none;
 }
 .NoOpenButtonPadding {
-    padding-left: 16px;
+    margin-left: 16px;
 }
 .SelectButton {
     width: 14px;
