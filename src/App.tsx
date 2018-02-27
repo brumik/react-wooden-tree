@@ -10,6 +10,7 @@ class App extends React.Component {
         <Tree
             hierarchicalCheck={true}
             showCheckbox={true}
+            nodeIcon={'fa fa-fw'}
             data={generator()}
         />
       </div>
