@@ -3,22 +3,68 @@ import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, ParentData } from './Node';
 import { SelectButtonState } from './SelectButton';
 import './Tree.css';
+import { defVal } from './Helpers';
 
 export interface TreeProps {
-    data: NodeProps[];
-    showCheckbox?: boolean;
-    hierarchicalCheck?: boolean;
-    propagateCheckEvent?: boolean;
+    data: NodeProps[];                  // < The definitions of the tree nodes.
+    dataUrl?: string;                   // < TODO: An URL which returns the data in JSON.
+
+    // Checkbox
+    showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
+    hierarchicalCheck?: boolean;        // < If enabled parent and children are reflecting each other changes.
+    propagateCheckEvent?: boolean;      // < TODO: Not implemented the functionality yet.
+    checkboxFirst?: boolean;            // < TODO: Determines if the node icon or the checkbox is the first.
+
+    // Icons
+    showIcon?: boolean;                 // < TODO: Determines if the icons are showed in nodes.
+    showImage?: boolean;                // < TODO: Determines if images are preferred to the icons.
+    nodeIcon?: string;                  // < Default icon for nodes without.
+    checkedIcon?: string;               // < TODO
+    uncheckedIcon?: string;             // < TODO
+    partiallyCheckedIcon?: string;      // < TODO
+    collapseIcon?: string;              // < TODO
+    expandIcon?: string;                // < TODO
+    emptyIcon?: string;                 // < TODO
+    loadingIcon?: string;               // < TODO
+    selectedIcon?: string;              // < TODO
+
+    // TODO All of these
+    backColor?: string;
+    borderColor?: string;
+    changedNodeColor?: string;
+    color?: string;
+    highlightChanges?: boolean;
+    highlightSearchResults?: boolean;
+    highlightSelected?: boolean;
+    multiSelect?: boolean;
+    onHoverColor?: string;
+    searchResultColor?: string;
+    searchResultBackColor?: string;
+    selectedColor?: string;
+    selectedBackColor?: string;
+
+    // TODO: levels
+    // TODO: lazyLoad
+    // TODO: preventUnselect
+    // TODO: AllowReselect
 }
 
 interface TreeState {
-    nodes: NodeProps[];
+    nodes: NodeProps[];                 // < Contains the whole tree -> Nodes gets their data as props.
 }
 
 export class Tree extends React.Component<TreeProps, TreeState> {
-    /** The variable to maintain hierarchical changes on state. */
+    /**
+     * This variable contains the tree data.
+     * All changes done to tree first should change in this variable
+     * then call setState to synchronize it with the state variable.
+     */
     treeNodes: NodeProps[];
 
+    /**
+     * This structure contains all the data that nodes need from the
+     * tree component root like settings and callback functions.
+     */
     parentData: ParentData;
 
     /**
@@ -48,7 +94,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     private static generateIndentCSS(depth: number): string {
         let cssRules: string = '';
-        let indentSize = 15;
+        let indentSize = 18;
         for (let i = 1; i < depth; i++) {
             cssRules += '.indent-' + i + '{padding-left:' + indentSize * i + 'px}';
         }
@@ -66,6 +112,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             checkboxOnChange: this.handleSelectButtonChange,
             expandOnChange: this.handleExpandedChange,
             showCheckbox: this.props.showCheckbox,
+            defaultIcon: defVal(this.props.nodeIcon, 'fa fa-ban fa-fw'),
         };
 
         this.treeNodes = this.props.data;
@@ -139,7 +186,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         }
 
         // Evaluating the state of children:
-        // If even one was partially selected we don't look at the counter
+        // If even one was partially selected we don't look at the counter,
+            // otherwise if the counter is full then it is selected,
+            // otherwise if bigger than zero then partially selected
+            // and if zero then it is unselected.
         if ( state === SelectButtonState.Unselected ) {
             if (checkedCounter === parentNode.nodes.length) {
                 state = SelectButtonState.Selected;
