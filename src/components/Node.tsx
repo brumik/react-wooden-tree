@@ -13,10 +13,17 @@ interface NodeState {
     selected?: boolean;
 }
 
+/**
+ * Interface for all data required from the tree root.
+ */
 export interface ParentData {
+    // Checkbox
     checkboxOnChange: SelectButtonOnChange;
     expandOnChange: ExpandButtonOnChange;
     showCheckbox: boolean;
+
+    // Icons
+    defaultIcon: string;
 }
 
 /**
@@ -30,19 +37,21 @@ export interface NodeProps {
     checkable?: boolean;
     hideCheckbox?: boolean;
 
-    // TODO
+    // Styling
     icon?: string;
     image?: string;
-    selectedIcon?: string;
-    color?: string;
-    backColor?: string;
-    iconColor?: string;
-    selectable?: boolean;
-    classes?: string;
 
     // Private
     parentData?: ParentData;
     initialized?: boolean;
+
+    // TODO All of these
+    selectable?: boolean;
+    selectedIcon?: string;
+    color?: string;
+    backColor?: string;
+    iconColor?: string;
+    classes?: string;
 }
 
 /**
@@ -78,6 +87,10 @@ export class Node extends React.Component<NodeProps, {}> {
             node.checkable = defVal(node.checkable, true);
             node.hideCheckbox = defVal(node.hideCheckbox, false);
             node.nodes = defVal(node.nodes, []);
+
+            // Styling
+            node.icon = defVal(node.icon, parentData.defaultIcon);
+            node.image = defVal(node.image, null);
 
             // Private
             node.parentData = parentData;
@@ -170,22 +183,27 @@ export class Node extends React.Component<NodeProps, {}> {
     }
 
     render () {
+        // Indent class
+        let NodeClasses = 'indent-' + this.getItemIndentSize();
+
         const checkbox = !this.props.hideCheckbox && this.props.parentData.showCheckbox ? (
             <SelectButton onChange={this.handleCheckChange} checked={this.props.state.checked} />
         ) : null;
 
         // Dropdown button if not displayed added padding
         let openButton: JSX.Element;
-        let noOpenButtonPadding: string;
         if ( this.props.nodes.length > 0 ) {
             openButton = <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded}/>;
-            noOpenButtonPadding = '';
         } else {
             openButton = null;
-            noOpenButtonPadding = 'NoOpenButtonPadding';
+            NodeClasses += ' NoOpenButton';
         }
 
-        const indentCLass = 'indent-' + this.getItemIndentSize();
+        const icon = this.props.image ? (
+            <img className={'NodeIconImage'} src={this.props.image} />
+        ) : (
+            <i className={this.props.icon} />
+        );
 
         const sublist = this.props.state.expanded ? (
             Node.renderSublist(this.props.nodes)
@@ -193,9 +211,10 @@ export class Node extends React.Component<NodeProps, {}> {
 
         return (
             <React.Fragment>
-                <li className={indentCLass + ' ' + noOpenButtonPadding}>
+                <li className={NodeClasses}>
                     {openButton}
                     {checkbox}
+                    {icon}
                     {this.props.text}
                 </li>
                 {sublist}

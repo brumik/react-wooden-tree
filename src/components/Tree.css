@@ -1,8 +1,8 @@
 li {
     list-style: none;
 }
-.NoOpenButtonPadding {
-    margin-left: 16px;
+.NoOpenButton {
+    margin-left: 18px;
 }
 .SelectButton {
     width: 14px;
@@ -20,4 +20,9 @@ li {
     outline: none;
     margin: 2px;
     padding: 0;
+}
+.NodeIconImage {
+    width: 14px;
+    height: auto;
+    margin: 0 4px -1px;
 }
