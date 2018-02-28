@@ -11,6 +11,7 @@ class App extends React.Component {
             hierarchicalCheck={true}
             showCheckbox={true}
             nodeIcon={'fa fa-fw'}
+            partiallyCheckedIcon={'fa fa-ban'}
             data={generator()}
         />
       </div>

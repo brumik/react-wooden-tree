@@ -3,6 +3,8 @@ import * as React from 'react';
 interface ExpandButtonProps {
     onChange: (checked: boolean) => void;
     expanded: boolean;
+    expandIcon: string;
+    collapseIcon: string;
 }
 
 export interface ExpandButtonOnChange {
@@ -13,9 +15,9 @@ export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
     render() {
         let icon: JSX.Element;
         if (this.props.expanded) {
-            icon = <i className="fa fa-angle-down" />;
+            icon = <i className={this.props.collapseIcon} />;
         } else {
-            icon = <i className="fa fa-angle-right" />;
+            icon = <i className={this.props.expandIcon} />;
         }
 
         return (

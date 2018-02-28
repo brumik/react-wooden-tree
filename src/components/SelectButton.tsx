@@ -20,6 +20,9 @@ export enum SelectButtonState {
 interface SelectButtonProps {
     onChange: (checked: boolean) => void;
     checked: SelectButtonState;
+    checkedIcon: string;
+    partiallyCheckedIcon: string;
+    uncheckedIcon: string;
 }
 
 /**
@@ -36,15 +39,15 @@ export class SelectButton extends React.Component<SelectButtonProps, {}> {
 
         switch (this.props.checked) {
             case SelectButtonState.Unselected:
-                icon = <i className="fa fa-square-o" />;
+                icon = <i className={this.props.uncheckedIcon} />;
                 switchVal = true;
                 break;
             case SelectButtonState.PartiallySelected:
-                icon = <i className="fa fa-square" />;
+                icon = <i className={this.props.partiallyCheckedIcon} />;
                 switchVal = true;
                 break;
             case SelectButtonState.Selected:
-                icon = <i className="fa fa-check-square" />;
+                icon = <i className={this.props.checkedIcon} />;
                 switchVal = false;
                 break;
             default:

@@ -16,17 +16,17 @@ export interface TreeProps {
     checkboxFirst?: boolean;            // < TODO: Determines if the node icon or the checkbox is the first.
 
     // Icons
-    showIcon?: boolean;                 // < TODO: Determines if the icons are showed in nodes.
-    showImage?: boolean;                // < TODO: Determines if images are preferred to the icons.
-    nodeIcon?: string;                  // < Default icon for nodes without.
-    checkedIcon?: string;               // < TODO
-    uncheckedIcon?: string;             // < TODO
-    partiallyCheckedIcon?: string;      // < TODO
-    collapseIcon?: string;              // < TODO
-    expandIcon?: string;                // < TODO
-    emptyIcon?: string;                 // < TODO
-    loadingIcon?: string;               // < TODO
-    selectedIcon?: string;              // < TODO
+    showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
+    showImage?: boolean;                // < Determines if images are preferred to the icons.
+    nodeIcon?: string;                  // < Default icon for nodes without it.
+    checkedIcon?: string;               // < The checkbox-checked icon.
+    uncheckedIcon?: string;             // < The checkbox-unchecked icon.
+    partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
+    collapseIcon?: string;              // < The icon for collapsing parents.
+    expandIcon?: string;                // < The icon for expanding parents.
+    emptyIcon?: string;                 // < TODO: The icon for empty something.
+    loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
+    selectedIcon?: string;              // < TODO: The icon for selected nodes.
 
     // TODO All of these
     backColor?: string;
@@ -109,10 +109,23 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         super(props);
 
         this.parentData = {
+            // Checkbox
             checkboxOnChange: this.handleSelectButtonChange,
             expandOnChange: this.handleExpandedChange,
             showCheckbox: this.props.showCheckbox,
-            defaultIcon: defVal(this.props.nodeIcon, 'fa fa-ban fa-fw'),
+
+            // Icons
+            showIcon: defVal(this.props.showIcon, true),
+            showImage: defVal(this.props.showImage, true),
+            nodeIcon: defVal(this.props.nodeIcon, 'fa fa-ban fa-fw'),
+            checkedIcon: defVal(this.props.checkedIcon, 'fa fa-check-square'),
+            uncheckedIcon: defVal(this.props.uncheckedIcon, 'fa fa-square-o'),
+            partiallyCheckedIcon: defVal(this.props.partiallyCheckedIcon, 'fa fa-square'),
+            collapseIcon: defVal(this.props.collapseIcon, 'fa fa-angle-down'),
+            expandIcon: defVal(this.props.expandIcon, 'fa fa-angle-right'),
+            emptyIcon: defVal(this.props.emptyIcon, 'fa fa-fw'),
+            loadingIcon: defVal(this.props.emptyIcon, 'fa fa-spinner fa-spin'),
+            selectedIcon: defVal(this.props.selectedIcon, 'fa fa-stop')
         };
 
         this.treeNodes = this.props.data;

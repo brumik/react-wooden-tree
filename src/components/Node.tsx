@@ -23,7 +23,17 @@ export interface ParentData {
     showCheckbox: boolean;
 
     // Icons
-    defaultIcon: string;
+    showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
+    showImage?: boolean;                // < Determines if images are preferred to the icons.
+    nodeIcon?: string;                  // < Default icon for nodes without it.
+    checkedIcon?: string;               // < The checkbox-checked icon.
+    uncheckedIcon?: string;             // < The checkbox-unchecked icon.
+    partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
+    collapseIcon?: string;              // < The icon for collapsing parents.
+    expandIcon?: string;                // < The icon for expanding parents.
+    emptyIcon?: string;                 // < TODO: The icon for empty something.
+    loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
+    selectedIcon?: string;              // < TODO: The icon for selected nodes.
 }
 
 /**
@@ -89,7 +99,7 @@ export class Node extends React.Component<NodeProps, {}> {
             node.nodes = defVal(node.nodes, []);
 
             // Styling
-            node.icon = defVal(node.icon, parentData.defaultIcon);
+            node.icon = defVal(node.icon, parentData.nodeIcon);
             node.image = defVal(node.image, null);
 
             // Private
@@ -186,25 +196,44 @@ export class Node extends React.Component<NodeProps, {}> {
         // Indent class
         let NodeClasses = 'indent-' + this.getItemIndentSize();
 
+        // Checkbox
         const checkbox = !this.props.hideCheckbox && this.props.parentData.showCheckbox ? (
-            <SelectButton onChange={this.handleCheckChange} checked={this.props.state.checked} />
+            <SelectButton
+                onChange={this.handleCheckChange}
+                checked={this.props.state.checked}
+                checkedIcon={this.props.parentData.checkedIcon}
+                partiallyCheckedIcon={this.props.parentData.partiallyCheckedIcon}
+                uncheckedIcon={this.props.parentData.uncheckedIcon}
+            />
         ) : null;
 
         // Dropdown button if not displayed added padding
         let openButton: JSX.Element;
         if ( this.props.nodes.length > 0 ) {
-            openButton = <ExpandButton onChange={this.handleOpenChange} expanded={this.props.state.expanded}/>;
+            openButton = (
+                <ExpandButton
+                    onChange={this.handleOpenChange}
+                    expanded={this.props.state.expanded}
+                    expandIcon={this.props.parentData.expandIcon}
+                    collapseIcon={this.props.parentData.collapseIcon}
+                />
+            );
         } else {
             openButton = null;
             NodeClasses += ' NoOpenButton';
         }
 
-        const icon = this.props.image ? (
-            <img className={'NodeIconImage'} src={this.props.image} />
-        ) : (
-            <i className={this.props.icon} />
-        );
+        // Icon
+        let icon: JSX.Element = null;
+        if ( this.props.parentData.showIcon ) {
+            if ( this.props.parentData.showImage && this.props.image ) {
+                icon = <img className={'NodeIconImage'} src={this.props.image}/>;
+            } else {
+                icon = <i className={this.props.icon}/>;
+            }
+        }
 
+        // Children
         const sublist = this.props.state.expanded ? (
             Node.renderSublist(this.props.nodes)
         ) : null;
