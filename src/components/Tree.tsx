@@ -28,21 +28,21 @@ export interface TreeProps {
     loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
     selectedIcon?: string;              // < TODO: The icon for selected nodes.
 
-    // TODO All of these
-    backColor?: string;
-    borderColor?: string;
-    changedNodeColor?: string;
-    color?: string;
-    highlightChanges?: boolean;
-    highlightSearchResults?: boolean;
-    highlightSelected?: boolean;
-    multiSelect?: boolean;
-    onHoverColor?: string;
-    searchResultColor?: string;
-    searchResultBackColor?: string;
-    selectedColor?: string;
-    selectedBackColor?: string;
+    // TODO All of these <-- Should go into an external css file
+    // backColor?: string;
+    // borderColor?: string;
+    // changedNodeColor?: string;
+    // color?: string;
+    // onHoverColor?: string;
+    // searchResultColor?: string;
+    // searchResultBackColor?: string;
+    // selectedColor?: string;
+    // selectedBackColor?: string;
 
+    // TODO: highlightChanges?: boolean;
+    // TODO: highlightSearchResults?: boolean;
+    // TODO: highlightSelected?: boolean;
+    // TODO: multiSelect?: boolean;
     // TODO: levels
     // TODO: lazyLoad
     // TODO: preventUnselect
@@ -59,13 +59,13 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * All changes done to tree first should change in this variable
      * then call setState to synchronize it with the state variable.
      */
-    treeNodes: NodeProps[];
+    private treeNodes: NodeProps[];
 
     /**
      * This structure contains all the data that nodes need from the
      * tree component root like settings and callback functions.
      */
-    parentData: ParentData;
+    private parentData: ParentData;
 
     /**
      * Recursively gets the max depth of the tree.
@@ -102,10 +102,130 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     }
 
     /**
+     * Renders the tree element.
+     *
+     * @returns {JSX.Element}
+     */
+    public render(): JSX.Element {
+        return (
+            <div className="Tree">
+                <ul>
+                    {Node.renderSublist(this.state.nodes)}
+                </ul>
+                <style>
+                    {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
+                </style>
+            </div>
+        );
+    }
+
+    /** @defgroup MethodsGroup
+     * The public methods used to manipulate the tree programmatically.
+     *  @{
+     */
+    // TODO: Required methods:
+    // addNode, addNodeAfter, addNodeBefore
+    // checkAll, checkNode, uncheckAll, uncheckNode
+    // disableAll, disableNode, enableAll, enableNode
+    // findNodes
+    // getChecked, getCollapsed, getDisabled, getEnabled, getExpanded
+    // getNodes, getParents, getSelected, getSiblings, getUnchecked,
+    // getUnselected
+    // remove, removeNode, revealNode
+    // search, selectNode, clearSearch
+    // toggleNode: checked, disabled, expanded, selected
+    // updateNode, unmarkCheckboxChanges
+    // unselectNode
+
+    /**
+     * Expands all nodes which have children. If node were not initialized then does it too.
+     */
+    public expandAll(): void {
+        // Save reference
+        const self = this;
+
+        // Pass the logic as callback to node iterator.
+        this.iterateAll(function(node: NodeProps): void {
+            if ( node.nodes && node.nodes.length > 0 ) {
+                self.initNode(node);
+                node.state.expanded = true;
+            }
+        });
+
+        this.update();
+    }
+
+    /**
+     * Expands the given node(s). If not initialized then does it too.
+     *
+     * @param {string[]} ids The array of node IDs.
+     */
+    public expandNode(ids: string[]): void {
+        for (let i = 0; i < ids.length; i++) {
+            let node = this.nodeSelector(ids[i]);
+            if ( !node ) { continue; }
+
+            if ( node.nodes && node.nodes.length > 0 ) {
+                this.initNode(node);
+                node.state.expanded = true;
+            }
+        }
+
+        this.update();
+    }
+
+    /**
+     * Collapses nodes which are initialized (not initialized are not displayed)
+     */
+    public collapseAll(): void {
+        this.iterateAll(function (node: NodeProps): void {
+            node.state.expanded = false;
+        });
+
+        this.update();
+    }
+
+    /**
+     * Collapses the given node(s), only if were initialized.
+     * Invalid id's are just skipped.
+     *
+     * @param {string[]} ids The array of node IDs
+     */
+    public collapseNode(ids: string[]): void {
+        for (let i = 0; i < ids.length; i++) {
+            let node = this.nodeSelector(ids[i]);
+            if ( !node ) { continue; }
+
+            if ( node.initialized ) {
+                node.state.expanded = false;
+            }
+        }
+
+        this.update();
+    }
+
+    /** @} */ // end of MethodsGroup
+
+    /**
+     * Iterates trough all initialized nodes and passes each of them to the callback function.
+     *
+     * @param {(node: NodeProps) => void} callback
+     * @param {NodeProps[]} nodes
+     */
+    private iterateAll(callback: (node: NodeProps) => void, nodes: NodeProps[] = this.treeNodes) {
+        for (let i = 0; i < nodes.length; i++) {
+            callback(nodes[i]);
+            if ( nodes[i].initialized ) {
+                this.iterateAll(callback, nodes[i].nodes);
+            }
+        }
+    }
+
+    /**
      * Constructor.
      * @param {TreeProps} props
      */
-    constructor(props: TreeProps) {
+    private constructor(props: TreeProps) {
         super(props);
 
         this.parentData = {
@@ -137,11 +257,18 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     }
 
     /**
+     * Updates the data state from the class variable.
+     */
+    private update() {
+        this.setState({nodes: this.treeNodes});
+    }
+
+    /**
      * Initializes the given node's children if were not already initialized.
      *
      * @param {NodeProps} node The not to initialize the children.
      */
-    initNode(node: NodeProps): void {
+    private initNode(node: NodeProps): void {
         if ( !node.initialized ) {
             Node.ChildrenFactory(node.nodes, node.id, this.parentData);
             node.initialized = true;
@@ -154,8 +281,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      *
      * @param {string} id
      * @returns {NodeProps}
+     * @bug Doe's not checks the validity of the id.
      */
-    nodeSelector(id: string): NodeProps {
+    private nodeSelector(id: string): NodeProps {
         let path: number[] = id.split('.').map(function(nodeId: string) {
             return parseInt(nodeId, 10);
         });
@@ -174,7 +302,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {SelectButtonState} checked The new state of the child.
      * @param {NodeProps} node The child node.
      */
-    parentSelectButtonChange(checked: SelectButtonState, node: NodeProps): void {
+    private parentSelectButtonChange(checked: SelectButtonState, node: NodeProps): void {
         // Root node:
         if ( node.id.length === 1 ) { return; }
 
@@ -222,7 +350,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {NodeProps} node The node to change the state.
      * @param {boolean} directlyChanged Defines if changed by user or just the recursive call.
      */
-    nodeSelectButtonChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
+    private nodeSelectButtonChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
         if ( node.nodes ) {
             node.state.checked = checked ? SelectButtonState.Selected : SelectButtonState.Unselected;
             if ( this.props.hierarchicalCheck ) {
@@ -250,10 +378,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {boolean} checked The checkbox new state.
      * @param {string} id The element which checkbox was changed.
      */
-    handleSelectButtonChange = (checked: boolean, id: string): void => {
+    private handleSelectButtonChange = (checked: boolean, id: string): void => {
         let node: NodeProps = this.nodeSelector(id);
         this.nodeSelectButtonChange(checked, node, true);
-        this.setState({nodes: this.treeNodes});
+        this.update();
     }
 
     /**
@@ -261,23 +389,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {string} id The id of node which has changed.
      * @param {boolean} expanded The current state
      */
-    handleExpandedChange = (id: string, expanded: boolean): void => {
+    private handleExpandedChange = (id: string, expanded: boolean): void => {
         let node: NodeProps = this.nodeSelector(id);
         this.initNode(node);
         node.state.expanded = expanded;
-        this.setState({nodes: this.treeNodes});
-    }
-
-    render() {
-        return (
-            <div className="Tree">
-                <ul>
-                    {Node.renderSublist(this.state.nodes)}
-                </ul>
-                <style>
-                    {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
-                </style>
-            </div>
-        );
+        this.update();
     }
 }
