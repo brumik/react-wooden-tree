@@ -1,13 +1,13 @@
 import * as React from 'react';
 import './App.css';
 import { Tree } from './components/Tree';
-import { generator } from './Generator-Bigger';
+import { generator } from './Generator';
 
 class App extends React.Component {
   tree: Tree = null;
 
   componentDidMount() {
-      this.tree.collapseNode(['0.0', '0.vgd', '0.1']);
+      console.log(this.tree.getSiblings(['0.1']));
   }
 
   render() {
