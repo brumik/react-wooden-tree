@@ -2,6 +2,7 @@ import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, ParentData } from './Node';
 import './Tree.css';
+import { defVal } from './Helpers';
 
 export interface TreeProps {
     data?: NodeProps[];                  // < The definitions of the tree nodes.
@@ -34,18 +35,7 @@ export interface TreeProps {
      * @param {string} dataType The currently changed information.
      * @param {boolean} newValue The newly assigned value.
      */
-    onDataChange?: (id: string, dataType: string, newValue: boolean) => void;
-
-    // TODO All of these <-- Should go into an external css file
-    // backColor?: string;
-    // borderColor?: string;
-    // changedNodeColor?: string;
-    // color?: string;
-    // onHoverColor?: string;
-    // searchResultColor?: string;
-    // searchResultBackColor?: string;
-    // selectedColor?: string;
-    // selectedBackColor?: string;
+    onDataChange: (id: string, dataType: string, newValue: boolean) => void;
 
     // TODO: highlightChanges?: boolean;
     // TODO: highlightSearchResults?: boolean;
@@ -57,9 +47,7 @@ export interface TreeProps {
     // TODO: AllowReselect
 }
 
-interface TreeState {
-    nodes: NodeProps[];                 // < Contains the whole tree -> Nodes gets their data as props.
-}
+interface TreeState {}
 
 export class Tree extends React.Component<TreeProps, TreeState> {
     /**
@@ -68,17 +56,64 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     public static defaultProps: TreeProps;
 
     /**
-     * This variable contains the tree data.
-     * All changes done to tree first should change in this variable
-     * then call setState to synchronize it with the state variable.
-     */
-    private treeNodes: NodeProps[];
-
-    /**
      * This structure contains all the data that nodes need from the
      * tree component root like settings and callback functions.
      */
     private parentData: ParentData;
+
+    /**
+     * Generates the IDs and states for all nodes recursively.
+     * The IDs are crucial for the tree to work.
+     * The state is needed to avoid not defined expections.
+     *
+     * @param {NodeProps[]} tree The tree to fill the IDs up.
+     * @param {string} parentID The parent id of the current nodes. For root left this param out.
+     */
+    public static initTree(tree: NodeProps[], parentID: string = '') {
+        for (let i = 0; i < tree.length; i++) {
+            if ( parentID === '' ) {
+                tree[i].id = i.toString();
+            } else {
+                tree[i].id = parentID + '.' + i;
+            }
+
+            if ( tree[i].state == null ) {
+                tree[i].state = {};
+            }
+
+            tree[i].state = {
+                checked: defVal(tree[i].state.checked, false),
+                expanded: defVal(tree[i].state.expanded, false),
+                disabled: defVal(tree[i].state.disabled, false),
+                selected: defVal(tree[i].state.selected, false),
+            };
+
+            if ( tree[i].nodes ) {
+                Tree.initTree(tree[i].nodes, tree[i].id);
+            }
+        }
+    }
+
+    /**
+     * Searches for the node by id, and returns it.
+     * Search is done by walking the tree by index numbers got form the id.
+     *
+     * @param {NodeProps[]} tree The tree which to look in the node for.
+     * @param {string} id The id of the searched node.
+     * @returns {NodeProps}
+     * @bug Doe's not checks the validity of the id.
+     */
+    public static nodeSelector(tree: NodeProps[], id: string): NodeProps {
+        let path: number[] = id.split('.').map(function(nodeId: string) {
+            return parseInt(nodeId, 10);
+        });
+
+        let node = tree[path[0]];
+        for (let i = 1; i < path.length; i++) {
+            node = node.nodes[path[i]];
+        }
+        return node;
+    }
 
     /**
      * Recursively gets the max depth of the tree.
@@ -123,10 +158,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         return (
             <div className="Tree">
                 <ul>
-                    {Node.renderSublist(this.state.nodes, this.parentData)}
+                    {Node.renderSublist(this.props.data, this.parentData)}
                 </ul>
                 <style>
-                    {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
+                    {Tree.generateIndentCSS(Tree.getDepth(this.props.data))}
                 </style>
             </div>
         );
@@ -158,52 +193,6 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             loadingIcon: this.props.emptyIcon,
             selectedIcon: this.props.selectedIcon,
         };
-
-        this.treeNodes = this.props.data;
-        Node.ChildrenFactory(this.treeNodes, '', this.parentData);
-
-        this.state = {
-            nodes: this.treeNodes,
-        };
-    }
-
-    /**
-     * Updates the data state from the class variable.
-     */
-    private update() {
-        this.setState({nodes: this.treeNodes});
-    }
-
-    /**
-     * Initializes the given node's children if were not already initialized.
-     *
-     * @param {NodeProps} node The not to initialize the children.
-     */
-    private initNode(node: NodeProps): void {
-        if ( !node.initialized ) {
-            Node.ChildrenFactory(node.nodes, node.id, this.parentData);
-            node.initialized = true;
-        }
-    }
-
-    /**
-     * Searches for the node by id, and returns it.
-     * Search is done by walking the tree by index numbers got form the id.
-     *
-     * @param {string} id
-     * @returns {NodeProps}
-     * @bug Doe's not checks the validity of the id.
-     */
-    private nodeSelector(id: string): NodeProps {
-        let path: number[] = id.split('.').map(function(nodeId: string) {
-            return parseInt(nodeId, 10);
-        });
-
-        let node = this.treeNodes[path[0]];
-        for (let i = 1; i < path.length; i++) {
-            node = node.nodes[path[i]];
-        }
-        return node;
     }
 
     /**
@@ -219,7 +208,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
 
         // Others:
         const parentID: string = node.id.substring(0, node.id.length - 2);
-        let parentNode: NodeProps = this.nodeSelector(parentID);
+        let parentNode: NodeProps = Tree.nodeSelector(this.props.data, parentID);
 
         let state = false;
         let checkedCounter = 0;
@@ -247,11 +236,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         }
 
         if ( parentNode.state.checked !== state ) {
-            parentNode.state.checked = state;
-
-            if (this.props.onDataChange) {
-                this.props.onDataChange(parentNode.id, 'state.checked', parentNode.state.checked);
-            }
+            this.props.onDataChange(parentNode.id, 'state.checked', state);
         }
 
         this.parentSelectButtonChange(state, parentNode);
@@ -259,25 +244,17 @@ export class Tree extends React.Component<TreeProps, TreeState> {
 
     /**
      * Changes the sate of the node and all children recursively.
+     * Calls onDataChange for each change.
      *
      * @param {boolean} checked The new state of the node.
      * @param {NodeProps} node The node to change the state.
      * @param {boolean} directlyChanged Defines if changed by user or just the recursive call.
      */
     private nodeSelectButtonChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
+        this.props.onDataChange(node.id, 'state.checked', checked);
+
         if ( node.nodes ) {
-            node.state.checked = checked;
-
-            if ( this.props.onDataChange ) {
-                this.props.onDataChange(node.id, 'state.checked', node.state.checked);
-            }
-
             if ( this.props.hierarchicalCheck ) {
-
-                // Init node because if we don't do it children with no state property wont be selected.
-                if ( !node.initialized ) {
-                    this.initNode(node);
-                }
 
                 // Set checkbox state for all children nodes.
                 for (let i = 0; i < node.nodes.length; i++) {
@@ -287,7 +264,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         }
 
         if ( directlyChanged && this.props.hierarchicalCheck ) {
-            this.parentSelectButtonChange(node.state.checked, node);
+            this.parentSelectButtonChange(checked, node);
         }
     }
 
@@ -298,28 +275,19 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {string} id The element which checkbox was changed.
      */
     private handleSelectButtonChange = (checked: boolean, id: string): void => {
-        let node: NodeProps = this.nodeSelector(id);
+        let node: NodeProps = Tree.nodeSelector(this.props.data, id);
         this.nodeSelectButtonChange(checked, node, true);
-        this.update();
     }
 
     /**
      * Handles the expanding and collapsing elements.
-     * If passed onDataChange function then calls it.
+     * Passes to the onDataChange function.
      *
      * @param {string} id The id of node which has changed.
      * @param {boolean} expanded The current state
      */
     private handleExpandedChange = (id: string, expanded: boolean): void => {
-        let node: NodeProps = this.nodeSelector(id);
-        this.initNode(node);
-        node.state.expanded = expanded;
-
-        if ( this.props.onDataChange ) {
-            this.props.onDataChange(node.id, 'state.expanded', expanded);
-        }
-
-        this.update();
+        this.props.onDataChange(id, 'state.expanded', expanded);
     }
 }
 

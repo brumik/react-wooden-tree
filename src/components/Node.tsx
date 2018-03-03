@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { defVal } from './Helpers';
 import { SelectButton, SelectButtonOnChange } from './SelectButton';
 import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
 
@@ -58,9 +57,6 @@ export interface NodeProps {
     // TODO All of these
     selectable?: boolean;
     selectedIcon?: string;
-    color?: string;
-    backColor?: string;
-    iconColor?: string;
     classes?: string;
 }
 
@@ -71,47 +67,10 @@ export interface NodeProps {
  * Displays a node and communicates with submodules and tree.
  */
 export class Node extends React.Component<NodeProps, {}> {
-
     /**
-     * Initializes the given children nodes.
-     *
-     * @param {NodeProps[]} children The children to initialize.
-     * @param {string} parentID The parent ID to compute children IDs
-     * @param {ParentData} parentData The required data from parent.
-     * @constructor
+     * Used for default values.
      */
-    public static ChildrenFactory(children: NodeProps[], parentID: string, parentData: ParentData): void {
-        // Check if exists
-        if ( children == null ) { return; }
-
-        for (let i = 0; i < children.length; i++) {
-            let node = children[i];
-
-            if ( parentID === '' ) {
-                node.id = i.toString();
-            } else {
-                node.id = parentID + '.' + i;
-            }
-
-            node.state = Node.StateFactory(node.state);
-            node.checkable = defVal(node.checkable, true);
-            node.hideCheckbox = defVal(node.hideCheckbox, false);
-            node.nodes = defVal(node.nodes, []);
-
-            // Styling
-            node.icon = defVal(node.icon, parentData.nodeIcon);
-            node.image = defVal(node.image, null);
-
-            // Private
-            node.initialized = false;
-
-            // Check if the node is expanded, if so then we have to initialize its children too
-            if ( node.state.expanded ) {
-                Node.ChildrenFactory(node.nodes, node.id, parentData);
-                node.initialized = true;
-            }
-        }
-    }
+    public static defaultProps: NodeProps;
 
     /**
      * Creates the Node[] components from given nodes.
@@ -134,26 +93,6 @@ export class Node extends React.Component<NodeProps, {}> {
             }
             return elements;
         } else { return null; }
-    }
-
-    /**
-     * Generates a new state from given values or by default all values false.
-     *
-     * @param {NodeState} state The already existing state. Top priority value.
-     * @returns {NodeState} The new filled state (if no value in the node then default)
-     * @constructor
-     */
-    private static StateFactory(state: NodeState): NodeState {
-        if ( state != null) {
-            return {
-                checked: defVal(state.checked, false),
-                disabled: defVal(state.disabled, false),
-                expanded: defVal(state.expanded, false),
-                selected: defVal(state.selected, false)
-            };
-        } else {
-            return {checked: false, disabled: false, expanded: false, selected: false};
-        }
     }
 
     /**
@@ -197,8 +136,10 @@ export class Node extends React.Component<NodeProps, {}> {
         if ( this.props.parentData.showIcon ) {
             if ( this.props.parentData.showImage && this.props.image ) {
                 icon = <img className={'NodeIconImage'} src={this.props.image}/>;
-            } else {
+            } else if ( this.props.icon ) {
                 icon = <i className={this.props.icon}/>;
+            } else {
+                icon = <i className={this.props.parentData.nodeIcon}/>;
             }
         }
 
@@ -209,7 +150,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         return (
             <React.Fragment>
-                <li className={NodeClasses}>
+                <li className={NodeClasses} id={this.props.id}>
                     {openButton}
                     {checkbox}
                     {icon}
@@ -257,3 +198,34 @@ export class Node extends React.Component<NodeProps, {}> {
         return (this.props.id.split('.').length - 1);
     }
 }
+
+/**
+ * Node default values.
+ */
+Node.defaultProps = {
+    id: '',
+    text: '',
+    nodes: [],
+    state: {
+        checked: false,
+        expanded: false,
+        disabled: false,
+        selected: false
+    },
+
+    checkable: true,
+    hideCheckbox: false,
+
+    // Styling
+    icon: null,
+    image: null,
+
+    // Private
+    parentData: null,
+    initialized: false,
+
+    // TODO All of these
+    selectable: true,
+    selectedIcon: '',
+    classes: ''
+};

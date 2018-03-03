@@ -24,7 +24,7 @@ export function generator(): NodeProps[] {
                 {text: 'Child 2 - Non checkable and empty icon', icon: 'fa fa-fw', checkable: false}
             ]
         },
-        {text: 'Parent 2 - Not expanded', state: {expanded: false, selected: false},
+        {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
             nodes: [
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw'},
                 {text: 'Child 2 - No icon specified'},
