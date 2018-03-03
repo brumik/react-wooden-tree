@@ -6,8 +6,8 @@ import { generator } from './Generator';
 class App extends React.Component {
   tree: Tree = null;
 
-  componentDidMount() {
-      console.log('mounted');
+  onDataChange = (id: string, type: string, value: boolean): void => {
+      console.log(id, type, value);
   }
 
   render() {
@@ -19,6 +19,7 @@ class App extends React.Component {
             nodeIcon={'fa fa-fw'}
             partiallyCheckedIcon={'fa fa-ban'}
             data={generator()}
+            onDataChange={this.onDataChange}
         />
       </div>
     );

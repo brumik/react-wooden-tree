@@ -2,16 +2,14 @@ import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, ParentData } from './Node';
 import './Tree.css';
-import { defVal } from './Helpers';
 
 export interface TreeProps {
-    data: NodeProps[];                  // < The definitions of the tree nodes.
+    data?: NodeProps[];                  // < The definitions of the tree nodes.
     dataUrl?: string;                   // < TODO: An URL which returns the data in JSON.
 
     // Checkbox
     showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
     hierarchicalCheck?: boolean;        // < If enabled parent and children are reflecting each other changes.
-    propagateCheckEvent?: boolean;      // < TODO: Not implemented the functionality yet.
     checkboxFirst?: boolean;            // < TODO: Determines if the node icon or the checkbox is the first.
 
     // Icons
@@ -64,6 +62,11 @@ interface TreeState {
 }
 
 export class Tree extends React.Component<TreeProps, TreeState> {
+    /**
+     * Used for default values.
+     */
+    public static defaultProps: TreeProps;
+
     /**
      * This variable contains the tree data.
      * All changes done to tree first should change in this variable
@@ -143,17 +146,17 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             showCheckbox: this.props.showCheckbox,
 
             // Icons
-            showIcon: defVal(this.props.showIcon, true),
-            showImage: defVal(this.props.showImage, true),
-            nodeIcon: defVal(this.props.nodeIcon, 'fa fa-ban fa-fw'),
-            checkedIcon: defVal(this.props.checkedIcon, 'fa fa-check-square'),
-            uncheckedIcon: defVal(this.props.uncheckedIcon, 'fa fa-square-o'),
-            partiallyCheckedIcon: defVal(this.props.partiallyCheckedIcon, 'fa fa-square'),
-            collapseIcon: defVal(this.props.collapseIcon, 'fa fa-angle-down'),
-            expandIcon: defVal(this.props.expandIcon, 'fa fa-angle-right'),
-            emptyIcon: defVal(this.props.emptyIcon, 'fa fa-fw'),
-            loadingIcon: defVal(this.props.emptyIcon, 'fa fa-spinner fa-spin'),
-            selectedIcon: defVal(this.props.selectedIcon, 'fa fa-stop')
+            showIcon: this.props.showIcon,
+            showImage: this.props.showImage,
+            nodeIcon: this.props.nodeIcon,
+            checkedIcon: this.props.checkedIcon,
+            uncheckedIcon: this.props.uncheckedIcon,
+            partiallyCheckedIcon: this.props.partiallyCheckedIcon,
+            collapseIcon: this.props.collapseIcon,
+            expandIcon: this.props.expandIcon,
+            emptyIcon: this.props.emptyIcon,
+            loadingIcon: this.props.emptyIcon,
+            selectedIcon: this.props.selectedIcon,
         };
 
         this.treeNodes = this.props.data;
@@ -215,7 +218,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         if ( node.id.length === 1 ) { return; }
 
         // Others:
-        let parentID: string = node.id.substring(0, node.id.length - 2);
+        const parentID: string = node.id.substring(0, node.id.length - 2);
         let parentNode: NodeProps = this.nodeSelector(parentID);
 
         let state = false;
@@ -234,11 +237,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             }
         }
 
-        // Evaluating the state of children:
-        // If even one was partially selected we don't look at the counter,
-            // otherwise if the counter is full then it is selected,
-            // otherwise if bigger than zero then partially selected
-            // and if zero then it is unselected.
+        // If stayed unselected then was no partially selected.
         if ( state === false ) {
             if (checkedCounter === parentNode.nodes.length) {
                 state = true;
@@ -247,7 +246,14 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             }
         }
 
-        parentNode.state.checked = state;
+        if ( parentNode.state.checked !== state ) {
+            parentNode.state.checked = state;
+
+            if (this.props.onDataChange) {
+                this.props.onDataChange(parentNode.id, 'state.checked', parentNode.state.checked);
+            }
+        }
+
         this.parentSelectButtonChange(state, parentNode);
     }
 
@@ -316,3 +322,32 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         this.update();
     }
 }
+
+/**
+ * Tree default values.
+ */
+Tree.defaultProps = {
+    data: [],
+    dataUrl: null,
+
+    // Checkbox
+    showCheckbox: false,
+    hierarchicalCheck: false,
+    checkboxFirst: false,
+
+    // Icons
+    showIcon: true,
+    showImage: true,
+    nodeIcon: 'fa fa-ban fa-fw',
+    checkedIcon: 'fa fa-check-square',
+    uncheckedIcon: 'fa fa-square-o',
+    partiallyCheckedIcon: 'fa fa-square',
+    collapseIcon: 'fa fa-angle-down',
+    expandIcon: 'fa fa-angle-right',
+    emptyIcon: 'fa fa-fw',
+    loadingIcon: 'fa fa-spinner fa-spin',
+    selectedIcon: 'fa fa-stop',
+
+    // Callbacks
+    onDataChange: null,
+};

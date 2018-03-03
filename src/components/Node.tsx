@@ -156,43 +156,11 @@ export class Node extends React.Component<NodeProps, {}> {
     }
 
     /**
-     * Constructor.
-     * @param {NodeProps} props
+     * Renders the tree element.
+     *
+     * @returns {JSX.Element}
      */
-    constructor(props: NodeProps) {
-        super(props);
-
-        this.handleCheckChange = this.handleCheckChange.bind(this);
-        this.handleOpenChange = this.handleOpenChange.bind(this);
-    }
-
-    /**
-     * Own checkbox handler.
-     * @param {boolean} checked Contains the input field value.
-     */
-    handleCheckChange(checked: boolean): void {
-        if ( this.props.checkable ) {
-            this.props.parentData.checkboxOnChange(checked, this.props.id);
-        }
-    }
-
-    /**
-     * Handles open event.
-     * @param {boolean} expanded True on expand false on collapse.
-     */
-    handleOpenChange(expanded: boolean): void {
-        this.props.parentData.expandOnChange(this.props.id, expanded);
-    }
-
-    /**
-     * Returns the computed padding size for the current list item for indent.
-     * @returns {number} The computed padding level.
-     */
-    getItemIndentSize(): number {
-        return (this.props.id.split('.').length - 1);
-    }
-
-    render () {
+    public render () {
         // Indent class
         let NodeClasses = 'indent-' + this.getItemIndentSize();
 
@@ -249,5 +217,42 @@ export class Node extends React.Component<NodeProps, {}> {
                 {sublist}
             </React.Fragment>
         );
+    }
+
+    /**
+     * Constructor.
+     * @param {NodeProps} props
+     */
+    private constructor(props: NodeProps) {
+        super(props);
+
+        this.handleCheckChange = this.handleCheckChange.bind(this);
+        this.handleOpenChange = this.handleOpenChange.bind(this);
+    }
+
+    /**
+     * Own checkbox handler.
+     * @param {boolean} checked Contains the input field value.
+     */
+    private handleCheckChange(checked: boolean): void {
+        if ( this.props.checkable ) {
+            this.props.parentData.checkboxOnChange(checked, this.props.id);
+        }
+    }
+
+    /**
+     * Handles open event.
+     * @param {boolean} expanded True on expand false on collapse.
+     */
+    private handleOpenChange(expanded: boolean): void {
+        this.props.parentData.expandOnChange(this.props.id, expanded);
+    }
+
+    /**
+     * Returns the computed padding size for the current list item for indent.
+     * @returns {number} The computed padding level.
+     */
+    private getItemIndentSize(): number {
+        return (this.props.id.split('.').length - 1);
     }
 }
