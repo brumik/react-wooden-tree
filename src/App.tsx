@@ -7,7 +7,7 @@ class App extends React.Component {
   tree: Tree = null;
 
   componentDidMount() {
-      console.log(this.tree.getSiblings(['0.1']));
+      console.log('mounted');
   }
 
   render() {
@@ -19,7 +19,6 @@ class App extends React.Component {
             nodeIcon={'fa fa-fw'}
             partiallyCheckedIcon={'fa fa-ban'}
             data={generator()}
-            ref={(ref) => { this.tree = ref; }}
         />
       </div>
     );

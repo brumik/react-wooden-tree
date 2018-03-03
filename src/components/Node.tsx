@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { defVal } from './Helpers';
-import { SelectButton, SelectButtonOnChange, SelectButtonState } from './SelectButton';
+import { SelectButton, SelectButtonOnChange } from './SelectButton';
 import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
 
 /**
  * Interface for the node's state property.
  */
 interface NodeState {
-    checked?: SelectButtonState;
+    checked?: boolean;
     disabled?: boolean;
     expanded?: boolean;
     selected?: boolean;
@@ -145,13 +145,13 @@ export class Node extends React.Component<NodeProps, {}> {
     private static StateFactory(state: NodeState): NodeState {
         if ( state != null) {
             return {
-                checked: defVal(state.checked, SelectButtonState.Unselected),
+                checked: defVal(state.checked, false),
                 disabled: defVal(state.disabled, false),
                 expanded: defVal(state.expanded, false),
                 selected: defVal(state.selected, false)
             };
         } else {
-            return {checked: SelectButtonState.Unselected, disabled: false, expanded: false, selected: false};
+            return {checked: false, disabled: false, expanded: false, selected: false};
         }
     }
 

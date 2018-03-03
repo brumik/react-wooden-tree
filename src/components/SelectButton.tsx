@@ -8,18 +8,11 @@ export interface SelectButtonOnChange {
 }
 
 /**
- * The sate of checked values.
- */
-export enum SelectButtonState {
-    Unselected = -1, PartiallySelected = 0, Selected = 1,
-}
-
-/**
  * SelectButton properties definition.
  */
 interface SelectButtonProps {
     onChange: (checked: boolean) => void;
-    checked: SelectButtonState;
+    checked: boolean;
     checkedIcon: string;
     partiallyCheckedIcon: string;
     uncheckedIcon: string;
@@ -38,15 +31,15 @@ export class SelectButton extends React.Component<SelectButtonProps, {}> {
         let switchVal: boolean;
 
         switch (this.props.checked) {
-            case SelectButtonState.Unselected:
+            case false:
                 icon = <i className={this.props.uncheckedIcon} />;
                 switchVal = true;
                 break;
-            case SelectButtonState.PartiallySelected:
+            case undefined:
                 icon = <i className={this.props.partiallyCheckedIcon} />;
                 switchVal = true;
                 break;
-            case SelectButtonState.Selected:
+            case true:
                 icon = <i className={this.props.checkedIcon} />;
                 switchVal = false;
                 break;

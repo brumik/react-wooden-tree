@@ -1,7 +1,6 @@
 import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, ParentData } from './Node';
-import { SelectButtonState } from './SelectButton';
 import './Tree.css';
 import { defVal } from './Helpers';
 
@@ -27,6 +26,17 @@ export interface TreeProps {
     emptyIcon?: string;                 // < TODO: The icon for empty something.
     loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
     selectedIcon?: string;              // < TODO: The icon for selected nodes.
+
+    // Callbacks
+    /**
+     * All changes made in the tree will be propagated upwards.
+     * Every time the tree changes the node's data the callback will be fired.
+     *
+     * @param {string} id The node's id.
+     * @param {string} dataType The currently changed information.
+     * @param {boolean} newValue The newly assigned value.
+     */
+    onDataChange?: (id: string, dataType: string, newValue: boolean) => void;
 
     // TODO All of these <-- Should go into an external css file
     // backColor?: string;
@@ -119,554 +129,6 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         );
     }
 
-    /** @defgroup MethodsGroup
-     * The public methods used to manipulate the tree programmatically.
-     *  @{
-     */
-    // TODO: Required methods:
-    // addNode, addNodeAfter, addNodeBefore
-    // findNodes
-    // remove, removeNode, revealNode
-    // search, selectNode, clearSearch
-    // updateNode, unmarkCheckboxChanges
-    // unselectNode
-
-    /**
-     * Expands all nodes which have children. If node were not initialized then does it too.
-     */
-    public expandAll(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            if ( node.nodes && node.nodes.length > 0 ) {
-                self.initNode(node);
-                node.state.expanded = true;
-            }
-        });
-
-        this.update();
-    }
-
-    /**
-     * Expands the given node(s). If not initialized then does it too.
-     * Invalid ids are just skipped.
-     *
-     * @param {string[]} ids The array of node IDs.
-     */
-    public expandNode(ids: string[]): void {
-        for (let i = 0; i < ids.length; i++) {
-            let node = this.nodeSelector(ids[i]);
-            if ( !node ) { continue; }
-
-            if ( node.nodes && node.nodes.length > 0 ) {
-                this.initNode(node);
-                node.state.expanded = true;
-            }
-        }
-
-        this.update();
-    }
-
-    /**
-     * Collapses nodes which are initialized (not initialized are not displayed)
-     */
-    public collapseAll(): void {
-        this.iterateAll(function (node: NodeProps): void {
-            node.state.expanded = false;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Collapses the given node(s), only if were initialized.
-     * Invalid ids are just skipped.
-     *
-     * @param {string[]} ids The array of node IDs
-     */
-    public collapseNode(ids: string[]): void {
-        for (let i = 0; i < ids.length; i++) {
-            let node = this.nodeSelector(ids[i]);
-            if ( !node ) { continue; }
-
-            if ( node.initialized ) {
-                node.state.expanded = false;
-            }
-        }
-
-        this.update();
-    }
-
-    /**
-     * All nodes are set to checked. If node not initialized then does it too.
-     */
-    public checkAll(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.checked = SelectButtonState.Selected;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Sets the node(s) to checked. If node(s) are not initialized then does it too.
-     * Invalid ids are just skipped.
-     *
-     * @param {string[]} ids
-     */
-    public checkNode(ids: string[]): void {
-        for (let i = 0; i < ids.length; i++) {
-            let node = this.nodeSelector(ids[i]);
-            if ( !node ) { continue; }
-
-            this.initNode(node);
-            node.state.checked = SelectButtonState.Selected;
-        }
-
-        this.update();
-    }
-
-    /**
-     * All nodes are set to unchecked. If node not initialized then does it too.
-     */
-    public uncheckAll(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.checked = SelectButtonState.Unselected;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Sets the node(s) to unchecked. If node(s) are not initialized then does it too.
-     * Invalid ids are just skipped.
-     *
-     * @param {string[]} ids
-     */
-    public uncheckNode(ids: string[]): void {
-        for (let i = 0; i < ids.length; i++) {
-            let node = this.nodeSelector(ids[i]);
-            if ( !node ) { continue; }
-
-            this.initNode(node);
-            node.state.checked = SelectButtonState.Unselected;
-        }
-
-        this.update();
-    }
-
-    /**
-     * All nodes are disabled. If node not initialized then does it too.
-     */
-    public disableAll(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.disabled = true;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Sets the node(s) to disabled. If node(s) are not initialized then does it too.
-     * Invalid ids are just skipped.
-     *
-     * @param {string[]} ids
-     */
-    public disableNode(ids: string[]): void {
-        for (let i = 0; i < ids.length; i++) {
-            let node = this.nodeSelector(ids[i]);
-            if ( !node ) { continue; }
-
-            this.initNode(node);
-            node.state.disabled = true;
-        }
-
-        this.update();
-    }
-
-    /**
-     * All nodes are enabled. If node not initialized then does it too.
-     */
-    public enableAll(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.disabled = false;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Sets the node(s) enabled. If node(s) are not initialized then does it too.
-     * Invalid ids are just skipped.
-     *
-     * @param {string[]} ids
-     */
-    public enableNode(ids: string[]): void {
-        for (let i = 0; i < ids.length; i++) {
-            let node = this.nodeSelector(ids[i]);
-            if ( !node ) { continue; }
-
-            this.initNode(node);
-            node.state.disabled = false;
-        }
-
-        this.update();
-    }
-
-    /**
-     * Toggles the checked state. (Does not touch partially selected nodes).
-     */
-    public toggleNodeChecked(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            if ( node.state.checked === SelectButtonState.Selected ) {
-                node.state.checked = SelectButtonState.Unselected;
-            } else if ( node.state.checked === SelectButtonState.Unselected ) {
-                node.state.checked = SelectButtonState.Selected;
-            }
-        });
-
-        this.update();
-    }
-
-    /**
-     * Toggles the expanded state.
-     */
-    public toggleNodeExpanded(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.expanded = !node.state.expanded;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Toggles the disabled state.
-     */
-    public toggleNodeDisabled(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.disabled = !node.state.disabled;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Toggles the selected state.
-     */
-    public toggleNodeSelected(): void {
-        // Save reference
-        const self = this;
-
-        // Pass the logic as callback to node iterator.
-        this.iterateAll(function(node: NodeProps): void {
-            self.initNode(node);
-            node.state.selected = !node.state.selected;
-        });
-
-        this.update();
-    }
-
-    /**
-     * Returns all node ids which are checked.
-     *
-     * @param {boolean} partially If true returns nodes which are partially checked too.
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getChecked(partially: boolean = false): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( !partially ) {
-                if ( node.state.checked === SelectButtonState.Selected ) {
-                    ids.push(node.id);
-                }
-            } else {
-                if ( node.state.checked === SelectButtonState.Selected ||
-                     node.state.checked === SelectButtonState.PartiallySelected) {
-                    ids.push(node.id);
-                }
-            }
-
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are unchecked.
-     *
-     * @param {boolean} partially If true returns nodes which are partially checked too.
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getUnchecked(partially: boolean = false): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( !partially ) {
-                if ( node.state.checked === SelectButtonState.Unselected ) {
-                    ids.push(node.id);
-                }
-            } else {
-                if ( node.state.checked === SelectButtonState.Unselected ||
-                    node.state.checked === SelectButtonState.PartiallySelected) {
-                    ids.push(node.id);
-                }
-            }
-
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are expanded.
-     *
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getExpanded(): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( node.state.expanded ) {
-                ids.push(node.id);
-            }
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are collapsed.
-     *
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getCollapsed(): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( !node.state.expanded ) {
-                ids.push(node.id);
-            }
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are disabled.
-     *
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getDisabled(): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( node.state.disabled ) {
-                ids.push(node.id);
-            }
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are enabled.
-     *
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getEnabled(): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( !node.state.disabled ) {
-                ids.push(node.id);
-            }
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are selected.
-     *
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getSelected(): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( node.state.selected ) {
-                ids.push(node.id);
-            }
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all node ids which are unselected.
-     *
-     * @returns {string[]} Array of ids of nodes which passed the filter.
-     */
-    public getUnselected(): string[] {
-        let ids: string[] = [];
-
-        const self = this;
-        this.iterateAll(function (node: NodeProps): void {
-            self.initNode(node);
-
-            if ( !node.state.selected ) {
-                ids.push(node.id);
-            }
-        });
-
-        return ids;
-    }
-
-    /**
-     * Returns all parent ids to the given nodes. The parents are ordered by the following:
-     * From the give node to the last and each has its parents from the closest to the farthest.
-     *
-     * One node can be listed more than one time. Does not initializes the nodes.
-     * Invalid node ids are skipped.
-     *
-     * @param {string[]} nodes The nodes to get the parents ids.
-     * @param {number} levels The max number of distance of the parent. If 0 then to the root.
-     * @returns {string[]} The parents ids of the given nodes.
-     */
-    public getParents(nodes: string[], levels: number = 0): string[] {
-        let ids: string[] = [];
-
-        // For all passed nodes:
-        for (let i = 0; i < nodes.length; i++) {
-
-            // Checking if node exists.
-            if ( !this.nodeSelector(nodes[i]) ) { continue; }
-
-            let tempID = nodes[i];
-
-            if ( levels <= 0 ) {
-                // Extract ids backwards to the root from the current one.
-                while (tempID.length > 1) {
-                    tempID = tempID.slice(0, tempID.lastIndexOf('.'));
-                    ids.push(tempID);
-                }
-            } else {
-                // Extract ids backwards to the specified level or the root from the current one.
-                while (tempID.length > 1 && levels > 0) {
-                    tempID = tempID.slice(0, tempID.lastIndexOf('.'));
-                    ids.push(tempID);
-                    levels--;
-                }
-            }
-        }
-
-        return ids;
-    }
-
-    /**
-     * Returns the sibling (and the given node as well) to the given nodes.
-     * If parent was not initialized then does it. Invalid node ids are skipped.
-     *
-     * @param {string[]} nodes The nodes to get the siblings ids.
-     * @returns {string[]} The sibling ids (counted the given node ids too).
-     */
-    public getSiblings(nodes: string[]): string[] {
-        let ids: string[] = [];
-
-        // Checking if node exists is done in the getParent method.
-        let parents = this.getParents(nodes, 1)[0]; // Getting only the closest parents.
-
-        for (let i = 0; i < parents.length; i++) {
-            let parent = this.nodeSelector(parents[i]);
-
-            // Making sure that parent is initialized and have children (can pass any ID to the method).
-            this.initNode(parent);
-            if ( !parent.nodes ) { continue; }
-
-            for (let l = 0; l < parent.nodes.length; l++) {
-                ids.push(parent.nodes[l].id);
-            }
-        }
-
-        return ids;
-    }
-
-    /** @} */ // end of MethodsGroup
-
-    /**
-     * Iterates trough all initialized nodes and passes each of them to the callback function.
-     *
-     * @param {(node: NodeProps) => void} callback
-     * @param {NodeProps[]} nodes
-     */
-    private iterateAll(callback: (node: NodeProps) => void, nodes: NodeProps[] = this.treeNodes) {
-        for (let i = 0; i < nodes.length; i++) {
-            callback(nodes[i]);
-            if ( nodes[i].initialized ) {
-                this.iterateAll(callback, nodes[i].nodes);
-            }
-        }
-    }
-
     /**
      * Constructor.
      * @param {TreeProps} props
@@ -745,10 +207,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * Uses recurse to update all parent if a checkbox is changed.
      * Iterates over all children to determine the parent state.
      *
-     * @param {SelectButtonState} checked The new state of the child.
+     * @param {boolean} checked The new state of the child.
      * @param {NodeProps} node The child node.
      */
-    private parentSelectButtonChange(checked: SelectButtonState, node: NodeProps): void {
+    private parentSelectButtonChange(checked: boolean, node: NodeProps): void {
         // Root node:
         if ( node.id.length === 1 ) { return; }
 
@@ -756,18 +218,18 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         let parentID: string = node.id.substring(0, node.id.length - 2);
         let parentNode: NodeProps = this.nodeSelector(parentID);
 
-        let state = SelectButtonState.Unselected;
+        let state = false;
         let checkedCounter = 0;
         for (let i = 0; i < parentNode.nodes.length; i++) {
             let currState = parentNode.nodes[i].state.checked;
 
             // If even one is partially selected then the parent will be too.
-            if ( currState === SelectButtonState.PartiallySelected ) {
-                state = SelectButtonState.PartiallySelected;
+            if ( currState === undefined ) {
+                state = undefined;
                 break;
 
             // Otherwise we start to count the number of selected boxes.
-            } else if ( currState === SelectButtonState.Selected ) {
+            } else if ( currState === true ) {
                 checkedCounter++;
             }
         }
@@ -777,11 +239,11 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             // otherwise if the counter is full then it is selected,
             // otherwise if bigger than zero then partially selected
             // and if zero then it is unselected.
-        if ( state === SelectButtonState.Unselected ) {
+        if ( state === false ) {
             if (checkedCounter === parentNode.nodes.length) {
-                state = SelectButtonState.Selected;
+                state = true;
             } else if (checkedCounter > 0) {
-                state = SelectButtonState.PartiallySelected;
+                state = undefined;
             }
         }
 
@@ -798,7 +260,12 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     private nodeSelectButtonChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
         if ( node.nodes ) {
-            node.state.checked = checked ? SelectButtonState.Selected : SelectButtonState.Unselected;
+            node.state.checked = checked;
+
+            if ( this.props.onDataChange ) {
+                this.props.onDataChange(node.id, 'state.checked', node.state.checked);
+            }
+
             if ( this.props.hierarchicalCheck ) {
 
                 // Init node because if we don't do it children with no state property wont be selected.
@@ -832,6 +299,8 @@ export class Tree extends React.Component<TreeProps, TreeState> {
 
     /**
      * Handles the expanding and collapsing elements.
+     * If passed onDataChange function then calls it.
+     *
      * @param {string} id The id of node which has changed.
      * @param {boolean} expanded The current state
      */
@@ -839,6 +308,11 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         let node: NodeProps = this.nodeSelector(id);
         this.initNode(node);
         node.state.expanded = expanded;
+
+        if ( this.props.onDataChange ) {
+            this.props.onDataChange(node.id, 'state.expanded', expanded);
+        }
+
         this.update();
     }
 }

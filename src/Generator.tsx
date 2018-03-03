@@ -18,9 +18,9 @@ import { NodeProps } from './components/Node';
 
 export function generator(): NodeProps[] {
     return [
-        {text: 'Parent 1 - Expanded', state: {expanded: true, checked: 1},
+        {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true},
             nodes: [
-                {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: 1}},
+                {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: true}},
                 {text: 'Child 2 - Non checkable and empty icon', icon: 'fa fa-fw', checkable: false}
             ]
         },
