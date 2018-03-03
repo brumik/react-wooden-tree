@@ -103,7 +103,6 @@ export class Node extends React.Component<NodeProps, {}> {
             node.image = defVal(node.image, null);
 
             // Private
-            node.parentData = parentData;
             node.initialized = false;
 
             // Check if the node is expanded, if so then we have to initialize its children too
@@ -118,15 +117,17 @@ export class Node extends React.Component<NodeProps, {}> {
      * Creates the Node[] components from given nodes.
      *
      * @param {NodeProps[]} nodes The nodes to render.
+     * @param {ParentData} parentData The parent data to pass.
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodes: NodeProps[]): JSX.Element[] {
+    public static renderSublist(nodes: NodeProps[], parentData: ParentData): JSX.Element[] {
         if (nodes) {
             let elements: JSX.Element[] = [];
             for (let i = 0; i < nodes.length; i++) {
                 elements.push(
                     <Node
                         key={nodes[i].id}
+                        parentData={parentData}
                         {...nodes[i]}
                     />
                 );
@@ -203,7 +204,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         // Children
         const sublist = this.props.state.expanded ? (
-            Node.renderSublist(this.props.nodes)
+            Node.renderSublist(this.props.nodes, this.props.parentData)
         ) : null;
 
         return (

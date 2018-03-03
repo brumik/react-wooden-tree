@@ -123,7 +123,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         return (
             <div className="Tree">
                 <ul>
-                    {Node.renderSublist(this.state.nodes)}
+                    {Node.renderSublist(this.state.nodes, this.parentData)}
                 </ul>
                 <style>
                     {Tree.generateIndentCSS(Tree.getDepth(this.treeNodes))}
