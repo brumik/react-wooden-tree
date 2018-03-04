@@ -39,6 +39,9 @@ export interface ParentData {
     emptyIcon?: string;                 // < TODO: The icon for empty something.
     loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
     selectedIcon?: string;              // < TODO: The icon for selected nodes.
+
+    // Other
+    checkboxFirst: boolean;             // < Determines the order of the icon and the checkbox.
 }
 
 /**
@@ -168,13 +171,23 @@ export class Node extends React.Component<NodeProps, {}> {
             Node.renderSublist(this.props.nodes, this.props.parentData)
         ) : null;
 
+        // Determining icon order
+        let icon1, icon2: JSX.Element;
+        if ( this.props.parentData.checkboxFirst ) {
+            icon1 = checkbox;
+            icon2 = icon;
+        } else {
+            icon1 = icon;
+            icon2 = checkbox;
+        }
+
         return (
             <React.Fragment>
                 <li className={NodeClasses} id={this.props.id}>
                     {openButton}
-                    {checkbox}
+                    {icon1}
                     {selectedIcon}
-                    {icon}
+                    {icon2}
                     {/* TODO Somehow remove span but prevent change if clicked on expand or chekc button */}
                     <span onClick={this.handleSelected}>{this.props.text}</span>
                 </li>

@@ -10,7 +10,7 @@ export interface TreeProps {
     // Checkbox
     showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
     hierarchicalCheck?: boolean;        // < If enabled parent and children are reflecting each other changes.
-    checkboxFirst?: boolean;            // < TODO: Determines if the node icon or the checkbox is the first.
+    checkboxFirst?: boolean;            // < Determines if the node icon or the checkbox is the first.
 
     // Selection
     multiSelect?: boolean;              // < Determines if multiple nodes can be selected.
@@ -183,7 +183,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         super(props);
 
         this.parentData = {
-            // Checkbox
+            // Callbacks
             checkboxOnChange: this.handleSelectButtonChange,
             expandOnChange: this.handleExpandedChange,
             selectOnChange: this.handleSelectedChange,
@@ -202,6 +202,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             emptyIcon: this.props.emptyIcon,
             loadingIcon: this.props.emptyIcon,
             selectedIcon: this.props.selectedIcon,
+
+            // Other
+            checkboxFirst: this.props.checkboxFirst,
         };
     }
 
@@ -357,7 +360,7 @@ Tree.defaultProps = {
     // Checkbox
     showCheckbox: false,
     hierarchicalCheck: false,
-    checkboxFirst: false,
+    checkboxFirst: true,
 
     // Selection
     multiSelect: false,

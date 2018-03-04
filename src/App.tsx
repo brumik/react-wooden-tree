@@ -51,8 +51,9 @@ class App extends React.Component<{}, AppState> {
           <div className="App">
             <Tree
                 hierarchicalCheck={true}
-                showCheckbox={false}
+                showCheckbox={true}
                 multiSelect={true}
+                checkboxFirst={true}
                 nodeIcon={'fa fa-fw'}
                 partiallyCheckedIcon={'fa fa-ban'}
                 data={this.state.tree}
