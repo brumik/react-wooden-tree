@@ -5,13 +5,17 @@ import './Tree.css';
 import { defVal } from './Helpers';
 
 export interface TreeProps {
-    data?: NodeProps[];                  // < The definitions of the tree nodes.
-    dataUrl?: string;                   // < TODO: An URL which returns the data in JSON.
+    data: NodeProps[];                 // < The definitions of the tree nodes.
 
     // Checkbox
     showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
     hierarchicalCheck?: boolean;        // < If enabled parent and children are reflecting each other changes.
     checkboxFirst?: boolean;            // < TODO: Determines if the node icon or the checkbox is the first.
+
+    // Selection
+    multiSelect?: boolean;              // < Determines if multiple nodes can be selected.
+    preventUnselect?: boolean;          // < Determines if can deselect node(s).
+    allowReselect?: boolean;            // < TODO Functionality?
 
     // Icons
     showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
@@ -24,7 +28,7 @@ export interface TreeProps {
     expandIcon?: string;                // < The icon for expanding parents.
     emptyIcon?: string;                 // < TODO: The icon for empty something.
     loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
-    selectedIcon?: string;              // < TODO: The icon for selected nodes.
+    selectedIcon?: string;              // < The icon for selected nodes.
 
     // Callbacks
     /**
@@ -40,11 +44,8 @@ export interface TreeProps {
     // TODO: highlightChanges?: boolean;
     // TODO: highlightSearchResults?: boolean;
     // TODO: highlightSelected?: boolean;
-    // TODO: multiSelect?: boolean;
-    // TODO: levels
     // TODO: lazyLoad
-    // TODO: preventUnselect
-    // TODO: AllowReselect
+    // TODO: levels
 }
 
 interface TreeState {}
@@ -60,6 +61,13 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * tree component root like settings and callback functions.
      */
     private parentData: ParentData;
+
+    /**
+     * Indicates if there is a node currently selected and which one.
+     * Needed to uncheck node if user selects another.
+     * Not needed when multi-select is enabled.
+     */
+    private selectedNode: string;
 
     /**
      * Generates the IDs and states for all nodes recursively.
@@ -178,7 +186,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             // Checkbox
             checkboxOnChange: this.handleSelectButtonChange,
             expandOnChange: this.handleExpandedChange,
+            selectOnChange: this.handleSelectedChange,
             showCheckbox: this.props.showCheckbox,
+            initSelectedNode: this.initSelectedNode,
 
             // Icons
             showIcon: this.props.showIcon,
@@ -289,6 +299,53 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     private handleExpandedChange = (id: string, expanded: boolean): void => {
         this.props.onDataChange(id, 'state.expanded', expanded);
     }
+
+    /**
+     * When constructing the node this function is called if the node is selectet.
+     * If more than one node is selected and multi-select is not allowed then the first one
+     * will be kept, the others will be unselected.
+     *
+     * @param {string} id The ID of the currently rendering node.
+     */
+    private initSelectedNode = (id: string): void => {
+        if ( !this.props.multiSelect ) {
+            if ( this.selectedNode !== null ) {
+                this.props.onDataChange(id, 'state.selected', false);
+            } else {
+                this.selectedNode = id;
+            }
+        }
+    }
+
+    /**
+     * If node is selected then checks if multi-select is active.
+     * If not active and another node is currently selected, then deselects it.
+     * Calls the callback for change the selected nodes.
+     *
+     * If preventUnselect is active then all deselecting actions are skipped.
+     *
+     * @param {string} id The id of the node which was selected/deselected.
+     * @param {boolean} selected The new state of the node.
+     */
+    private handleSelectedChange = (id: string, selected: boolean): void => {
+        // Preventing unselect.
+        if ( this.props.preventUnselect && !selected ) { return; }
+
+        if ( !this.props.multiSelect && selected ) {
+
+            // Deselect previous
+            if ( this.selectedNode != null ) {
+                this.props.onDataChange(this.selectedNode, 'state.selected', false);
+            }
+            // Select the new
+            this.props.onDataChange(id, 'state.selected', true);
+            this.selectedNode = id;
+
+        } else {
+            this.props.onDataChange(id, 'state.selected', selected);
+            this.selectedNode = null;
+        }
+    }
 }
 
 /**
@@ -296,12 +353,16 @@ export class Tree extends React.Component<TreeProps, TreeState> {
  */
 Tree.defaultProps = {
     data: [],
-    dataUrl: null,
 
     // Checkbox
     showCheckbox: false,
     hierarchicalCheck: false,
     checkboxFirst: false,
+
+    // Selection
+    multiSelect: false,
+    preventUnselect: false,
+    allowReselect: false,
 
     // Icons
     showIcon: true,
@@ -314,7 +375,7 @@ Tree.defaultProps = {
     expandIcon: 'fa fa-angle-right',
     emptyIcon: 'fa fa-fw',
     loadingIcon: 'fa fa-spinner fa-spin',
-    selectedIcon: 'fa fa-stop',
+    selectedIcon: 'fa fa-check',
 
     // Callbacks
     onDataChange: null,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 /**
- * Callback function for SelectButton.
+ * Callback function for CheckboxButton.
  */
 export interface SelectButtonOnChange {
     (checked: boolean, id: string): void;
@@ -15,7 +15,7 @@ export enum SelectButtonState {
 }
 
 /**
- * SelectButton properties definition.
+ * CheckboxButton properties definition.
  */
 interface SelectButtonProps {
     onChange: (checked: boolean) => void;

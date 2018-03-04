@@ -37,6 +37,8 @@ class App extends React.Component<{}, AppState> {
             node.state.expanded = value;
         } else if ( type === 'state.checked' ) {
             node.state.checked = value;
+        } else if ( type === 'state.selected') {
+            node.state.selected = value;
         } else {
             console.log(id, type, value);
         }
@@ -49,7 +51,8 @@ class App extends React.Component<{}, AppState> {
           <div className="App">
             <Tree
                 hierarchicalCheck={true}
-                showCheckbox={true}
+                showCheckbox={false}
+                multiSelect={true}
                 nodeIcon={'fa fa-fw'}
                 partiallyCheckedIcon={'fa fa-ban'}
                 data={this.state.tree}

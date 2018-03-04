@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SelectButton, SelectButtonOnChange } from './SelectButton';
+import { CheckboxButton, CheckboxButtonOnChange } from './CheckboxButton';
 import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
 
 /**
@@ -12,14 +12,20 @@ interface NodeState {
     selected?: boolean;
 }
 
+interface SelectOnChange {
+    (id: string, selected: boolean): void;
+}
+
 /**
  * Interface for all data required from the tree root.
  */
 export interface ParentData {
-    // Checkbox
-    checkboxOnChange: SelectButtonOnChange;
+    // Callbacks
+    checkboxOnChange: CheckboxButtonOnChange;
     expandOnChange: ExpandButtonOnChange;
+    selectOnChange: SelectOnChange;
     showCheckbox: boolean;
+    initSelectedNode: (id: string) => void;
 
     // Icons
     showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
@@ -52,7 +58,6 @@ export interface NodeProps {
 
     // Private
     parentData?: ParentData;
-    initialized?: boolean;
 
     // TODO All of these
     selectable?: boolean;
@@ -106,7 +111,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         // Checkbox
         const checkbox = !this.props.hideCheckbox && this.props.parentData.showCheckbox ? (
-            <SelectButton
+            <CheckboxButton
                 onChange={this.handleCheckChange}
                 checked={this.props.state.checked}
                 checkedIcon={this.props.parentData.checkedIcon}
@@ -115,7 +120,7 @@ export class Node extends React.Component<NodeProps, {}> {
             />
         ) : null;
 
-        // Dropdown button if not displayed added padding
+        // Expand button: if not displayed added padding
         let openButton: JSX.Element;
         if ( this.props.nodes.length > 0 ) {
             openButton = (
@@ -143,6 +148,21 @@ export class Node extends React.Component<NodeProps, {}> {
             }
         }
 
+        // Selected
+        let selectedIcon: JSX.Element = null;
+        if ( this.props.state.selected ) {
+            if ( this.props.selectedIcon ) {
+                selectedIcon = <i className={this.props.selectedIcon}/>;
+            } else {
+                selectedIcon = <i className={this.props.parentData.selectedIcon}/>;
+            }
+        }
+
+        // Selectable class
+        if ( this.props.selectable && !this.props.state.disabled ) {
+            NodeClasses += ' Selectable';
+        }
+
         // Children
         const sublist = this.props.state.expanded ? (
             Node.renderSublist(this.props.nodes, this.props.parentData)
@@ -153,8 +173,10 @@ export class Node extends React.Component<NodeProps, {}> {
                 <li className={NodeClasses} id={this.props.id}>
                     {openButton}
                     {checkbox}
+                    {selectedIcon}
                     {icon}
-                    {this.props.text}
+                    {/* TODO Somehow remove span but prevent change if clicked on expand or chekc button */}
+                    <span onClick={this.handleSelected}>{this.props.text}</span>
                 </li>
                 {sublist}
             </React.Fragment>
@@ -168,6 +190,11 @@ export class Node extends React.Component<NodeProps, {}> {
     private constructor(props: NodeProps) {
         super(props);
 
+        if ( this.props.state.selected ) {
+            this.props.parentData.initSelectedNode(this.props.id);
+        }
+
+        this.handleSelected = this.handleSelected.bind(this);
         this.handleCheckChange = this.handleCheckChange.bind(this);
         this.handleOpenChange = this.handleOpenChange.bind(this);
     }
@@ -188,6 +215,16 @@ export class Node extends React.Component<NodeProps, {}> {
      */
     private handleOpenChange(expanded: boolean): void {
         this.props.parentData.expandOnChange(this.props.id, expanded);
+    }
+
+    /**
+     * Handles the selected event. If allowed to select then calls the callback
+     * function with the opposite of currently selected state.
+     */
+    private handleSelected(): void {
+        if ( this.props.selectable && !this.props.state.disabled ) {
+            this.props.parentData.selectOnChange(this.props.id, !this.props.state.selected);
+        }
     }
 
     /**
@@ -222,10 +259,9 @@ Node.defaultProps = {
 
     // Private
     parentData: null,
-    initialized: false,
 
     // TODO All of these
     selectable: true,
-    selectedIcon: '',
+    selectedIcon: null,
     classes: ''
 };
