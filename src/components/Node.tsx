@@ -52,8 +52,14 @@ export interface NodeProps {
     text: string;
     nodes?: NodeProps[];
     state?: NodeState;
+
     checkable?: boolean;
     hideCheckbox?: boolean;
+
+    selectable?: boolean;
+    selectedIcon?: string;
+
+    classes?: string;
 
     // Styling
     icon?: string;
@@ -61,11 +67,6 @@ export interface NodeProps {
 
     // Private
     parentData?: ParentData;
-
-    // TODO All of these
-    selectable?: boolean;
-    selectedIcon?: string;
-    classes?: string;
 }
 
 /**
@@ -179,6 +180,11 @@ export class Node extends React.Component<NodeProps, {}> {
         } else {
             icon1 = icon;
             icon2 = checkbox;
+        }
+
+        // Additional classes
+        if ( this.props.classes ) {
+            NodeClasses += ' ' + this.props.classes;
         }
 
         return (

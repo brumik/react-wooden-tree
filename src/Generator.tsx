@@ -28,7 +28,7 @@ export function generator(): NodeProps[] {
         {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
             nodes: [
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw'},
-                {text: 'Child 2 - No icon specified'},
+                {text: 'Child 2 - No icon specified', classes: 'custom-class'},
                 {text: 'Child 3 - Image icon', image: 'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
             ]
         }
