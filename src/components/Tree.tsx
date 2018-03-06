@@ -30,6 +30,10 @@ export interface TreeProps {
     errorIcon?: string;                 // < The icon displayed when lazyLoading went wrong.
     selectedIcon?: string;              // < The icon for selected nodes.
 
+    // Styling
+    changedCheckboxClass?: string;      // < Extra class for the changed checkbox nodes.
+    selectedClass?: string;             // < Extra class for the selected nodes.
+
     // Callbacks
     /**
      * All changes made in the tree will be propagated upwards.
@@ -46,14 +50,9 @@ export interface TreeProps {
      * expanded first time.
      *
      * @param {NodeProps} node The node of the node which has to be loaded.
-     * @returns {NodeProps[]} The children of the given node.
+     * @returns {Promise<NodeProps[]>} Promise about the children of the given node.
      */
     lazyLoad?: (node: NodeProps) => Promise<NodeProps[]>;
-
-    // TODO: highlightChanges?: boolean;
-    // TODO: highlightSearchResults?: boolean;
-    // TODO: highlightSelected?: boolean;
-    // TODO: levels
 }
 
 interface TreeState {}
@@ -307,6 +306,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             errorIcon: this.props.errorIcon,
             selectedIcon: this.props.selectedIcon,
 
+            // Styling
+            changedCheckboxClass: this.props.changedCheckboxClass,
+            selectedClass: this.props.selectedClass,
+
             // Other
             checkboxFirst: this.props.checkboxFirst,
         };
@@ -514,6 +517,10 @@ Tree.defaultProps = {
     loadingIcon: 'fa fa-spinner fa-spin',
     errorIcon: 'fa-exclamation-triangle',
     selectedIcon: 'fa fa-check',
+
+    // Styling
+    changedCheckboxClass: 'changed-checkbox',
+    selectedClass: 'selected',
 
     // Callbacks
     onDataChange: null,

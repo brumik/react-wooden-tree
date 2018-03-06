@@ -33,20 +33,24 @@ export interface ParentData {
     initSelectedNode: (id: string) => void;
 
     // Icons
-    showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
-    showImage?: boolean;                // < Determines if images are preferred to the icons.
-    nodeIcon?: string;                  // < Default icon for nodes without it.
-    checkedIcon?: string;               // < The checkbox-checked icon.
-    uncheckedIcon?: string;             // < The checkbox-unchecked icon.
-    partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
-    collapseIcon?: string;              // < The icon for collapsing parents.
-    expandIcon?: string;                // < The icon for expanding parents.
-    loadingIcon?: string;               // < The loading icon when loading data with ajax.
-    errorIcon?: string;                 // < The icon displayed when lazyLoading went wrong.
-    selectedIcon?: string;              // < The icon for selected nodes.
+    showIcon: boolean;                 // < Determines if the icons are showed in nodes.
+    showImage: boolean;                // < Determines if images are preferred to the icons.
+    nodeIcon: string;                  // < Default icon for nodes without it.
+    checkedIcon: string;               // < The checkbox-checked icon.
+    uncheckedIcon: string;             // < The checkbox-unchecked icon.
+    partiallyCheckedIcon: string;      // < The checkbox-partially selected icon.
+    collapseIcon: string;              // < The icon for collapsing parents.
+    expandIcon: string;                // < The icon for expanding parents.
+    loadingIcon: string;               // < The loading icon when loading data with ajax.
+    errorIcon: string;                 // < The icon displayed when lazyLoading went wrong.
+    selectedIcon: string;              // < The icon for selected nodes.
+
+    // Styling
+    changedCheckboxClass: string;      // < Extra class for the changed checkbox nodes.
+    selectedClass: string;             // < Extra class for the selected nodes.
 
     // Other
-    checkboxFirst: boolean;             // < Determines the order of the icon and the checkbox.
+    checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
 }
 
 /**
@@ -87,6 +91,11 @@ export class Node extends React.Component<NodeProps, {}> {
      * Used for default values.
      */
     public static defaultProps: NodeProps;
+
+    /**
+     * Used for determining if checkbox has changed.
+     */
+    private readonly defaultCheckbox: boolean;
 
     /**
      * Creates the Node[] components from given nodes.
@@ -196,6 +205,14 @@ export class Node extends React.Component<NodeProps, {}> {
         if ( this.props.classes ) {
             NodeClasses += ' ' + this.props.classes;
         }
+        // Changed checkbox class
+        if ( this.props.state.checked !== this.defaultCheckbox ) {
+            NodeClasses += ' ' + this.props.parentData.changedCheckboxClass;
+        }
+        // Selected class
+        if ( this.props.state.selected ) {
+            NodeClasses += ' ' + this.props.parentData.selectedClass;
+        }
 
         return (
             <React.Fragment>
@@ -204,7 +221,7 @@ export class Node extends React.Component<NodeProps, {}> {
                     {icon1}
                     {selectedIcon}
                     {icon2}
-                    {/* TODO Somehow remove span but prevent change if clicked on expand or chekc button */}
+                    {/* TODO Somehow remove span but prevent change if clicked on expand or check button */}
                     <span onClick={this.handleSelected}>{this.props.text}</span>
                 </li>
                 {sublist}
@@ -222,6 +239,8 @@ export class Node extends React.Component<NodeProps, {}> {
         if ( this.props.state.selected ) {
             this.props.parentData.initSelectedNode(this.props.id);
         }
+
+        this.defaultCheckbox = this.props.state.checked;
 
         this.handleSelected = this.handleSelected.bind(this);
         this.handleCheckChange = this.handleCheckChange.bind(this);
