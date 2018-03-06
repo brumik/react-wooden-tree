@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 /**
- * Callback function for SelectButton.
+ * Callback function for CheckboxButton.
  */
 export interface SelectButtonOnChange {
     (checked: boolean, id: string): void;
@@ -15,7 +15,7 @@ export enum SelectButtonState {
 }
 
 /**
- * SelectButton properties definition.
+ * CheckboxButton properties definition.
  */
 interface SelectButtonProps {
     onChange: (checked: boolean) => void;
@@ -27,7 +27,7 @@ interface SelectButtonProps {
  * value (if it was selected then with a false otherwise a true value is passed to the callback.)
  * Using fa-check-square, fa-square-o and fa-square for indicating the sates.
  *
- * @class SelectButton
+ * @class CheckboxButton
  */
 export class SelectButton extends React.Component<SelectButtonProps, {}> {
     render() {

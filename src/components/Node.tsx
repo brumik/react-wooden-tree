@@ -1,39 +1,56 @@
 import * as React from 'react';
-import { defVal } from './Helpers';
-import { SelectButton, SelectButtonOnChange, SelectButtonState } from './SelectButton';
+import { CheckboxButton, CheckboxButtonOnChange } from './CheckboxButton';
 import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
 
 /**
  * Interface for the node's state property.
  */
 interface NodeState {
-    checked?: SelectButtonState;
+    checked?: boolean;
     disabled?: boolean;
     expanded?: boolean;
     selected?: boolean;
+}
+
+interface SelectOnChange {
+    (id: string, selected: boolean): void;
+}
+
+interface OnLazyLoad {
+    (id: string): void;
 }
 
 /**
  * Interface for all data required from the tree root.
  */
 export interface ParentData {
-    // Checkbox
-    checkboxOnChange: SelectButtonOnChange;
+    // Callbacks
+    checkboxOnChange: CheckboxButtonOnChange;
     expandOnChange: ExpandButtonOnChange;
+    selectOnChange: SelectOnChange;
+    onLazyLoad: OnLazyLoad;
     showCheckbox: boolean;
+    initSelectedNode: (id: string) => void;
 
     // Icons
-    showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
-    showImage?: boolean;                // < Determines if images are preferred to the icons.
-    nodeIcon?: string;                  // < Default icon for nodes without it.
-    checkedIcon?: string;               // < The checkbox-checked icon.
-    uncheckedIcon?: string;             // < The checkbox-unchecked icon.
-    partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
-    collapseIcon?: string;              // < The icon for collapsing parents.
-    expandIcon?: string;                // < The icon for expanding parents.
-    emptyIcon?: string;                 // < TODO: The icon for empty something.
-    loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
-    selectedIcon?: string;              // < TODO: The icon for selected nodes.
+    showIcon: boolean;                 // < Determines if the icons are showed in nodes.
+    showImage: boolean;                // < Determines if images are preferred to the icons.
+    nodeIcon: string;                  // < Default icon for nodes without it.
+    checkedIcon: string;               // < The checkbox-checked icon.
+    uncheckedIcon: string;             // < The checkbox-unchecked icon.
+    partiallyCheckedIcon: string;      // < The checkbox-partially selected icon.
+    collapseIcon: string;              // < The icon for collapsing parents.
+    expandIcon: string;                // < The icon for expanding parents.
+    loadingIcon: string;               // < The loading icon when loading data with ajax.
+    errorIcon: string;                 // < The icon displayed when lazyLoading went wrong.
+    selectedIcon: string;              // < The icon for selected nodes.
+
+    // Styling
+    changedCheckboxClass: string;      // < Extra class for the changed checkbox nodes.
+    selectedClass: string;             // < Extra class for the selected nodes.
+
+    // Other
+    checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
 }
 
 /**
@@ -44,24 +61,23 @@ export interface NodeProps {
     text: string;
     nodes?: NodeProps[];
     state?: NodeState;
+
     checkable?: boolean;
     hideCheckbox?: boolean;
+
+    selectable?: boolean;
+    selectedIcon?: string;
+
+    lazyLoad?: boolean;
+    loading?: boolean; // Undefined when error occurred
 
     // Styling
     icon?: string;
     image?: string;
+    classes?: string;
 
     // Private
     parentData?: ParentData;
-    initialized?: boolean;
-
-    // TODO All of these
-    selectable?: boolean;
-    selectedIcon?: string;
-    color?: string;
-    backColor?: string;
-    iconColor?: string;
-    classes?: string;
 }
 
 /**
@@ -71,62 +87,31 @@ export interface NodeProps {
  * Displays a node and communicates with submodules and tree.
  */
 export class Node extends React.Component<NodeProps, {}> {
+    /**
+     * Used for default values.
+     */
+    public static defaultProps: NodeProps;
 
     /**
-     * Initializes the given children nodes.
-     *
-     * @param {NodeProps[]} children The children to initialize.
-     * @param {string} parentID The parent ID to compute children IDs
-     * @param {ParentData} parentData The required data from parent.
-     * @constructor
+     * Used for determining if checkbox has changed.
      */
-    public static ChildrenFactory(children: NodeProps[], parentID: string, parentData: ParentData): void {
-        // Check if exists
-        if ( children == null ) { return; }
-
-        for (let i = 0; i < children.length; i++) {
-            let node = children[i];
-
-            if ( parentID === '' ) {
-                node.id = i.toString();
-            } else {
-                node.id = parentID + '.' + i;
-            }
-
-            node.state = Node.StateFactory(node.state);
-            node.checkable = defVal(node.checkable, true);
-            node.hideCheckbox = defVal(node.hideCheckbox, false);
-            node.nodes = defVal(node.nodes, []);
-
-            // Styling
-            node.icon = defVal(node.icon, parentData.nodeIcon);
-            node.image = defVal(node.image, null);
-
-            // Private
-            node.parentData = parentData;
-            node.initialized = false;
-
-            // Check if the node is expanded, if so then we have to initialize its children too
-            if ( node.state.expanded ) {
-                Node.ChildrenFactory(node.nodes, node.id, parentData);
-                node.initialized = true;
-            }
-        }
-    }
+    private readonly defaultCheckbox: boolean;
 
     /**
      * Creates the Node[] components from given nodes.
      *
      * @param {NodeProps[]} nodes The nodes to render.
+     * @param {ParentData} parentData The parent data to pass.
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodes: NodeProps[]): JSX.Element[] {
+    public static renderSublist(nodes: NodeProps[], parentData: ParentData): JSX.Element[] {
         if (nodes) {
             let elements: JSX.Element[] = [];
             for (let i = 0; i < nodes.length; i++) {
                 elements.push(
                     <Node
                         key={nodes[i].id}
+                        parentData={parentData}
                         {...nodes[i]}
                     />
                 );
@@ -136,69 +121,17 @@ export class Node extends React.Component<NodeProps, {}> {
     }
 
     /**
-     * Generates a new state from given values or by default all values false.
+     * Renders the tree element.
      *
-     * @param {NodeState} state The already existing state. Top priority value.
-     * @returns {NodeState} The new filled state (if no value in the node then default)
-     * @constructor
+     * @returns {JSX.Element}
      */
-    private static StateFactory(state: NodeState): NodeState {
-        if ( state != null) {
-            return {
-                checked: defVal(state.checked, SelectButtonState.Unselected),
-                disabled: defVal(state.disabled, false),
-                expanded: defVal(state.expanded, false),
-                selected: defVal(state.selected, false)
-            };
-        } else {
-            return {checked: SelectButtonState.Unselected, disabled: false, expanded: false, selected: false};
-        }
-    }
-
-    /**
-     * Constructor.
-     * @param {NodeProps} props
-     */
-    constructor(props: NodeProps) {
-        super(props);
-
-        this.handleCheckChange = this.handleCheckChange.bind(this);
-        this.handleOpenChange = this.handleOpenChange.bind(this);
-    }
-
-    /**
-     * Own checkbox handler.
-     * @param {boolean} checked Contains the input field value.
-     */
-    handleCheckChange(checked: boolean): void {
-        if ( this.props.checkable ) {
-            this.props.parentData.checkboxOnChange(checked, this.props.id);
-        }
-    }
-
-    /**
-     * Handles open event.
-     * @param {boolean} expanded True on expand false on collapse.
-     */
-    handleOpenChange(expanded: boolean): void {
-        this.props.parentData.expandOnChange(this.props.id, expanded);
-    }
-
-    /**
-     * Returns the computed padding size for the current list item for indent.
-     * @returns {number} The computed padding level.
-     */
-    getItemIndentSize(): number {
-        return (this.props.id.split('.').length - 1);
-    }
-
-    render () {
+    public render () {
         // Indent class
         let NodeClasses = 'indent-' + this.getItemIndentSize();
 
         // Checkbox
         const checkbox = !this.props.hideCheckbox && this.props.parentData.showCheckbox ? (
-            <SelectButton
+            <CheckboxButton
                 onChange={this.handleCheckChange}
                 checked={this.props.state.checked}
                 checkedIcon={this.props.parentData.checkedIcon}
@@ -207,15 +140,18 @@ export class Node extends React.Component<NodeProps, {}> {
             />
         ) : null;
 
-        // Dropdown button if not displayed added padding
+        // Expand button: if not displayed added padding
         let openButton: JSX.Element;
-        if ( this.props.nodes.length > 0 ) {
+        if ( ( this.props.nodes && this.props.nodes.length > 0 ) || this.props.lazyLoad ) {
             openButton = (
                 <ExpandButton
                     onChange={this.handleOpenChange}
                     expanded={this.props.state.expanded}
+                    loading={this.props.loading}
                     expandIcon={this.props.parentData.expandIcon}
                     collapseIcon={this.props.parentData.collapseIcon}
+                    loadingIcon={this.props.parentData.loadingIcon}
+                    errorIcon={this.props.parentData.errorIcon}
                 />
             );
         } else {
@@ -228,26 +164,158 @@ export class Node extends React.Component<NodeProps, {}> {
         if ( this.props.parentData.showIcon ) {
             if ( this.props.parentData.showImage && this.props.image ) {
                 icon = <img className={'NodeIconImage'} src={this.props.image}/>;
-            } else {
+            } else if ( this.props.icon ) {
                 icon = <i className={this.props.icon}/>;
+            } else {
+                icon = <i className={this.props.parentData.nodeIcon}/>;
             }
+        }
+
+        // Selected
+        let selectedIcon: JSX.Element = null;
+        if ( this.props.state.selected ) {
+            if ( this.props.selectedIcon ) {
+                selectedIcon = <i className={this.props.selectedIcon}/>;
+            } else {
+                selectedIcon = <i className={this.props.parentData.selectedIcon}/>;
+            }
+        }
+
+        // Selectable class
+        if ( this.props.selectable && !this.props.state.disabled ) {
+            NodeClasses += ' Selectable';
         }
 
         // Children
         const sublist = this.props.state.expanded ? (
-            Node.renderSublist(this.props.nodes)
+            Node.renderSublist(this.props.nodes, this.props.parentData)
         ) : null;
+
+        // Determining icon order
+        let icon1, icon2: JSX.Element;
+        if ( this.props.parentData.checkboxFirst ) {
+            icon1 = checkbox;
+            icon2 = icon;
+        } else {
+            icon1 = icon;
+            icon2 = checkbox;
+        }
+
+        // Additional classes
+        if ( this.props.classes ) {
+            NodeClasses += ' ' + this.props.classes;
+        }
+        // Changed checkbox class
+        if ( this.props.state.checked !== this.defaultCheckbox ) {
+            NodeClasses += ' ' + this.props.parentData.changedCheckboxClass;
+        }
+        // Selected class
+        if ( this.props.state.selected ) {
+            NodeClasses += ' ' + this.props.parentData.selectedClass;
+        }
 
         return (
             <React.Fragment>
-                <li className={NodeClasses}>
+                <li className={NodeClasses} id={this.props.id}>
                     {openButton}
-                    {checkbox}
-                    {icon}
-                    {this.props.text}
+                    {icon1}
+                    {selectedIcon}
+                    {icon2}
+                    {/* TODO Somehow remove span but prevent change if clicked on expand or check button */}
+                    <span onClick={this.handleSelected}>{this.props.text}</span>
                 </li>
                 {sublist}
             </React.Fragment>
         );
     }
+
+    /**
+     * Constructor.
+     * @param {NodeProps} props
+     */
+    private constructor(props: NodeProps) {
+        super(props);
+
+        if ( this.props.state.selected ) {
+            this.props.parentData.initSelectedNode(this.props.id);
+        }
+
+        this.defaultCheckbox = this.props.state.checked;
+
+        this.handleSelected = this.handleSelected.bind(this);
+        this.handleCheckChange = this.handleCheckChange.bind(this);
+        this.handleOpenChange = this.handleOpenChange.bind(this);
+    }
+
+    /**
+     * Own checkbox handler.
+     * @param {boolean} checked Contains the input field value.
+     */
+    private handleCheckChange(checked: boolean): void {
+        if ( this.props.checkable ) {
+            this.props.parentData.checkboxOnChange(checked, this.props.id);
+        }
+    }
+
+    /**
+     * Handles open event.
+     * If lazy load set then loads the child nodes too.
+     *
+     * @param {boolean} expanded True on expand false on collapse.
+     */
+    private handleOpenChange(expanded: boolean): void {
+        if ( this.props.lazyLoad && this.props.nodes === null ) {
+            this.props.parentData.onLazyLoad(this.props.id);
+        }
+
+        this.props.parentData.expandOnChange(this.props.id, expanded);
+    }
+
+    /**
+     * Handles the selected event. If allowed to select then calls the callback
+     * function with the opposite of currently selected state.
+     */
+    private handleSelected(): void {
+        if ( this.props.selectable && !this.props.state.disabled ) {
+            this.props.parentData.selectOnChange(this.props.id, !this.props.state.selected);
+        }
+    }
+
+    /**
+     * Returns the computed padding size for the current list item for indent.
+     * @returns {number} The computed padding level.
+     */
+    private getItemIndentSize(): number {
+        return (this.props.id.split('.').length - 1);
+    }
 }
+
+/**
+ * Node default values.
+ */
+Node.defaultProps = {
+    id: '',
+    text: '',
+    nodes: null,
+    state: {
+        checked: false,
+        expanded: false,
+        disabled: false,
+        selected: false
+    },
+
+    checkable: true,
+    hideCheckbox: false,
+    selectable: true,
+    selectedIcon: null,
+    lazyLoad: false,
+    loading: false,
+
+    // Styling
+    icon: null,
+    image: null,
+    classes: '',
+
+    // Private
+    parentData: null,
+};

@@ -1,25 +1,18 @@
 import * as React from 'react';
 
 /**
- * Callback function for SelectButton.
+ * Callback function for CheckboxButton.
  */
-export interface SelectButtonOnChange {
+export interface CheckboxButtonOnChange {
     (checked: boolean, id: string): void;
 }
 
 /**
- * The sate of checked values.
+ * CheckboxButton properties definition.
  */
-export enum SelectButtonState {
-    Unselected = -1, PartiallySelected = 0, Selected = 1,
-}
-
-/**
- * SelectButton properties definition.
- */
-interface SelectButtonProps {
+interface CheckboxButtonProps {
     onChange: (checked: boolean) => void;
-    checked: SelectButtonState;
+    checked: boolean;
     checkedIcon: string;
     partiallyCheckedIcon: string;
     uncheckedIcon: string;
@@ -30,23 +23,23 @@ interface SelectButtonProps {
  * value (if it was selected then with a false otherwise a true value is passed to the callback.)
  * Using fa-check-square, fa-square-o and fa-square for indicating the sates.
  *
- * @class SelectButton
+ * @class CheckboxButton
  */
-export class SelectButton extends React.Component<SelectButtonProps, {}> {
+export class CheckboxButton extends React.Component<CheckboxButtonProps, {}> {
     render() {
         let icon: JSX.Element;
         let switchVal: boolean;
 
         switch (this.props.checked) {
-            case SelectButtonState.Unselected:
+            case false:
                 icon = <i className={this.props.uncheckedIcon} />;
                 switchVal = true;
                 break;
-            case SelectButtonState.PartiallySelected:
+            case undefined:
                 icon = <i className={this.props.partiallyCheckedIcon} />;
                 switchVal = true;
                 break;
-            case SelectButtonState.Selected:
+            case true:
                 icon = <i className={this.props.checkedIcon} />;
                 switchVal = false;
                 break;

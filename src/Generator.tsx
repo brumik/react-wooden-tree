@@ -18,16 +18,18 @@ import { NodeProps } from './components/Node';
 
 export function generator(): NodeProps[] {
     return [
-        {text: 'Parent 1 - Expanded', state: {expanded: true, checked: 1},
+        {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true},
             nodes: [
-                {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: 1}},
-                {text: 'Child 2 - Non checkable and empty icon', icon: 'fa fa-fw', checkable: false}
+                {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: true}},
+                {text: 'Child 2 - Non checkable and disabled', icon: 'fa fa-fw',
+                    checkable: false, state: {disabled: true}},
+                {text: 'Child 3 - LazyLoadable', lazyLoad: true}
             ]
         },
-        {text: 'Parent 2 - Not expanded', state: {expanded: false, selected: false},
+        {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
             nodes: [
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw'},
-                {text: 'Child 2 - No icon specified'},
+                {text: 'Child 2 - No icon specified', classes: 'custom-class'},
                 {text: 'Child 3 - Image icon', image: 'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
             ]
         }
