@@ -359,7 +359,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             this.props.onDataChange(parentNode.id, 'state.checked', state);
         }
 
-        this.parentCheckboxChange(state, parentNode);
+        return this.parentCheckboxChange(state, parentNode);
     }
 
     /**
@@ -373,6 +373,10 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     private nodeCheckboxChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
         this.props.onDataChange(node.id, 'state.checked', checked);
 
+        if ( directlyChanged && this.props.hierarchicalCheck ) {
+            this.parentCheckboxChange(checked, node);
+        }
+
         if ( node.nodes ) {
             if ( this.props.hierarchicalCheck ) {
 
@@ -381,10 +385,6 @@ export class Tree extends React.Component<TreeProps, TreeState> {
                     this.nodeCheckboxChange(checked, node.nodes[i]);
                 }
             }
-        }
-
-        if ( directlyChanged && this.props.hierarchicalCheck ) {
-            this.parentCheckboxChange(checked, node);
         }
     }
 
