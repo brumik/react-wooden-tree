@@ -11,6 +11,18 @@ interface AppState {
 class App extends React.Component<{}, AppState> {
     private data: NodeProps[];
 
+    private actionMapper = {
+        'state.expanded': Tree.nodeExpanded,
+        'state.checked': Tree.nodeChecked,
+        'state.disabled': Tree.nodeDisabled,
+        'state.selected': Tree.nodeSelected,
+        'nodes': Tree.nodeChildren,
+    };
+
+    /**
+     * Constructor.
+     * @param {{}} props
+     */
     constructor(props: {}) {
         super(props);
 
@@ -20,6 +32,9 @@ class App extends React.Component<{}, AppState> {
         this.state = {
             tree: this.data,
         };
+
+        this.onDataChange = this.onDataChange.bind(this);
+        this.lazyLoad = this.lazyLoad.bind(this);
     }
 
     /**
@@ -27,23 +42,29 @@ class App extends React.Component<{}, AppState> {
      *
      * @param {string} id The id of the node.
      * @param {string} type The field name which changed.
-     * @param {boolean} value The new value to asssing.
+     * @param {boolean} value The new value to assign.
      */
-    onDataChange = (id: string, type: string, value: boolean): void => {
+    onDataChange(id: string, type: string, value: boolean): void {
         let node = Tree.nodeSelector(this.data, id);
         if ( node == null ) { return; }
 
-        if ( type === 'state.expanded' ) {
-            node.state.expanded = value;
-        } else if ( type === 'state.checked' ) {
-            node.state.checked = value;
-        } else if ( type === 'state.selected') {
-            node.state.selected = value;
+        if (this.actionMapper.hasOwnProperty(type)) {
+            this.actionMapper[type](node, value);
         } else {
             console.log(id, type, value);
         }
 
         this.setState({tree: this.data});
+    }
+
+    /**
+     * The lazy loading function - Dummy
+     *
+     * @param {NodeProps} node The node to get children.
+     * @returns {NodeProps[]} The children.
+     */
+    lazyLoad(node: NodeProps): NodeProps[] {
+        return generator();
     }
 
     render() {
@@ -58,6 +79,7 @@ class App extends React.Component<{}, AppState> {
                 partiallyCheckedIcon={'fa fa-ban'}
                 data={this.state.tree}
                 onDataChange={this.onDataChange}
+                lazyLoad={this.lazyLoad}
             />
           </div>
         );

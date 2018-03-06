@@ -16,6 +16,10 @@ interface SelectOnChange {
     (id: string, selected: boolean): void;
 }
 
+interface OnLazyLoad {
+    (id: string): void;
+}
+
 /**
  * Interface for all data required from the tree root.
  */
@@ -24,6 +28,7 @@ export interface ParentData {
     checkboxOnChange: CheckboxButtonOnChange;
     expandOnChange: ExpandButtonOnChange;
     selectOnChange: SelectOnChange;
+    onLazyLoad: OnLazyLoad;
     showCheckbox: boolean;
     initSelectedNode: (id: string) => void;
 
@@ -38,7 +43,7 @@ export interface ParentData {
     expandIcon?: string;                // < The icon for expanding parents.
     emptyIcon?: string;                 // < TODO: The icon for empty something.
     loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
-    selectedIcon?: string;              // < TODO: The icon for selected nodes.
+    selectedIcon?: string;              // < The icon for selected nodes.
 
     // Other
     checkboxFirst: boolean;             // < Determines the order of the icon and the checkbox.
@@ -59,11 +64,12 @@ export interface NodeProps {
     selectable?: boolean;
     selectedIcon?: string;
 
-    classes?: string;
+    lazyLoad?: boolean;
 
     // Styling
     icon?: string;
     image?: string;
+    classes?: string;
 
     // Private
     parentData?: ParentData;
@@ -126,7 +132,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         // Expand button: if not displayed added padding
         let openButton: JSX.Element;
-        if ( this.props.nodes.length > 0 ) {
+        if ( ( this.props.nodes && this.props.nodes.length > 0 ) || this.props.lazyLoad ) {
             openButton = (
                 <ExpandButton
                     onChange={this.handleOpenChange}
@@ -230,9 +236,15 @@ export class Node extends React.Component<NodeProps, {}> {
 
     /**
      * Handles open event.
+     * If lazy load set then loads the child nodes too.
+     *
      * @param {boolean} expanded True on expand false on collapse.
      */
     private handleOpenChange(expanded: boolean): void {
+        if ( this.props.lazyLoad && this.props.nodes === null ) {
+            this.props.parentData.onLazyLoad(this.props.id);
+        }
+
         this.props.parentData.expandOnChange(this.props.id, expanded);
     }
 
@@ -261,7 +273,7 @@ export class Node extends React.Component<NodeProps, {}> {
 Node.defaultProps = {
     id: '',
     text: '',
-    nodes: [],
+    nodes: null,
     state: {
         checked: false,
         expanded: false,
@@ -271,16 +283,15 @@ Node.defaultProps = {
 
     checkable: true,
     hideCheckbox: false,
+    selectable: true,
+    selectedIcon: null,
+    lazyLoad: false,
 
     // Styling
     icon: null,
     image: null,
+    classes: '',
 
     // Private
     parentData: null,
-
-    // TODO All of these
-    selectable: true,
-    selectedIcon: null,
-    classes: ''
 };

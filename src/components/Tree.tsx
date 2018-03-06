@@ -14,7 +14,7 @@ export interface TreeProps {
 
     // Selection
     multiSelect?: boolean;              // < Determines if multiple nodes can be selected.
-    preventUnselect?: boolean;          // < Determines if can deselect node(s).
+    preventDeselect?: boolean;          // < Determines if can deselect node(s).
     allowReselect?: boolean;            // < TODO Functionality?
 
     // Icons
@@ -39,12 +39,20 @@ export interface TreeProps {
      * @param {string} dataType The currently changed information.
      * @param {boolean} newValue The newly assigned value.
      */
-    onDataChange: (id: string, dataType: string, newValue: boolean) => void;
+    onDataChange: (id: string, dataType: string, newValue: any) => void;
+    
+    /**
+     * The function which will be called when a lazily loadable node is
+     * expanded first time.
+     *
+     * @param {NodeProps} node The node of the node which has to be loaded.
+     * @returns {NodeProps[]} The children of the given node.
+     */
+    lazyLoad?: (node: NodeProps) => NodeProps[];
 
     // TODO: highlightChanges?: boolean;
     // TODO: highlightSearchResults?: boolean;
     // TODO: highlightSelected?: boolean;
-    // TODO: lazyLoad
     // TODO: levels
 }
 
@@ -124,6 +132,56 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     }
 
     /**
+     * Helper function: Checks the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the checked field.
+     */
+    public static nodeChecked(node: NodeProps, value: boolean) {
+        node.state.checked = value;
+    }
+
+    /**
+     * Helper function: Expands or collapses the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the expanded field.
+     */
+    public static nodeExpanded(node: NodeProps, value: boolean) {
+        node.state.expanded = value;
+    }
+
+    /**
+     * Helper function: Disables or enables the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the disabled field.
+     */
+    public static nodeDisabled(node: NodeProps, value: boolean) {
+        node.state.disabled = value;
+    }
+
+    /**
+     * Helper function: Selects or deselects the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the selected field.
+     */
+    public static nodeSelected(node: NodeProps, value: boolean) {
+        node.state.selected = value;
+    }
+
+    /**
+     * Helper function: Updates the children of the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} nodes The new children of the node.
+     */
+    public static nodeChildren(node: NodeProps, nodes: NodeProps[]) {
+        node.nodes = nodes;
+    }
+
+    /**
      * Recursively gets the max depth of the tree.
      *
      * @param {NodeProps[]} nodes The root node of the tree.
@@ -187,6 +245,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             checkboxOnChange: this.handleSelectButtonChange,
             expandOnChange: this.handleExpandedChange,
             selectOnChange: this.handleSelectedChange,
+            onLazyLoad: this.handleLazyLoad,
             showCheckbox: this.props.showCheckbox,
             initSelectedNode: this.initSelectedNode,
 
@@ -325,14 +384,14 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * If not active and another node is currently selected, then deselects it.
      * Calls the callback for change the selected nodes.
      *
-     * If preventUnselect is active then all deselecting actions are skipped.
+     * If preventDeselect is active then all deselecting actions are skipped.
      *
      * @param {string} id The id of the node which was selected/deselected.
      * @param {boolean} selected The new state of the node.
      */
     private handleSelectedChange = (id: string, selected: boolean): void => {
         // Preventing unselect.
-        if ( this.props.preventUnselect && !selected ) { return; }
+        if ( this.props.preventDeselect && !selected ) { return; }
 
         if ( !this.props.multiSelect && selected ) {
 
@@ -349,6 +408,19 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             this.selectedNode = null;
         }
     }
+
+    /**
+     * Handles when node has to be loaded. This occur once for node if expanded.
+     *
+     * @param {string} id The node to lazy load.
+     */
+    private handleLazyLoad = (id: string): void => {
+        let nodes = this.props.lazyLoad(Tree.nodeSelector(this.props.data, id));
+        if ( nodes == null ) { return; }
+
+        Tree.initTree(nodes, id);
+        this.props.onDataChange(id, 'nodes', nodes);
+    }
 }
 
 /**
@@ -364,7 +436,7 @@ Tree.defaultProps = {
 
     // Selection
     multiSelect: false,
-    preventUnselect: false,
+    preventDeselect: false,
     allowReselect: false,
 
     // Icons
@@ -382,4 +454,5 @@ Tree.defaultProps = {
 
     // Callbacks
     onDataChange: null,
+    lazyLoad: null,
 };
