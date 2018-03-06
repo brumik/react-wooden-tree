@@ -3,8 +3,11 @@ import * as React from 'react';
 interface ExpandButtonProps {
     onChange: (checked: boolean) => void;
     expanded: boolean;
+    loading: boolean; // undefined when error occurred.
     expandIcon: string;
     collapseIcon: string;
+    loadingIcon: string;
+    errorIcon: string;
 }
 
 export interface ExpandButtonOnChange {
@@ -14,7 +17,11 @@ export interface ExpandButtonOnChange {
 export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
     render() {
         let icon: JSX.Element;
-        if (this.props.expanded) {
+        if ( this.props.loading ) {
+            icon = <i className={this.props.loadingIcon} />;
+        } else if ( this.props.loading === undefined ) {
+            icon = <i className={this.props.errorIcon} />;
+        } else if (this.props.expanded) {
             icon = <i className={this.props.collapseIcon} />;
         } else {
             icon = <i className={this.props.expandIcon} />;

@@ -17,6 +17,7 @@ class App extends React.Component<{}, AppState> {
         'state.disabled': Tree.nodeDisabled,
         'state.selected': Tree.nodeSelected,
         'nodes': Tree.nodeChildren,
+        'loading': Tree.nodeLoading,
     };
 
     /**
@@ -49,7 +50,8 @@ class App extends React.Component<{}, AppState> {
         if ( node == null ) { return; }
 
         if (this.actionMapper.hasOwnProperty(type)) {
-            this.actionMapper[type](node, value);
+            node = this.actionMapper[type](node, value);
+            Tree.nodeUpdater(this.data, node);
         } else {
             console.log(id, type, value);
         }
@@ -63,8 +65,18 @@ class App extends React.Component<{}, AppState> {
      * @param {NodeProps} node The node to get children.
      * @returns {NodeProps[]} The children.
      */
-    lazyLoad(node: NodeProps): NodeProps[] {
-        return generator();
+    lazyLoad(node: NodeProps): Promise<NodeProps[]> {
+        let isWorking = true;
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if ( isWorking ) {
+                    resolve(generator());
+                } else {
+                    reject(new Error('Something happened.'));
+                }
+            }, 2000);
+        });
     }
 
     render() {
@@ -73,7 +85,9 @@ class App extends React.Component<{}, AppState> {
             <Tree
                 hierarchicalCheck={true}
                 showCheckbox={true}
-                multiSelect={true}
+                multiSelect={false}
+                preventDeselect={true}
+                allowReselect={true}
                 checkboxFirst={true}
                 nodeIcon={'fa fa-fw'}
                 partiallyCheckedIcon={'fa fa-ban'}

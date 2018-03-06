@@ -41,8 +41,8 @@ export interface ParentData {
     partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
     collapseIcon?: string;              // < The icon for collapsing parents.
     expandIcon?: string;                // < The icon for expanding parents.
-    emptyIcon?: string;                 // < TODO: The icon for empty something.
-    loadingIcon?: string;               // < TODO: The loading icon when loading data with ajax.
+    loadingIcon?: string;               // < The loading icon when loading data with ajax.
+    errorIcon?: string;                 // < The icon displayed when lazyLoading went wrong.
     selectedIcon?: string;              // < The icon for selected nodes.
 
     // Other
@@ -65,6 +65,7 @@ export interface NodeProps {
     selectedIcon?: string;
 
     lazyLoad?: boolean;
+    loading?: boolean; // Undefined when error occurred
 
     // Styling
     icon?: string;
@@ -137,8 +138,11 @@ export class Node extends React.Component<NodeProps, {}> {
                 <ExpandButton
                     onChange={this.handleOpenChange}
                     expanded={this.props.state.expanded}
+                    loading={this.props.loading}
                     expandIcon={this.props.parentData.expandIcon}
                     collapseIcon={this.props.parentData.collapseIcon}
+                    loadingIcon={this.props.parentData.loadingIcon}
+                    errorIcon={this.props.parentData.errorIcon}
                 />
             );
         } else {
@@ -286,6 +290,7 @@ Node.defaultProps = {
     selectable: true,
     selectedIcon: null,
     lazyLoad: false,
+    loading: false,
 
     // Styling
     icon: null,
