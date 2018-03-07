@@ -20,7 +20,9 @@
     "@types/node": "^9.4.6",
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
+    "@types/react-test-renderer": "^16.0.1",
     "lighthouse": "^2.9.1",
+    "react-test-renderer": "^16.2.0",
     "serve": "^6.4.9",
     "typescript": "^2.7.2"
   }

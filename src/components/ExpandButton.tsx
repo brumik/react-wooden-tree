@@ -19,7 +19,7 @@ export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
         let icon: JSX.Element;
         if ( this.props.loading ) {
             icon = <i className={this.props.loadingIcon} />;
-        } else if ( this.props.loading === undefined ) {
+        } else if ( this.props.loading === null ) {
             icon = <i className={this.props.errorIcon} />;
         } else if (this.props.expanded) {
             icon = <i className={this.props.collapseIcon} />;

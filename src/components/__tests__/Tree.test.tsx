@@ -1,7 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Tree } from './Tree';
-import { NodeProps } from './Node';
+import { Tree } from '../Tree';
+import { NodeProps } from '../Node';
 
 let tree: NodeProps[];
 let subTree: NodeProps[];
@@ -40,11 +38,6 @@ beforeEach(() => {
     ];
 
     tree = Tree.initTree(tree);
-});
-
-it('tree renders without errors', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<Tree data={[]} onDataChange={null} />, div);
 });
 
 describe('tree public method', () => {

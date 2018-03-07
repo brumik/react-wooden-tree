@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`node should add custom class 1`] = `
+<li
+  className="indent-0 NoOpenButton Selectable custom-class"
+  id="0"
+>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should display error lazy loading icon 1`] = `
+<li
+  className="indent-0 Selectable"
+  id="0"
+>
+  <button
+    className="ExpandButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa-exclamation-triangle"
+    />
+  </button>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should display loading icon 1`] = `
+<li
+  className="indent-0 Selectable"
+  id="0"
+>
+  <button
+    className="ExpandButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-spinner fa-spin"
+    />
+  </button>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should display unique selected icon 1`] = `
+<li
+  className="indent-0 NoOpenButton Selectable selected"
+  id="0"
+>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="icon icon-selected"
+  />
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should indicate changed checked node (icon and class) 1`] = `
+<li
+  className="indent-0 NoOpenButton Selectable changed-checkbox"
+  id="0"
+>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-check-square"
+    />
+  </button>
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should indicate selected node (icon and class) 1`] = `
+<li
+  className="indent-0 NoOpenButton Selectable selected"
+  id="0"
+>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="fa fa-check"
+  />
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
+<li
+  className="indent-0 NoOpenButton Selectable"
+  id="0"
+>
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should not render children nodes if collapsed 1`] = `
+<li
+  className="indent-0 Selectable"
+  id="0"
+>
+  <button
+    className="ExpandButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-angle-right"
+    />
+  </button>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should render basic node 1`] = `
+<li
+  className="indent-0 NoOpenButton Selectable"
+  id="0"
+>
+  <button
+    className="SelectButton"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-square-o"
+    />
+  </button>
+  <i
+    className="fa fa-ban fa-fw"
+  />
+  <span
+    onClick={[Function]}
+  >
+    Rendered Node
+  </span>
+</li>
+`;
+
+exports[`node should render children nodes if expanded 1`] = `
+Array [
+  <li
+    className="indent-0 Selectable"
+    id="0"
+>
+    <button
+        className="ExpandButton"
+        onClick={[Function]}
+    >
+        <i
+            className="fa fa-angle-down"
+        />
+    </button>
+    <button
+        className="SelectButton"
+        onClick={[Function]}
+    >
+        <i
+            className="fa fa-square-o"
+        />
+    </button>
+    <i
+        className="fa fa-ban fa-fw"
+    />
+    <span
+        onClick={[Function]}
+    >
+        Rendered Node
+    </span>
+</li>,
+  <li
+    className="indent-1 NoOpenButton Selectable"
+    id="0.0"
+>
+    <button
+        className="SelectButton"
+        onClick={[Function]}
+    >
+        <i
+            className="fa fa-square-o"
+        />
+    </button>
+    <i
+        className="fa fa-ban fa-fw"
+    />
+    <span
+        onClick={[Function]}
+    >
+        Sub Node 0
+    </span>
+</li>,
+  <li
+    className="indent-1 NoOpenButton Selectable"
+    id="0.1"
+>
+    <button
+        className="SelectButton"
+        onClick={[Function]}
+    >
+        <i
+            className="fa fa-square-o"
+        />
+    </button>
+    <i
+        className="fa fa-ban fa-fw"
+    />
+    <span
+        onClick={[Function]}
+    >
+        Sub Node 1
+    </span>
+</li>,
+]
+`;

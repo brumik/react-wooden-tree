@@ -488,7 +488,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             this.props.onDataChange(id, 'loading', false);
         }, () => {
             // Add error icon
-            this.props.onDataChange(id, 'loading', undefined);
+            this.props.onDataChange(id, 'loading', null);
         });
     }
 }
