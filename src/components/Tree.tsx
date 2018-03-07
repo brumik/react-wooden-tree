@@ -83,30 +83,34 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      *
      * @param {NodeProps[]} tree The tree to fill the IDs up.
      * @param {string} parentID The parent id of the current nodes. For root left this param out.
+     * @returns {NodeProps[]} The new filled tree.
      */
-    public static initTree(tree: NodeProps[], parentID: string = '') {
-        for (let i = 0; i < tree.length; i++) {
+    public static initTree(tree: NodeProps[], parentID: string = ''): NodeProps[] {
+        let treeCopy = tree.slice();
+
+        for (let i = 0; i < treeCopy.length; i++) {
             if ( parentID === '' ) {
-                tree[i].id = i.toString();
+                treeCopy[i].id = i.toString();
             } else {
-                tree[i].id = parentID + '.' + i;
+                treeCopy[i].id = parentID + '.' + i;
             }
 
-            if ( tree[i].state == null ) {
-                tree[i].state = {};
+            if ( treeCopy[i].state == null ) {
+                treeCopy[i].state = {};
             }
 
-            tree[i].state = {
-                checked: defVal(tree[i].state.checked, false),
-                expanded: defVal(tree[i].state.expanded, false),
-                disabled: defVal(tree[i].state.disabled, false),
-                selected: defVal(tree[i].state.selected, false),
+            treeCopy[i].state = {
+                checked: defVal(treeCopy[i].state.checked, false),
+                expanded: defVal(treeCopy[i].state.expanded, false),
+                disabled: defVal(treeCopy[i].state.disabled, false),
+                selected: defVal(treeCopy[i].state.selected, false),
             };
 
-            if ( tree[i].nodes ) {
-                Tree.initTree(tree[i].nodes, tree[i].id);
+            if ( treeCopy[i].nodes ) {
+                treeCopy[i].nodes = Tree.initTree(treeCopy[i].nodes, treeCopy[i].id);
             }
         }
+        return treeCopy;
     }
 
     /**

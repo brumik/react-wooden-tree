@@ -27,8 +27,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: {}) {
         super(props);
 
-        this.data = generator();
-        Tree.initTree(this.data);
+        this.data = Tree.initTree(generator());
 
         this.state = {
             tree: this.data,
@@ -53,7 +52,7 @@ class App extends React.Component<{}, AppState> {
             node = this.actionMapper[type](node, value);
             Tree.nodeUpdater(this.data, node);
         } else {
-            console.log(id, type, value);
+            // console.log(id, type, value);
         }
 
         this.setState({tree: this.data});
