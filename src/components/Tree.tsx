@@ -288,6 +288,9 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     private constructor(props: TreeProps) {
         super(props);
 
+        // Default values
+        this.selectedNode = null;
+
         this.parentData = {
             // Callbacks
             checkboxOnChange: this.handleCheckboxChange,
@@ -426,7 +429,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     private initSelectedNode = (id: string): void => {
         if ( !this.props.multiSelect ) {
-            if ( this.selectedNode !== null ) {
+            if ( this.selectedNode != null ) {
                 this.props.onDataChange(id, 'state.selected', false);
             } else {
                 this.selectedNode = id;
@@ -479,6 +482,13 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     private handleLazyLoad = (id: string): void => {
         let node = Tree.nodeSelector(this.props.data, id);
         if ( node == null ) { return; }
+
+        // If not function defined return empty and set to error
+        if ( this.props.lazyLoad == null ) {
+            this.props.onDataChange(id, 'nodes', []);
+            this.props.onDataChange(id, 'loading', null);
+            return;
+        }
 
         // Add loading icon
         this.props.onDataChange(id, 'loading', true);
