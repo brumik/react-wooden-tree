@@ -327,11 +327,14 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {NodeProps} node The child node.
      */
     private parentCheckboxChange(checked: boolean, node: NodeProps): void {
-        // Root node:
-        if ( node.id.length === 1 ) { return; }
+        let idArr = node.id.split('.');
+
+        // Root node
+        if ( idArr.length === 1 ) { return; }
 
         // Others:
-        const parentID: string = node.id.substring(0, node.id.length - 2);
+        idArr.splice(-1, 1);
+        const parentID: string = idArr.join('.');
         let parentNode: NodeProps = Tree.nodeSelector(this.props.data, parentID);
 
         let state = false;
@@ -340,8 +343,8 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             let currState = parentNode.nodes[i].state.checked;
 
             // If even one is partially selected then the parent will be too.
-            if ( currState === undefined ) {
-                state = undefined;
+            if ( currState === null ) {
+                state = null;
                 break;
 
             // Otherwise we start to count the number of selected boxes.
@@ -355,7 +358,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             if (checkedCounter === parentNode.nodes.length) {
                 state = true;
             } else if (checkedCounter > 0) {
-                state = undefined;
+                state = null;
             }
         }
 

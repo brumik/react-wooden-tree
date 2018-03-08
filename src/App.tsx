@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import { Tree } from './components/Tree';
-import { generator } from './Generator';
+import { generator } from './Generator-Bigger';
 import { NodeProps } from './components/Node';
 
 interface AppState {
