@@ -252,7 +252,7 @@ export class Node extends React.Component<NodeProps, {}> {
      * @param {boolean} checked Contains the input field value.
      */
     private handleCheckChange(checked: boolean): void {
-        if ( this.props.checkable ) {
+        if ( this.props.checkable && !this.props.state.disabled ) {
             this.props.parentData.checkboxOnChange(checked, this.props.id);
         }
     }
