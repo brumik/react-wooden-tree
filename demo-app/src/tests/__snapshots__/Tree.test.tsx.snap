@@ -1,0 +1,872 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tree events should check parent if all children checked 1`] = `
+<div
+  className="Tree"
+>
+  <ul>
+    <li
+      className="indent-0"
+      id="0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 0
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable changed-checkbox"
+      id="1"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 1
+      </span>
+    </li>
+    <li
+      className="indent-1 Selectable changed-checkbox"
+      id="1.0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable changed-checkbox selected"
+      id="1.0.0"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-check"
+      />
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable changed-checkbox"
+      id="1.0.1"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.1
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable changed-checkbox"
+      id="1.0.2"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="2"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 2
+      </span>
+    </li>
+  </ul>
+  <style>
+    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+  </style>
+</div>
+`;
+
+exports[`tree events should match failed lazy load 1`] = `
+<div
+  className="Tree"
+>
+  <ul>
+    <li
+      className="indent-0"
+      id="0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 0
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="1"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 1
+      </span>
+    </li>
+    <li
+      className="indent-1 Selectable"
+      id="1.0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable selected"
+      id="1.0.0"
+    >
+      <i
+        className="fa fa-check"
+      />
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.1"
+    >
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.1
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.2"
+    >
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="2"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa-exclamation-triangle"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 2
+      </span>
+    </li>
+  </ul>
+  <style>
+    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+  </style>
+</div>
+`;
+
+exports[`tree events should match lazy loaded nodes 1`] = `
+<div
+  className="Tree"
+>
+  <ul>
+    <li
+      className="indent-0"
+      id="0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 0
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="1"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 1
+      </span>
+    </li>
+    <li
+      className="indent-1 Selectable"
+      id="1.0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable selected"
+      id="1.0.0"
+    >
+      <i
+        className="fa fa-check"
+      />
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.1"
+    >
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.1
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.2"
+    >
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="2"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 2
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable"
+      id="2.0"
+    >
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Lazy Loaded
+      </span>
+    </li>
+  </ul>
+  <style>
+    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+  </style>
+</div>
+`;
+
+exports[`tree events should partially check parent if not all children checked 1`] = `
+<div
+  className="Tree"
+>
+  <ul>
+    <li
+      className="indent-0"
+      id="0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 0
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable changed-checkbox"
+      id="1"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 1
+      </span>
+    </li>
+    <li
+      className="indent-1 Selectable changed-checkbox"
+      id="1.0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable changed-checkbox selected"
+      id="1.0.0"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-check"
+      />
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.1"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.1
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.2"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="2"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 2
+      </span>
+    </li>
+  </ul>
+  <style>
+    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+  </style>
+</div>
+`;
+
+exports[`tree events should partially check parent if not all children checked 2`] = `
+<div
+  className="Tree"
+>
+  <ul>
+    <li
+      className="indent-0"
+      id="0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 0
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable changed-checkbox"
+      id="1"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 1
+      </span>
+    </li>
+    <li
+      className="indent-1 Selectable changed-checkbox"
+      id="1.0"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-down"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable changed-checkbox selected"
+      id="1.0.0"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-check"
+      />
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.0
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable changed-checkbox"
+      id="1.0.1"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-check-square"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.1
+      </span>
+    </li>
+    <li
+      className="indent-2 NoOpenButton Selectable"
+      id="1.0.2"
+    >
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-0 Selectable"
+      id="2"
+    >
+      <button
+        className="ExpandButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-angle-right"
+        />
+      </button>
+      <button
+        className="SelectButton"
+        onClick={[Function]}
+      >
+        <i
+          className="fa fa-square-o"
+        />
+      </button>
+      <i
+        className="fa fa-ban fa-fw"
+      />
+      <span
+        onClick={[Function]}
+      >
+        Parent 2
+      </span>
+    </li>
+  </ul>
+  <style>
+    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+  </style>
+</div>
+`;

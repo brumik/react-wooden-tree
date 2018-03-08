@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { Node, ParentData } from '../Node';
+import { Node, ParentData } from '../components/Node';
 
 let parentData: ParentData;
 const initState = {

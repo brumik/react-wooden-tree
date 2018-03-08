@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { Tree } from '../Tree';
-import { NodeProps } from '../Node';
+import { Tree } from '../components/Tree';
+import { NodeProps } from '../components/Node';
 import { ReactTestRendererJSON } from 'react-test-renderer';
 
 let tree: NodeProps[];
