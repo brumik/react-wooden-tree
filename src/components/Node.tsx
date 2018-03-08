@@ -69,7 +69,7 @@ export interface NodeProps {
     selectedIcon?: string;
 
     lazyLoad?: boolean;
-    loading?: boolean; // Undefined when error occurred
+    loading?: boolean; // Null when error occurred
 
     // Styling
     icon?: string;

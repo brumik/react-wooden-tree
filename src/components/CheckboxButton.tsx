@@ -35,7 +35,7 @@ export class CheckboxButton extends React.Component<CheckboxButtonProps, {}> {
                 icon = <i className={this.props.uncheckedIcon} />;
                 switchVal = true;
                 break;
-            case undefined:
+            case null:
                 icon = <i className={this.props.partiallyCheckedIcon} />;
                 switchVal = true;
                 break;

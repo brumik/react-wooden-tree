@@ -3,7 +3,7 @@ import * as React from 'react';
 interface ExpandButtonProps {
     onChange: (checked: boolean) => void;
     expanded: boolean;
-    loading: boolean; // undefined when error occurred.
+    loading: boolean; // null when error occurred.
     expandIcon: string;
     collapseIcon: string;
     loadingIcon: string;
