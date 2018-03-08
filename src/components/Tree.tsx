@@ -454,11 +454,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
             if ( this.props.allowReselect ) {
                 this.props.onDataChange(this.selectedNode, 'state.selected', true);
             }
-
-            return;
-        }
-
-        if ( !this.props.multiSelect && selected ) {
+        } else if ( !this.props.multiSelect && selected ) {
 
             // Deselect previous
             if ( this.selectedNode != null ) {
@@ -481,7 +477,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      */
     private handleLazyLoad = (id: string): void => {
         let node = Tree.nodeSelector(this.props.data, id);
-        if ( node == null ) { return; }
+        // if ( node == null ) { return; } Unreachable
 
         // If not function defined return empty and set to error
         if ( this.props.lazyLoad == null ) {
