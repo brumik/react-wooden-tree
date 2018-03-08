@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/App.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">src</a> App.tsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/45</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/42</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as R<span class="cstat-no" title="statement not covered" >eact from 'react';<span class="cstat-no" title="statement not covered" ></span></span>
+import './App.cs<span class="cstat-no" title="statement not covered" >s';<span class="fstat-no" title="function not covered" ></span></span>
+import { Tree } from './<span class="cstat-no" title="statement not covered" >components/Tree';</span>
+import { generator } from './Generator-Big<span class="fstat-no" title="function not covered" >ge</span>r';<span class="cstat-no" title="statement not covered" ></span>
+impo<span class="fstat-no" title="function not covered" >rt</span> { NodeProps } <span class="cstat-no" title="statement not covered" >from './component<span class="cstat-no" title="statement not covered" >s/Node';<span class="cstat-no" title="statement not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+interfac<span class="cstat-no" title="statement not covered" >e AppState {</span>
+    tree: NodePro<span class="fstat-no" title="function not covered" >ps[</span>];<span class="cstat-no" title="statement not covered" ></span>
+}<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+class App extends React.Component&lt;{}, AppState&gt; {
+<span class="cstat-no" title="statement not covered" >    private data: NodeProps[];</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    private actionMapp</span>er = {
+        'stat<span class="cstat-no" title="statement not covered" >e.expanded': Tree.nodeExpande</span>d,
+        'state.checked': <span class="cstat-no" title="statement not covered" >Tree.nodeChecked,</span>
+        'state.disabled<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >':</span> Tree.nodeDisabled,</span>
+<span class="cstat-no" title="statement not covered" >        'state.selected': Tr</span>ee.nodeSelected,
+        'nodes': Tree.nodeChildren,
+        'loading': Tree.nodeLoading,
+    };
+&nbsp;
+    /**<span class="fstat-no" title="function not covered" ></span>
+     * Constructor.<span class="cstat-no" title="statement not covered" ></span>
+     * @<span class="cstat-no" title="statement not covered" >param {{}} props</span>
+     */
+    constructor(props: {}) {
+        super(props);
+&nbsp;
+        this.data = Tree.initTree(generator());
+&nbsp;
+        this.state = {
+<span class="cstat-no" title="statement not covered" >            tree: this.data,</span>
+<span class="cstat-no" title="statement not covered" >        };</span>
+&nbsp;
+        this.onDataChange = this.onDataChange.bind(this);
+<span class="cstat-no" title="statement not covered" >        this.lazyLoad = this.lazyLoad.bind(this);</span>
+    }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+    /**
+     * The callback function for changing data in the tree.
+     *
+     * @param {string} id The id of the node.
+     * @param {string} type The field name which changed.
+     * @param {boolean} value The new value to assign.
+     */
+    onDataChange(id: string, type: string, value: boolean): void {
+<span class="cstat-no" title="statement not covered" >        let node = Tree.nodeSelec<span class="fstat-no" title="function not covered" >to</span>r(this.data, id);</span>
+        if ( node =<span class="cstat-no" title="statement not covered" >= null ) { return; }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        if (<span class="cstat-no" title="statement not covered" >this.act</span>ionMapper.hasOwnProperty(type)) {
+            node = this.actionMapper[type](node, value);
+<span class="cstat-no" title="statement not covered" >            Tree.nodeUpdater(this.data, node);</span>
+        } el<span class="cstat-no" title="statement not covered" >se {</span>
+<span class="cstat-no" title="statement not covered" >            // console.log(id, type, value);</span>
+        }
+&nbsp;
+        this.setState({tree: this.data});
+    }
+<span class="cstat-no" title="statement not covered" ></span>
+    /**
+     * The lazy loading function - Dummy
+     *
+     * @param {NodeProps} node The node to get children.
+     * @returns {NodeProps[]} The children.
+     */
+    lazyLoad(node: NodeProps): Promise&lt;NodeProps[]&gt; {
+<span class="cstat-no" title="statement not covered" >        let isWorking = true;<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                if ( isWorking ) {</span>
+<span class="cstat-no" title="statement not covered" >                    resolve(generator());</span>
+                } else {
+                    reject(new Error('Something happened.'));
+                }<span class="cstat-no" title="statement not covered" ></span>
+            }, 2000);
+        });
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    render() {<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >        return (</span>
+          &lt;div className="App"&gt;
+            &lt;Tree
+<span class="cstat-no" title="statement not covered" ></span>                hierarchicalCheck={true}
+                showCheckbox={true}
+<span class="cstat-no" title="statement not covered" >                multiSe</span>lect={false}
+                preventDeselect={true}
+                allowReselect={true}
+                checkboxFirst={true}
+                nodeIcon={'fa fa-fw'}
+                partiallyCheckedIcon={'fa fa-ban'}
+                data={this.state.tree}
+                onDataChange={this.onDataChange}
+                lazyLoad={this.lazyLoad}
+            /&gt;
+          &lt;/div&gt;
+        );
+    }
+}
+&nbsp;
+export default App;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 08 2018 18:34:58 GMT+0100 (CET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

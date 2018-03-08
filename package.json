@@ -13,6 +13,7 @@
     "build": "react-scripts-ts build",
     "prod": "react-scripts-ts build && serve -s build",
     "test": "react-scripts-ts test --env=jsdom",
+    "coverage": "react-scripts-ts test --mapCoverage --env=jsdom --coverage",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -25,5 +26,12 @@
     "react-test-renderer": "^16.2.0",
     "serve": "^6.4.9",
     "typescript": "^2.7.2"
+  },
+  "jest": {
+    "collectCoverageFrom" : [
+      "src/components/**/*.{js,jsx,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ]
   }
 }

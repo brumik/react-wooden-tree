@@ -59,6 +59,44 @@ describe('node', () => {
         expect(node).toMatchSnapshot();
     });
 
+    it('should render not render empty children', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                id={'0'}
+                state={{...initState, expanded: true}}
+                nodes={null}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should render switched node and checkbox icon', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={{...parentData, checkboxFirst: false}}
+                id={'0'}
+                state={initState}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should render expanded node with children', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                id={'0'}
+                state={{...initState, expanded: true}}
+                nodes={subNodes}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
     it('should not render children nodes if collapsed', () => {
         const node = renderer
             .create(<Node
@@ -106,6 +144,35 @@ describe('node', () => {
                 id={'0'}
                 state={initState}
                 hideCheckbox={true}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should display custom icon', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={{...parentData, showCheckbox: true, showIcon: true}}
+                id={'0'}
+                state={initState}
+                hideCheckbox={true}
+                icon={'fa fa-custom-icon'}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should display custom image as icon', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={{...parentData, showCheckbox: true, showIcon: true}}
+                id={'0'}
+                state={initState}
+                hideCheckbox={true}
+                icon={'fa fa-custom-icon'}
+                image={'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
             />)
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -159,6 +226,30 @@ describe('node', () => {
                 parentData={parentData}
                 id={'0'}
                 state={{...initState, selected: true}}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should display partially checked icon', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                id={'0'}
+                state={{...initState, checked: null}}
+            />)
+            .toJSON();
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should display warning icon when undefined', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                id={'0'}
+                state={{...initState, checked: undefined}}
             />)
             .toJSON();
         expect(node).toMatchSnapshot();
