@@ -8,7 +8,6 @@
 # has meaning for the benchmark and puts into the given folder under the name "results.txt".
 #
 # WARNING: Requirements:
-# The program: jq --> for extracting values from js
 # An running instance of local server on port 5000. This can be started with command: `npm run prod`.
 #
 ########################################################################################################################
@@ -37,9 +36,9 @@ run_test() {
     ./node_modules/lighthouse/lighthouse-cli/index.js http://localhost:5000 --quiet -perf --output json --output-path ${JSON_FILE}
 
     printf "\t\t first meaningful paint: " >> ${REPORT_FILE}
-    jq '.audits["first-meaningful-paint"].rawValue' ${JSON_FILE} >> ${REPORT_FILE}
+    ./node_modules/jq-cli-wrapper/jq-releases/jq '.audits["first-meaningful-paint"].rawValue' ${JSON_FILE} >> ${REPORT_FILE}
     printf "\t\t first interactive: " >> ${REPORT_FILE}
-    jq '.audits["first-interactive"].rawValue' ${JSON_FILE} >> ${REPORT_FILE}
+    ./node_modules/jq-cli-wrapper/jq-releases/jq '.audits["first-interactive"].rawValue' ${JSON_FILE} >> ${REPORT_FILE}
 
     rm ${JSON_FILE}
 }

@@ -27,7 +27,7 @@ interface SelectButtonProps {
  * value (if it was selected then with a false otherwise a true value is passed to the callback.)
  * Using fa-check-square, fa-square-o and fa-square for indicating the sates.
  *
- * @class SelectButton
+ * @class CheckboxButton
  */
 export class SelectButton extends React.Component<SelectButtonProps, {}> {
     render() {
