@@ -16,21 +16,21 @@ export interface ExpandButtonOnChange {
 
 export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
     render() {
-        let icon: JSX.Element;
+        let icon: string;
         if ( this.props.loading ) {
-            icon = <i className={this.props.loadingIcon} />;
+            icon = this.props.loadingIcon;
         } else if ( this.props.loading === null ) {
-            icon = <i className={this.props.errorIcon} />;
+            icon = this.props.errorIcon;
         } else if (this.props.expanded) {
-            icon = <i className={this.props.collapseIcon} />;
+            icon = this.props.collapseIcon;
         } else {
-            icon = <i className={this.props.expandIcon} />;
+            icon = this.props.expandIcon;
         }
 
+        let cName = icon + ' Icon ExpandButton';
+
         return (
-            <button className="ExpandButton" onClick={() => this.props.onChange(!this.props.expanded)}>
-                {icon}
-            </button>
+            <i className={cName} onClick={() => this.props.onChange(!this.props.expanded)} />
         );
     }
 }

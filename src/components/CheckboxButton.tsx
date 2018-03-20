@@ -27,30 +27,30 @@ interface CheckboxButtonProps {
  */
 export class CheckboxButton extends React.Component<CheckboxButtonProps, {}> {
     render() {
-        let icon: JSX.Element;
+        let icon: string;
         let switchVal: boolean;
 
         switch (this.props.checked) {
             case false:
-                icon = <i className={this.props.uncheckedIcon} />;
+                icon = this.props.uncheckedIcon;
                 switchVal = true;
                 break;
             case null:
-                icon = <i className={this.props.partiallyCheckedIcon} />;
+                icon = this.props.partiallyCheckedIcon;
                 switchVal = true;
                 break;
             case true:
-                icon = <i className={this.props.checkedIcon} />;
+                icon = this.props.checkedIcon;
                 switchVal = false;
                 break;
             default:
-                icon = <i className="fa fa-question-circle" />;
+                icon = 'fa fa-question-circle';
         }
 
+        let cName = icon + ' Icon CheckboxButton';
+
         return (
-            <button className="SelectButton" onClick={() => this.props.onChange(switchVal)}>
-                    {icon}
-            </button>
+            <i className={cName} onClick={() => this.props.onChange(switchVal)} />
         );
     }
 }

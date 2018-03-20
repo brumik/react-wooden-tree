@@ -4,23 +4,9 @@ li {
 .NoOpenButton {
     margin-left: 18px;
 }
-.SelectButton {
+.Icon {
     width: 14px;
-    background: transparent;
-    border: none;
-    outline: none;
     margin: 2px;
-    padding: 0;
-    cursor: pointer;
-}
-.ExpandButton {
-    width: 14px;
-    background: transparent;
-    border: none;
-    outline: none;
-    margin: 2px;
-    padding: 0;
-    cursor: pointer;
 }
 .NodeIconImage {
     width: 14px;

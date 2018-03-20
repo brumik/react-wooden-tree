@@ -5,14 +5,10 @@ exports[`node should add custom class 1`] = `
   className="indent-0 NoOpenButton Selectable custom-class"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -62,22 +58,14 @@ exports[`node should display error lazy loading icon 1`] = `
   className="indent-0 Selectable"
   id="0"
 >
-  <button
-    className="ExpandButton"
+  <i
+    className="fa-exclamation-triangle Icon ExpandButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa-exclamation-triangle"
-    />
-  </button>
-  <button
-    className="SelectButton"
+  />
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -94,22 +82,14 @@ exports[`node should display loading icon 1`] = `
   className="indent-0 Selectable"
   id="0"
 >
-  <button
-    className="ExpandButton"
+  <i
+    className="fa fa-spinner fa-spin Icon ExpandButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-spinner fa-spin"
-    />
-  </button>
-  <button
-    className="SelectButton"
+  />
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -126,14 +106,10 @@ exports[`node should display partially checked icon 1`] = `
   className="indent-0 NoOpenButton Selectable"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -150,14 +126,10 @@ exports[`node should display unique selected icon 1`] = `
   className="indent-0 NoOpenButton Selectable selected"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="icon icon-selected"
   />
@@ -177,14 +149,10 @@ exports[`node should display warning icon when undefined 1`] = `
   className="indent-0 NoOpenButton Selectable"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-question-circle Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-question-circle"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -201,14 +169,10 @@ exports[`node should indicate changed checked node (icon and class) 1`] = `
   className="indent-0 NoOpenButton Selectable changed-checkbox"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-check-square Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-check-square"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -225,14 +189,10 @@ exports[`node should indicate selected node (icon and class) 1`] = `
   className="indent-0 NoOpenButton Selectable selected"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-check"
   />
@@ -265,22 +225,14 @@ exports[`node should not render children nodes if collapsed 1`] = `
   className="indent-0 Selectable"
   id="0"
 >
-  <button
-    className="ExpandButton"
+  <i
+    className="fa fa-angle-right Icon ExpandButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-angle-right"
-    />
-  </button>
-  <button
-    className="SelectButton"
+  />
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -297,14 +249,10 @@ exports[`node should render basic node 1`] = `
   className="indent-0 NoOpenButton Selectable"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -322,22 +270,14 @@ Array [
     className="indent-0 Selectable"
     id="0"
 >
-    <button
-        className="ExpandButton"
+    <i
+        className="fa fa-angle-down Icon ExpandButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-angle-down"
-        />
-    </button>
-    <button
-        className="SelectButton"
+    />
+    <i
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-square-o"
-        />
-    </button>
+    />
     <i
         className="fa fa-ban fa-fw"
     />
@@ -351,14 +291,10 @@ Array [
     className="indent-1 NoOpenButton Selectable"
     id="0.0"
 >
-    <button
-        className="SelectButton"
+    <i
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-square-o"
-        />
-    </button>
+    />
     <i
         className="fa fa-ban fa-fw"
     />
@@ -372,14 +308,10 @@ Array [
     className="indent-1 NoOpenButton Selectable"
     id="0.1"
 >
-    <button
-        className="SelectButton"
+    <i
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-square-o"
-        />
-    </button>
+    />
     <i
         className="fa fa-ban fa-fw"
     />
@@ -398,22 +330,14 @@ Array [
     className="indent-0 Selectable"
     id="0"
 >
-    <button
-        className="ExpandButton"
+    <i
+        className="fa fa-angle-down Icon ExpandButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-angle-down"
-        />
-    </button>
-    <button
-        className="SelectButton"
+    />
+    <i
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-square-o"
-        />
-    </button>
+    />
     <i
         className="fa fa-ban fa-fw"
     />
@@ -427,14 +351,10 @@ Array [
     className="indent-1 NoOpenButton Selectable"
     id="0.0"
 >
-    <button
-        className="SelectButton"
+    <i
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-square-o"
-        />
-    </button>
+    />
     <i
         className="fa fa-ban fa-fw"
     />
@@ -448,14 +368,10 @@ Array [
     className="indent-1 NoOpenButton Selectable"
     id="0.1"
 >
-    <button
-        className="SelectButton"
+    <i
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
-    >
-        <i
-            className="fa fa-square-o"
-        />
-    </button>
+    />
     <i
         className="fa fa-ban fa-fw"
     />
@@ -473,14 +389,10 @@ exports[`node should render not render empty children 1`] = `
   className="indent-0 NoOpenButton Selectable"
   id="0"
 >
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <i
     className="fa fa-ban fa-fw"
   />
@@ -500,14 +412,10 @@ exports[`node should render switched node and checkbox icon 1`] = `
   <i
     className="fa fa-ban fa-fw"
   />
-  <button
-    className="SelectButton"
+  <i
+    className="fa fa-square-o Icon CheckboxButton"
     onClick={[Function]}
-  >
-    <i
-      className="fa fa-square-o"
-    />
-  </button>
+  />
   <span
     onClick={[Function]}
   >

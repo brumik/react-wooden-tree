@@ -81,7 +81,7 @@ function liSelector(node: ReactTestRendererJSON, id: string): ReactTestRendererJ
  */
 function childrenClassSelector(li: ReactTestRendererJSON, className: string): ReactTestRendererJSON {
     for (let i = 0; i < li.children.length; i++) {
-        if ( li.children[i].props.className === className ) {
+        if ( li.children[i].props.className.includes(className) ) {
             return li.children[i];
         }
     }
@@ -116,7 +116,7 @@ function childrenSelector(li: ReactTestRendererJSON, button: string): ReactTestR
         case 'expand':
             return childrenClassSelector(li, 'ExpandButton');
         case 'check':
-            return childrenClassSelector(li, 'SelectButton');
+            return childrenClassSelector(li, 'CheckboxButton');
         case 'text':
             return childrenTypeSelector(li, 'span');
         default:
@@ -460,7 +460,7 @@ describe('tree events', () => {
         check.props.onClick();
 
         // Check self, parent and two children
-        expect(changeCounter).toEqual(4);
+        expect(changeCounter).toEqual(5);
 
         node.update(<Tree
             data={tree2}
@@ -493,7 +493,9 @@ describe('tree events', () => {
 
     it('should match lazy loaded nodes', async () => {
         let p = new Promise<NodeProps[]>((resolve, reject) => {
-            resolve([{text: 'Lazy Loaded'}]);
+            setTimeout(() => {
+                resolve([{text: 'Lazy Loaded'}]);
+            }, 1000);
         });
 
         const node = renderer
@@ -519,7 +521,9 @@ describe('tree events', () => {
 
     it('should match failed lazy load', async () => {
         let p = new Promise<NodeProps[]>((resolve, reject) => {
-            reject(new Error('Something happened.'));
+            setTimeout(() => {
+                reject(new Error('Something happened.'));
+            }, 1000);
         });
 
         const node = renderer

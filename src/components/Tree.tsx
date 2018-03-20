@@ -142,25 +142,29 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param {NodeProps} node The node to put reference in the tree.
      * @bug Doesn't checks the validity of the node's id.
      */
-    public static nodeUpdater(tree: NodeProps[], node: NodeProps): void {
+    public static nodeUpdater(tree: NodeProps[], node: NodeProps): NodeProps[] {
+        let newTree: NodeProps[] = [...tree];
+
         let path: number[] = node.id.split('.').map(function(nodeId: string) {
             return parseInt(nodeId, 10);
         });
 
         // If top element
         if ( path.length === 1 ) {
-            tree[path[0]] = node;
-            return;
+            newTree[path[0]] = node;
+            return newTree;
         }
 
         // Otherwise select the parent
-        let tempNode = tree[path[0]];
+        let tempNode = newTree[path[0]];
         for (let i = 1; i < path.length - 1; i++) {
             tempNode = tempNode.nodes[path[i]];
         }
 
         // Update the correct child (last index in the path)
         tempNode.nodes[path[ path.length - 1 ]] = node;
+
+        return newTree;
     }
 
     /**

@@ -50,7 +50,7 @@ class App extends React.Component<{}, AppState> {
 
         if (this.actionMapper.hasOwnProperty(type)) {
             node = this.actionMapper[type](node, value);
-            Tree.nodeUpdater(this.data, node);
+            this.data = Tree.nodeUpdater(this.data, node);
         } else {
             // console.log(id, type, value);
         }
@@ -89,7 +89,7 @@ class App extends React.Component<{}, AppState> {
                 allowReselect={true}
                 checkboxFirst={true}
                 nodeIcon={'fa fa-fw'}
-                partiallyCheckedIcon={'fa fa-ban'}
+                // partiallyCheckedIcon={'fa fa-ban'}
                 data={this.state.tree}
                 onDataChange={this.onDataChange}
                 lazyLoad={this.lazyLoad}
