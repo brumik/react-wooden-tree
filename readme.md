@@ -74,8 +74,8 @@ Then you can render the tree:
 
 ## Data format
 The format to supply the data is the following:
-```json
-tree = [
+```typescript
+let treeStructure = [
     {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true},
         nodes: [
             {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: true}},
