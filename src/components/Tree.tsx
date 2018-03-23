@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'font-awesome/css/font-awesome.min.css';
 import { Node, NodeProps, ParentData } from './Node';
 import './Tree.css';
 import { defVal } from './Helpers';

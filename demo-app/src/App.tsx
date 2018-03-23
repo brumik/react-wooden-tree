@@ -1,4 +1,5 @@
 import * as React from 'react';
+import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 import { Tree } from './components/Tree';
 import { generator } from './Generator';
