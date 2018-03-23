@@ -57,27 +57,27 @@ export interface ParentData {
  * Node properties interface.
  */
 export interface NodeProps {
-    id?: string;
-    text: string;
-    nodes?: NodeProps[];
-    state?: NodeState;
+    id?: string;                        // < The ID of the node: Generated and used as a reference in the hierarchy.
+    text: string;                       // < The text displayed in the node.
+    nodes?: NodeProps[];                // < The children nodes.
+    state?: NodeState;                  // < The node states: checked, selected, expanded, disabled
 
-    checkable?: boolean;
-    hideCheckbox?: boolean;
+    checkable?: boolean;                // < If false the node is non checkable even if the checkbox is shown.
+    hideCheckbox?: boolean;             // < If true then the checkbox is not shown - use whit showCheckbox option.
 
-    selectable?: boolean;
-    selectedIcon?: string;
+    selectable?: boolean;               // < Determines if the node can be selected.
+    selectedIcon?: string;              // < Sets the selected icon for the node.
 
-    lazyLoad?: boolean;
-    loading?: boolean; // Null when error occurred
+    lazyLoad?: boolean;                 // < Determines if the node calls the lazy loading function on expand.
+    loading?: boolean;                  // < Determines if the node is currently loading: Null when error occurred
 
     // Styling
-    icon?: string;
-    image?: string;
-    classes?: string;
+    icon?: string;                      // < Custom icon for the node.
+    image?: string;                     // < Custom image for the node - preferred over the icon.
+    classes?: string;                   // < Custom classes for the node.
 
     // Private
-    parentData?: ParentData;
+    parentData?: ParentData;            // < The data passed from the tree component.
 }
 
 /**
