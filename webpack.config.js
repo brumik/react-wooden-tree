@@ -1,10 +1,11 @@
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: __dirname,
     entry: {
-        'react-wooden-tree': resolve(__dirname, './index.ts'),
+        'react-wooden-tree': resolve(__dirname, './src/index.ts'),
     },
     devtool: 'source-map',
     output: {
@@ -15,7 +16,8 @@ module.exports = {
         umdNamedDefine: true
     },
     plugins: [
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('[name].css'),
+        new CopyWebpackPlugin(['src/**/*.d.ts'])
     ],
     module: {
         rules: [
