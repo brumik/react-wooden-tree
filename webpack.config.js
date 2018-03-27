@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     context: __dirname,
     entry: {
-        'react-wooden-tree': resolve(__dirname, './src/index.ts'),
+        'react-wooden-tree': resolve(__dirname, './index.ts'),
     },
     devtool: 'source-map',
     output: {

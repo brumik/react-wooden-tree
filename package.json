@@ -1,9 +1,10 @@
 {
   "name": "react-wooden-tree",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "private": false,
   "description": "Tree view component for react.",
-  "main": "dist/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brumik/react-wooden-tree.git"

@@ -1,4 +1,5 @@
+.idea
 !dist/*
 src/*
-benchmark/*
-demo-app/*
+benchmark
+demo-app

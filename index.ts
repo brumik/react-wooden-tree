@@ -1,0 +1,1 @@
+export { Tree, NodeProps } from './dist/react-wooden-tree';
