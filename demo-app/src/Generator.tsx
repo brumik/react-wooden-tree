@@ -21,9 +21,10 @@ export function generator(): NodeProps[] {
         {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true},
             nodes: [
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: true}},
-                {text: 'Child 2 - Non checkable and disabled', icon: 'fa fa-fw',
+                {text: 'Child 2 - Non checkable and disabled - no icon', icon: 'fa fa-fw',
                     checkable: false, state: {disabled: true}},
-                {text: 'Child 3 - LazyLoadable', lazyLoad: true}
+                {text: 'Child 3 - No checkbox', hideCheckbox: true},
+                {text: 'Child 4 - LazyLoadable', lazyLoad: true}
             ]
         },
         {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
@@ -31,6 +32,12 @@ export function generator(): NodeProps[] {
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw'},
                 {text: 'Child 2 - No icon specified', classes: 'custom-class'},
                 {text: 'Child 3 - Image icon', image: 'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
+            ]
+        },
+        {text: 'Parent 3 - Children checkboxes', hideCheckbox: true, state: {expanded: true},
+            nodes: [
+                {text: 'Child 1 - Has checkbox - checked', state: {checked: true}},
+                {text: 'Child 2 - Has checkbox - unchecked'}
             ]
         }
     ];

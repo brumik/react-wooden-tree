@@ -89,7 +89,7 @@ class App extends React.Component<{}, AppState> {
                 preventDeselect={true}
                 allowReselect={true}
                 checkboxFirst={true}
-                nodeIcon={'fa fa-fw'}
+                nodeIcon={'fa fa-fw fa-circle'}
                 // partiallyCheckedIcon={'fa fa-ban'}
                 data={this.state.tree}
                 onDataChange={this.onDataChange}
