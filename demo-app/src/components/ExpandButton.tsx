@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface ExpandButtonProps {
+export interface ExpandButtonProps {
     onChange: (checked: boolean) => void;
     expanded: boolean;
     loading: boolean; // null when error occurred.

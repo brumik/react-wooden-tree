@@ -3,7 +3,7 @@
 exports[`node should add custom class 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable custom-class"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-square-o Icon CheckboxButton"
@@ -23,7 +23,7 @@ exports[`node should add custom class 1`] = `
 exports[`node should display custom icon 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-custom-icon"
@@ -39,7 +39,7 @@ exports[`node should display custom icon 1`] = `
 exports[`node should display custom image as icon 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <img
     className="NodeIconImage"
@@ -56,7 +56,7 @@ exports[`node should display custom image as icon 1`] = `
 exports[`node should display error lazy loading icon 1`] = `
 <li
   className="indent-0 Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa-exclamation-triangle Icon ExpandButton"
@@ -80,7 +80,7 @@ exports[`node should display error lazy loading icon 1`] = `
 exports[`node should display loading icon 1`] = `
 <li
   className="indent-0 Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-spinner fa-spin Icon ExpandButton"
@@ -104,7 +104,7 @@ exports[`node should display loading icon 1`] = `
 exports[`node should display partially checked icon 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-square Icon CheckboxButton"
@@ -124,7 +124,7 @@ exports[`node should display partially checked icon 1`] = `
 exports[`node should display unique selected icon 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable selected"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-square-o Icon CheckboxButton"
@@ -147,7 +147,7 @@ exports[`node should display unique selected icon 1`] = `
 exports[`node should display warning icon when undefined 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-question-circle Icon CheckboxButton"
@@ -167,7 +167,7 @@ exports[`node should display warning icon when undefined 1`] = `
 exports[`node should indicate changed checked node (icon and class) 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable changed-checkbox"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-check-square Icon CheckboxButton"
@@ -187,7 +187,7 @@ exports[`node should indicate changed checked node (icon and class) 1`] = `
 exports[`node should indicate selected node (icon and class) 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable selected"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-square-o Icon CheckboxButton"
@@ -210,7 +210,7 @@ exports[`node should indicate selected node (icon and class) 1`] = `
 exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <span
     onClick={[Function]}
@@ -223,7 +223,7 @@ exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
 exports[`node should not render children nodes if collapsed 1`] = `
 <li
   className="indent-0 Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-angle-right Icon ExpandButton"
@@ -247,7 +247,7 @@ exports[`node should not render children nodes if collapsed 1`] = `
 exports[`node should render basic node 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-square-o Icon CheckboxButton"
@@ -268,7 +268,7 @@ exports[`node should render children nodes if expanded 1`] = `
 Array [
   <li
     className="indent-0 Selectable"
-    id="0"
+    data-id=""
 >
     <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -288,8 +288,8 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
-    id="0.0"
+    className="indent-0 NoOpenButton Selectable"
+    data-id=""
 >
     <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -305,8 +305,8 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
-    id="0.1"
+    className="indent-0 NoOpenButton Selectable"
+    data-id=""
 >
     <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -328,7 +328,7 @@ exports[`node should render expanded node with children 1`] = `
 Array [
   <li
     className="indent-0 Selectable"
-    id="0"
+    data-id=""
 >
     <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -348,8 +348,8 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
-    id="0.0"
+    className="indent-0 NoOpenButton Selectable"
+    data-id=""
 >
     <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -365,8 +365,8 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
-    id="0.1"
+    className="indent-0 NoOpenButton Selectable"
+    data-id=""
 >
     <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -387,7 +387,7 @@ Array [
 exports[`node should render not render empty children 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-square-o Icon CheckboxButton"
@@ -407,7 +407,7 @@ exports[`node should render not render empty children 1`] = `
 exports[`node should render switched node and checkbox icon 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"
-  id="0"
+  data-id=""
 >
   <i
     className="fa fa-ban fa-fw"

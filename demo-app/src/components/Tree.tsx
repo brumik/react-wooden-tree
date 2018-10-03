@@ -54,7 +54,7 @@ export interface TreeProps {
     lazyLoad?: (node: NodeProps) => Promise<NodeProps[]>;
 }
 
-interface TreeState {}
+export interface TreeState {}
 
 export class Tree extends React.Component<TreeProps, TreeState> {
     /**

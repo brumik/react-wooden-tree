@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { Tree } from '../components/Tree';
-import { NodeProps } from '../components/Node';
+import { Tree } from '..';
+import { NodeProps } from '..';
 import { ReactTestRendererJSON } from 'react-test-renderer';
 
 let tree: NodeProps[];
@@ -37,12 +37,12 @@ let changeCounter: number;
  * Dummy function to get idea what was called from the tree.
  * Updates lastChange and increments changeCounter globals.
  *
- * @param {string} id The node id.
+ * @param {string} nodeId The node nodeId.
  * @param {string} type The field update type.
  * @param value The new value.
  */
-let onDataChange = (id: string, type: string, value: any): void => {
-    let node = Tree.nodeSelector(tree2, id);
+let onDataChange = (nodeId: string, type: string, value: any): void => {
+    let node = Tree.nodeSelector(tree2, nodeId);
     if ( node == null ) { return; }
 
     if (actionMapper.hasOwnProperty(type)) {
@@ -51,20 +51,21 @@ let onDataChange = (id: string, type: string, value: any): void => {
     }
 
     changeCounter++;
-    lastChange = [id, type, value];
+    lastChange = [nodeId, type, value];
 };
 
 /**
  * Selects the required li element in the list.
  *
  * @param {ReactTestRendererJSON} node The created node with renderer.
- * @param {string} id The ID of the required li element.
+ * @param {string} nodeId The nodeId of the required li element.
  * @returns {ReactTestRendererJSON} The li element.
  */
-function liSelector(node: ReactTestRendererJSON, id: string): ReactTestRendererJSON {
+function liSelector(node: ReactTestRendererJSON, nodeId: string): ReactTestRendererJSON {
     let ul = node.children[0];
+    let fieldName = 'data-id';
     for(let i = 0; i < ul.children.length; i++) {
-        if ( ul.children[i].props.id === id ) {
+        if ( ul.children[i].props[fieldName] === nodeId ) {
             return ul.children[i];
         }
     }
@@ -191,13 +192,13 @@ describe('tree public method', () => {
     it('should initialize the ids and state correctly', () => {
         expect(tree).not.toBeNull();
 
-        expect(tree[0].nodes[1].nodes[0].id).toBe('0.1.0');
+        expect(tree[0].nodes[1].nodes[0].nodeId).toBe('0.1.0');
         expect(tree[0].nodes[1].nodes[0].state).toMatchObject(initState);
 
-        expect(tree[0].nodes[0].id).toBe('0.0');
+        expect(tree[0].nodes[0].nodeId).toBe('0.0');
         expect(tree[0].nodes[0].state).toMatchObject(initState);
 
-        expect(tree[1].id).toBe('1');
+        expect(tree[1].nodeId).toBe('1');
         expect(tree[1].state).toMatchObject({...initState, selected: true});
     });
 
@@ -304,16 +305,16 @@ describe('tree public method', () => {
     it('should return node with changed children nodes', () => {
         let node = Tree.nodeSelector(tree, '1');
 
-        subTree = Tree.initTree(subTree, node.id);
+        subTree = Tree.initTree(subTree, node.nodeId);
         node = Tree.nodeChildren(node, subTree);
 
         expect(node.nodes).not.toBeNull();
         expect(node.nodes[1].nodes[0]).toMatchObject({
-            text: 'Sub Child 1.0', id: '1.1.0', state: initState
+            text: 'Sub Child 1.0', nodeId: '1.1.0', state: initState
         });
 
         expect(node.nodes[2].nodes[0]).toMatchObject({
-            text: 'Sub Child 2.0', id: '1.2.0', state: {...initState, checked: true}
+            text: 'Sub Child 2.0', nodeId: '1.2.0', state: {...initState, checked: true}
         });
     });
 

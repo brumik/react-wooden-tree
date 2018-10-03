@@ -7,7 +7,7 @@ exports[`tree events should check parent if all children checked 1`] = `
   <ul>
     <li
       className="indent-0"
-      id="0"
+      data-id="0"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -28,7 +28,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
     <li
       className="indent-0 Selectable"
-      id="1"
+      data-id="1"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -49,7 +49,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
     <li
       className="indent-1 Selectable changed-checkbox"
-      id="1.0"
+      data-id="1.0"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -70,7 +70,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable changed-checkbox selected"
-      id="1.0.0"
+      data-id="1.0.0"
     >
       <i
         className="fa fa-check-square Icon CheckboxButton"
@@ -90,7 +90,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable changed-checkbox"
-      id="1.0.1"
+      data-id="1.0.1"
     >
       <i
         className="fa fa-check-square Icon CheckboxButton"
@@ -107,7 +107,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable changed-checkbox"
-      id="1.0.2"
+      data-id="1.0.2"
     >
       <i
         className="fa fa-check-square Icon CheckboxButton"
@@ -124,7 +124,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
     <li
       className="indent-0 Selectable"
-      id="2"
+      data-id="2"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -157,7 +157,7 @@ exports[`tree events should match failed lazy load 1`] = `
   <ul>
     <li
       className="indent-0"
-      id="0"
+      data-id="0"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -174,7 +174,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
     <li
       className="indent-0 Selectable"
-      id="1"
+      data-id="1"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -191,7 +191,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
     <li
       className="indent-1 Selectable"
-      id="1.0"
+      data-id="1.0"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -208,7 +208,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable selected"
-      id="1.0.0"
+      data-id="1.0.0"
     >
       <i
         className="fa fa-check"
@@ -224,7 +224,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.1"
+      data-id="1.0.1"
     >
       <i
         className="fa fa-ban fa-fw"
@@ -237,7 +237,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.2"
+      data-id="1.0.2"
     >
       <i
         className="fa fa-ban fa-fw"
@@ -250,7 +250,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
     <li
       className="indent-0 Selectable"
-      id="2"
+      data-id="2"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -279,7 +279,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
   <ul>
     <li
       className="indent-0"
-      id="0"
+      data-id="0"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -296,7 +296,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
     <li
       className="indent-0 Selectable"
-      id="1"
+      data-id="1"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -313,7 +313,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
     <li
       className="indent-1 Selectable"
-      id="1.0"
+      data-id="1.0"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -330,7 +330,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable selected"
-      id="1.0.0"
+      data-id="1.0.0"
     >
       <i
         className="fa fa-check"
@@ -346,7 +346,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.1"
+      data-id="1.0.1"
     >
       <i
         className="fa fa-ban fa-fw"
@@ -359,7 +359,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.2"
+      data-id="1.0.2"
     >
       <i
         className="fa fa-ban fa-fw"
@@ -372,7 +372,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
     <li
       className="indent-0 Selectable"
-      id="2"
+      data-id="2"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -401,7 +401,7 @@ exports[`tree events should partially check parent if not all children checked 1
   <ul>
     <li
       className="indent-0"
-      id="0"
+      data-id="0"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -422,7 +422,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
     <li
       className="indent-0 Selectable"
-      id="1"
+      data-id="1"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -443,7 +443,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
     <li
       className="indent-1 Selectable changed-checkbox"
-      id="1.0"
+      data-id="1.0"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -464,7 +464,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
     <li
       className="indent-2 NoOpenButton Selectable changed-checkbox selected"
-      id="1.0.0"
+      data-id="1.0.0"
     >
       <i
         className="fa fa-check-square Icon CheckboxButton"
@@ -484,7 +484,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.1"
+      data-id="1.0.1"
     >
       <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -501,7 +501,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.2"
+      data-id="1.0.2"
     >
       <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -518,7 +518,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
     <li
       className="indent-0 Selectable"
-      id="2"
+      data-id="2"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -551,7 +551,7 @@ exports[`tree events should partially check parent if not all children checked 2
   <ul>
     <li
       className="indent-0"
-      id="0"
+      data-id="0"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"
@@ -572,7 +572,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
     <li
       className="indent-0 Selectable"
-      id="1"
+      data-id="1"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -593,7 +593,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
     <li
       className="indent-1 Selectable changed-checkbox"
-      id="1.0"
+      data-id="1.0"
     >
       <i
         className="fa fa-angle-down Icon ExpandButton"
@@ -614,7 +614,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
     <li
       className="indent-2 NoOpenButton Selectable changed-checkbox selected"
-      id="1.0.0"
+      data-id="1.0.0"
     >
       <i
         className="fa fa-check-square Icon CheckboxButton"
@@ -634,7 +634,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
     <li
       className="indent-2 NoOpenButton Selectable changed-checkbox"
-      id="1.0.1"
+      data-id="1.0.1"
     >
       <i
         className="fa fa-check-square Icon CheckboxButton"
@@ -651,7 +651,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
     <li
       className="indent-2 NoOpenButton Selectable"
-      id="1.0.2"
+      data-id="1.0.2"
     >
       <i
         className="fa fa-square-o Icon CheckboxButton"
@@ -668,7 +668,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
     <li
       className="indent-0 Selectable"
-      id="2"
+      data-id="2"
     >
       <i
         className="fa fa-angle-right Icon ExpandButton"

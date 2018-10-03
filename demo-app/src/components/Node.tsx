@@ -5,18 +5,18 @@ import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
 /**
  * Interface for the node's state property.
  */
-interface NodeState {
+export interface NodeState {
     checked?: boolean;
     disabled?: boolean;
     expanded?: boolean;
     selected?: boolean;
 }
 
-interface SelectOnChange {
+export interface SelectOnChange {
     (nodeId: string, selected: boolean): void;
 }
 
-interface OnLazyLoad {
+export interface OnLazyLoad {
     (nodeId: string): void;
 }
 

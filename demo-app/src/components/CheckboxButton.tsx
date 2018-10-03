@@ -10,7 +10,7 @@ export interface CheckboxButtonOnChange {
 /**
  * CheckboxButton properties definition.
  */
-interface CheckboxButtonProps {
+export interface CheckboxButtonProps {
     onChange: (checked: boolean) => void;
     checked: boolean;
     checkedIcon: string;
