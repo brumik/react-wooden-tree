@@ -54,7 +54,7 @@ export interface TreeProps {
     lazyLoad?: (node: NodeProps) => Promise<NodeProps[]>;
 }
 
-export interface TreeState {}
+interface TreeState {}
 
 export class Tree extends React.Component<TreeProps, TreeState> {
     /**
@@ -455,7 +455,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
         // Preventing deselect but if re-select is active then simulating select.
         if ( this.props.preventDeselect && !selected ) {
             if ( this.props.allowReselect ) {
-                this.props.onDataChange(this.selectedNode, 'state.selected', true);
+                this.props.onDataChange(id, 'state.selected', true);
             }
         } else if ( !this.props.multiSelect && selected ) {
 
