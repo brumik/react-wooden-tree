@@ -4,7 +4,7 @@ import * as React from 'react';
  * Callback function for CheckboxButton.
  */
 export interface CheckboxButtonOnChange {
-    (checked: boolean, id: string): void;
+    (checked: boolean, nodeId: string): void;
 }
 
 /**

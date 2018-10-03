@@ -30,6 +30,8 @@ class App extends React.Component<{}, AppState> {
 
         this.data = Tree.initTree(generator());
 
+        console.log(Tree.nodeSearch(this.data, null, 'data-random', 'random'));
+
         this.state = {
             tree: this.data,
         };
@@ -41,19 +43,19 @@ class App extends React.Component<{}, AppState> {
     /**
      * The callback function for changing data in the tree.
      *
-     * @param {string} id The id of the node.
+     * @param {string} nodeId The nodeId of the node.
      * @param {string} type The field name which changed.
      * @param {boolean} value The new value to assign.
      */
-    onDataChange(id: string, type: string, value: boolean): void {
-        let node = Tree.nodeSelector(this.data, id);
+    onDataChange(nodeId: string, type: string, value: boolean): void {
+        let node = Tree.nodeSelector(this.data, nodeId);
         if ( node == null ) { return; }
 
         if (this.actionMapper.hasOwnProperty(type)) {
             node = this.actionMapper[type](node, value);
             this.data = Tree.nodeUpdater(this.data, node);
         } else {
-            // console.log(id, type, value);
+            // console.log(nodeId, type, value);
         }
 
         this.setState({tree: this.data});

@@ -11,7 +11,7 @@ export interface ExpandButtonProps {
 }
 
 export interface ExpandButtonOnChange {
-    (id: string, opened: boolean): void;
+    (nodeId: string, opened: boolean): void;
 }
 
 export class ExpandButton extends React.Component<ExpandButtonProps, {}> {

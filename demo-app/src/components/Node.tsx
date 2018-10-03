@@ -13,11 +13,11 @@ interface NodeState {
 }
 
 interface SelectOnChange {
-    (id: string, selected: boolean): void;
+    (nodeId: string, selected: boolean): void;
 }
 
 interface OnLazyLoad {
-    (id: string): void;
+    (nodeId: string): void;
 }
 
 /**
@@ -30,7 +30,7 @@ export interface ParentData {
     selectOnChange: SelectOnChange;
     onLazyLoad: OnLazyLoad;
     showCheckbox: boolean;
-    initSelectedNode: (id: string) => void;
+    initSelectedNode: (nodeId: string) => void;
 
     // Icons
     showIcon: boolean;                 // < Determines if the icons are showed in nodes.
@@ -57,7 +57,7 @@ export interface ParentData {
  * Node properties interface.
  */
 export interface NodeProps {
-    id?: string;
+    nodeId?: string;
     text: string;
     nodes?: NodeProps[];
     state?: NodeState;
@@ -70,6 +70,8 @@ export interface NodeProps {
 
     lazyLoad?: boolean;
     loading?: boolean; // Null when error occurred
+
+    attr?: {[key: string]: string};
 
     // Styling
     icon?: string;
@@ -110,7 +112,7 @@ export class Node extends React.Component<NodeProps, {}> {
             for (let i = 0; i < nodes.length; i++) {
                 elements.push(
                     <Node
-                        key={nodes[i].id}
+                        key={nodes[i].nodeId}
                         parentData={parentData}
                         {...nodes[i]}
                     />
@@ -214,9 +216,12 @@ export class Node extends React.Component<NodeProps, {}> {
             NodeClasses += ' ' + this.props.parentData.selectedClass;
         }
 
+        // Data Attributes list
+        let DataAttr: {[k: string]: string} = {'data-id': this.props.nodeId};
+
         return (
             <React.Fragment>
-                <li className={NodeClasses} id={this.props.id}>
+                <li className={NodeClasses} {...DataAttr} {...this.props.attr}>
                     {openButton}
                     {icon1}
                     {selectedIcon}
@@ -237,7 +242,7 @@ export class Node extends React.Component<NodeProps, {}> {
         super(props);
 
         if ( this.props.state.selected ) {
-            this.props.parentData.initSelectedNode(this.props.id);
+            this.props.parentData.initSelectedNode(this.props.nodeId);
         }
 
         this.defaultCheckbox = this.props.state.checked;
@@ -253,7 +258,7 @@ export class Node extends React.Component<NodeProps, {}> {
      */
     private handleCheckChange(checked: boolean): void {
         if ( this.props.checkable && !this.props.state.disabled ) {
-            this.props.parentData.checkboxOnChange(checked, this.props.id);
+            this.props.parentData.checkboxOnChange(checked, this.props.nodeId);
         }
     }
 
@@ -265,10 +270,10 @@ export class Node extends React.Component<NodeProps, {}> {
      */
     private handleOpenChange(expanded: boolean): void {
         if ( this.props.lazyLoad && this.props.nodes === null ) {
-            this.props.parentData.onLazyLoad(this.props.id);
+            this.props.parentData.onLazyLoad(this.props.nodeId);
         }
 
-        this.props.parentData.expandOnChange(this.props.id, expanded);
+        this.props.parentData.expandOnChange(this.props.nodeId, expanded);
     }
 
     /**
@@ -277,7 +282,7 @@ export class Node extends React.Component<NodeProps, {}> {
      */
     private handleSelected(): void {
         if ( this.props.selectable && !this.props.state.disabled ) {
-            this.props.parentData.selectOnChange(this.props.id, !this.props.state.selected);
+            this.props.parentData.selectOnChange(this.props.nodeId, !this.props.state.selected);
         }
     }
 
@@ -286,7 +291,7 @@ export class Node extends React.Component<NodeProps, {}> {
      * @returns {number} The computed padding level.
      */
     private getItemIndentSize(): number {
-        return (this.props.id.split('.').length - 1);
+        return (this.props.nodeId.split('.').length - 1);
     }
 }
 
@@ -294,7 +299,7 @@ export class Node extends React.Component<NodeProps, {}> {
  * Node default values.
  */
 Node.defaultProps = {
-    id: '',
+    nodeId: '',
     text: '',
     nodes: null,
     state: {
@@ -310,6 +315,8 @@ Node.defaultProps = {
     selectedIcon: null,
     lazyLoad: false,
     loading: false,
+
+    attr: null,
 
     // Styling
     icon: null,

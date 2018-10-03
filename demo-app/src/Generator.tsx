@@ -18,13 +18,13 @@ import { NodeProps } from './components/Node';
 
 export function generator(): NodeProps[] {
     return [
-        {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true},
+        {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true}, attr: {'data-random': 'notThatRandom'},
             nodes: [
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw', state: {checked: true}},
                 {text: 'Child 2 - Non checkable and disabled - no icon', icon: 'fa fa-fw',
                     checkable: false, state: {disabled: true}},
                 {text: 'Child 3 - No checkbox', hideCheckbox: true},
-                {text: 'Child 4 - LazyLoadable', lazyLoad: true}
+                {text: 'Child 4 - LazyLoadable', lazyLoad: true, attr: {'data-random': 'random'}}
             ]
         },
         {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
@@ -35,9 +35,10 @@ export function generator(): NodeProps[] {
             ]
         },
         {text: 'Parent 3 - Children checkboxes', hideCheckbox: true, state: {expanded: true},
+            attr: {'data-random': 'random'},
             nodes: [
                 {text: 'Child 1 - Has checkbox - checked', state: {checked: true}},
-                {text: 'Child 2 - Has checkbox - unchecked'}
+                {text: 'Child 2 - Has checkbox - unchecked', attr: {'data-random': 'random'}}
             ]
         }
     ];
