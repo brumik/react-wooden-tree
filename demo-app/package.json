@@ -23,11 +23,11 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-test-renderer": "^16.0.1",
     "react-test-renderer": "^16.2.0",
-    "serve": "^6.4.9",
+    "serve": "^10.0.2",
     "typescript": "^2.7.2"
   },
   "jest": {
-    "collectCoverageFrom" : [
+    "collectCoverageFrom": [
       "src/components/**/*.{js,jsx,tsx}",
       "!<rootDir>/node_modules/",
       "!<rootDir>/path/to/dir/"

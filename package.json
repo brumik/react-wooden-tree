@@ -41,7 +41,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "font-awesome": "^4.7.0",
     "react-test-renderer": "^16.2.0",
-    "serve": "^6.4.9",
+    "serve": "^10.0.2",
     "tslint-loader": "^3.6.0",
     "typescript": "^2.7.2",
     "webpack": "^3.10.0",
