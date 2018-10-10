@@ -1,9 +1,17 @@
 language: node_js
 node_js:
-- "7"
+- '7'
 cache:
   directories:
-  - "node_modules"
+  - node_modules
 sudo: false
 notifications:
   email: false
+deploy:
+  provider: npm
+  email: "levente.berky@gmail.com"
+  api_key:
+    secure: T/lpk1K5kc9Icomjs95cPBAvfifYqFB4X1EIqEYGRWjk7gJ6aI3hggK2edoNuRCS9Yowy/OU4YxoYZqzZImhmuc13gA4WS0qryVCZkG+thtsTMrcKZ06Tap5/j5e9+HQgNFRMy5IpBwf8dzp64MSitXWh+FibzLeZoVEqzp6sSAAWKH0vwpNO+8A1BCD4S97JKksjLFYo7YsY2zzTr4YdHaNBslcYuExr45cB4awwMoe6nDPTpMv931cPPEoMKOopg11Xbjd8HED274Wg16G/kCYeDnWyszhY1iLs3GGwOmJzhBpPyGGGHMbk8KqvpSnedZciELVy8vwjT2eIc96s3nZgGftyl2UmWw9irE/nAh9pgdiaPchUevbL6NW81rT9XrJHUO9CubMjjpfbxHOf+y4qjZDqyKvkoEcDQPXuIl+0hsk3UKqeco01Y0PReqBIBklc3i/gkRz4jhqzgZijvqIv319Iy4t/8uoOslaoci2u3ixbHLaIiVeQ9XsVjzGUZbxshIT0jnjq89DrkpRWygpxFcX7xQz+XONi5RrLSnBcywyePbL3kJ/YXcNvuFUQyrOpF3vPO5UgjZVXy+y9A91IgvJeA9uTkVdnPoIBZQ+Ol1LhjOSx9rIHwqF30Sci83tw51mAIEGtA69AO7ja9BuU9eCtod2TQrxDzs0hRo=
+  on:
+    tags: true
+  skip_cleanup: true
