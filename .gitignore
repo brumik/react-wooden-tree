@@ -4,5 +4,5 @@ build/
 coverage/
 dist/
 src/**/*.d.ts
-./package-lock.json
-./yarn.lock
+package-lock.json
+yarn.lock
