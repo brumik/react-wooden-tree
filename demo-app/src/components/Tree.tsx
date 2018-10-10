@@ -66,7 +66,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * This structure contains all the data that nodes need from the
      * tree component root like settings and callback functions.
      */
-    private parentData: ParentData;
+    private readonly parentData: ParentData;
 
     /**
      * Indicates if there is a node currently selected and which one.
@@ -78,7 +78,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     /**
      * Generates the IDs and states for all nodes recursively.
      * The IDs are crucial for the tree to work.
-     * The state is needed to avoid not defined expections.
+     * The state is needed to avoid not defined exceptions.
      *
      * @param {NodeProps[]} tree The tree to fill the IDs up.
      * @param {string} parentID The parent nodeId of the current nodes. For root left this param out.
@@ -122,7 +122,7 @@ export class Tree extends React.Component<TreeProps, TreeState> {
      * @param searchString The string to search for.
      * @return string[] Array of ID's where the string is present.
      */
-    public static nodeSearch(tree: NodeProps[], nodeID: string, attrName: string, searchString: string) {
+    public static nodeSearch(tree: NodeProps[], nodeID: string, attrName: string, searchString: string): string[] {
         let findInID: string[] = [];
 
         if ( !nodeID ) {
@@ -560,7 +560,7 @@ Tree.defaultProps = {
     // Icons
     showIcon: true,
     showImage: true,
-    nodeIcon: 'fa fa-ban fa-fw',
+    nodeIcon: 'fa fa-ban',
     checkedIcon: 'fa fa-check-square',
     uncheckedIcon: 'fa fa-square-o',
     partiallyCheckedIcon: 'fa fa-square',
