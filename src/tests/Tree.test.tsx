@@ -138,11 +138,11 @@ beforeEach(() => {
                 {text: 'Child 0.0'},
                 {text: 'Child 0.1',
                     nodes: [
-                        {text: 'Child 0.1.0'}
+                        {text: 'Child 0.1.0', attr: {'data-info': 'search2', 'data-desc': 'searchDescExtended'}}
                     ]},
-                {text: 'Child 0.2'}
+                {text: 'Child 0.2', attr: {'data-info': 'search1', 'data-desc': 'searchDesc'}}
             ]},
-        {text: 'Parent 1', state: {selected: true}}
+        {text: 'Parent 1', state: {selected: true}, attr: {'data-info': 'search1', 'data-desc': 'searchDesc'}}
     ];
 
     subTree = [
@@ -202,12 +202,25 @@ describe('tree public method', () => {
         expect(tree[1].state).toMatchObject({...initState, selected: true});
     });
 
-    it('should return the correct node', () => {
+    it('should return the correct node by id', () => {
         let node = Tree.nodeSelector(tree, '0.2');
         expect(node.text).toBe('Child 0.2');
 
         node = Tree.nodeSelector(tree, '1');
         expect(node.text).toBe('Parent 1');
+    });
+
+    it('should return the correct node ids in the whole tree by attribute value', () => {
+        let ids = Tree.nodeSearch(tree, null, 'data-info', 'search1');
+        expect(ids.length).toBe(2);
+        expect(ids[0]).toBe('0.2');
+        expect(ids[1]).toBe('1');
+    });
+
+    it('should return the correct node ids in a subtree by attribute value', () => {
+        let ids = Tree.nodeSearch(tree, '0', 'data-info', 'search1');
+        expect(ids.length).toBe(1);
+        expect(ids[0]).toBe('0.2');
     });
 
     it('should update the tree correctly', () => {

@@ -10,8 +10,8 @@ const initState = {
     checked: false
 };
 const subNodes = [
-    {text: 'Sub Node 0', id: '0.0'},
-    {text: 'Sub Node 1', id: '0.1'}
+    {text: 'Sub Node 0', nodeId: '0.0'},
+    {text: 'Sub Node 1', nodeId: '0.1'}
 ];
 
 beforeEach(() => {
@@ -22,7 +22,7 @@ beforeEach(() => {
         selectOnChange: null,
         onLazyLoad: null,
         showCheckbox: true,
-        initSelectedNode: function(id: string) {},
+        initSelectedNode: function(nodeId: string) {},
 
         // Icons
         showIcon: true,
@@ -52,7 +52,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
             />)
             .toJSON();
@@ -64,7 +64,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, expanded: true}}
                 nodes={null}
             />)
@@ -77,7 +77,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={{...parentData, checkboxFirst: false}}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
             />)
             .toJSON();
@@ -89,7 +89,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, expanded: true}}
                 nodes={subNodes}
             />)
@@ -102,7 +102,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 nodes={subNodes}
             />)
@@ -115,7 +115,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, expanded: true}}
                 nodes={subNodes}
             />)
@@ -128,7 +128,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, selected: true}}
                 selectedIcon={'icon icon-selected'}
             />)
@@ -141,7 +141,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={{...parentData, showCheckbox: false, showIcon: false}}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 hideCheckbox={true}
             />)
@@ -154,7 +154,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={{...parentData, showCheckbox: true, showIcon: true}}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 hideCheckbox={true}
                 icon={'fa fa-custom-icon'}
@@ -168,7 +168,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={{...parentData, showCheckbox: true, showIcon: true}}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 hideCheckbox={true}
                 icon={'fa fa-custom-icon'}
@@ -183,7 +183,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 loading={true}
                 lazyLoad={true}
@@ -197,7 +197,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 loading={null}
                 lazyLoad={true}
@@ -211,7 +211,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={initState}
                 classes={'custom-class'}
             />)
@@ -224,7 +224,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, selected: true}}
             />)
             .toJSON();
@@ -236,7 +236,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, checked: null}}
             />)
             .toJSON();
@@ -248,7 +248,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, checked: undefined}}
             />)
             .toJSON();
@@ -260,7 +260,7 @@ describe('node', () => {
             .create(<Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, checked: false}}
             />);
 
@@ -269,11 +269,65 @@ describe('node', () => {
             <Node
                 text={'Rendered Node'}
                 parentData={parentData}
-                id={'0'}
+                nodeId={'0'}
                 state={{...initState, checked: true}}
             />
         );
 
         expect(node.toJSON()).toMatchSnapshot();
+    });
+
+    it('should color the node icon with hex color', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                nodeId={'0'}
+                state={initState}
+                icon={'fa fa-circle'}
+                iconColor={'#F5F5F5'}
+            />);
+        expect(node.toJSON()).toMatchSnapshot();
+    });
+
+    it('should recolor the node icon background with rgb color', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                nodeId={'0'}
+                state={initState}
+                icon={'fa fa-circle'}
+                iconBackground={'rgb(100,255,100)'}
+            />);
+        expect(node.toJSON()).toMatchSnapshot();
+    });
+
+    it('should recolor both node icon ad icon background with color names', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                nodeId={'0'}
+                state={initState}
+                icon={'fa fa-circle'}
+                iconColor={'red'}
+                iconBackground={'green'}
+            />);
+        expect(node.toJSON()).toMatchSnapshot();
+    });
+
+    it('should recolor the default icon color and background with rgba colors', () => {
+        const node = renderer
+            .create(<Node
+                text={'Rendered Node'}
+                parentData={parentData}
+                nodeId={'0'}
+                state={initState}
+                iconColor={'rgba(10,10,10,0.5)'}
+                iconBackground={'rgba(90,60,90,1)'}
+            />);
+        expect(node.toJSON()).toMatchSnapshot();
+
     });
 });
