@@ -75,6 +75,8 @@ export interface NodeProps {
 
     // Styling
     icon?: string;
+    iconColor?: string;
+    iconBackground?: string;
     image?: string;
     classes?: string;
 
@@ -164,12 +166,23 @@ export class Node extends React.Component<NodeProps, {}> {
         // Icon
         let icon: JSX.Element = null;
         if ( this.props.parentData.showIcon ) {
+
+            let iconStyle: {color?: string, backgroundColor?: string} = {};
+
+            if ( this.props.iconColor ) {
+                iconStyle.color = this.props.iconColor;
+            }
+
+            if ( this.props.iconBackground ) {
+                iconStyle.backgroundColor = this.props.iconBackground;
+            }
+
             if ( this.props.parentData.showImage && this.props.image ) {
                 icon = <img className={'NodeIconImage'} src={this.props.image}/>;
             } else if ( this.props.icon ) {
-                icon = <i className={this.props.icon}/>;
+                icon = <i className={'Icon ' + this.props.icon} style={iconStyle}/>;
             } else {
-                icon = <i className={this.props.parentData.nodeIcon}/>;
+                icon = <i className={'Icon ' + this.props.parentData.nodeIcon}/>;
             }
         }
 
@@ -320,6 +333,8 @@ Node.defaultProps = {
 
     // Styling
     icon: null,
+    iconColor: null,
+    iconBackground: null,
     image: null,
     classes: '',
 

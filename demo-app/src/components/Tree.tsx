@@ -560,7 +560,7 @@ Tree.defaultProps = {
     // Icons
     showIcon: true,
     showImage: true,
-    nodeIcon: 'fa fa-ban fa-fw',
+    nodeIcon: 'fa fa-ban',
     checkedIcon: 'fa fa-check-square',
     uncheckedIcon: 'fa fa-square-o',
     partiallyCheckedIcon: 'fa fa-square',

@@ -29,7 +29,7 @@ export function generator(): NodeProps[] {
         },
         {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
             nodes: [
-                {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop fa-fw'},
+                {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop'},
                 {text: 'Child 2 - No icon specified', classes: 'custom-class'},
                 {text: 'Child 3 - Image icon', image: 'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
             ]
@@ -40,6 +40,17 @@ export function generator(): NodeProps[] {
                 {text: 'Child 1 - Has checkbox - checked', state: {checked: true}},
                 {text: 'Child 2 - Has checkbox - unchecked', attr: {'data-random': 'random'}}
             ]
-        }
+        },
+        {text: 'Parent 4 - Changed icon colors',
+            nodes: [
+                {text: 'Child 1 - Changed icon color',
+                    icon: 'fa fa-circle ', iconColor: 'rgba(255,100,0,1)'},
+                {text: 'Child 2 - Changed background color',
+                    icon: 'fa fa-circle', iconBackground: '#9800ff'},
+                {text: 'Child 3 - Changed both colors',
+                    icon: 'fa fa-circle', iconColor: 'red', iconBackground: '#0d21ba'},
+                {text: 'Child 4 - Changed background color - with transparency',
+                    icon: 'fa fa-circle', iconBackground: 'rgba(0,0,0,0.5'},
+            ]}
     ];
 }
