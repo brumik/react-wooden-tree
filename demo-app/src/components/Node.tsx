@@ -182,7 +182,7 @@ export class Node extends React.Component<NodeProps, {}> {
             } else if ( this.props.icon ) {
                 icon = <i className={'Icon ' + this.props.icon} style={iconStyle}/>;
             } else {
-                icon = <i className={'Icon ' + this.props.parentData.nodeIcon}/>;
+                icon = <i className={'Icon ' + this.props.parentData.nodeIcon} style={iconStyle}/>;
             }
         }
 

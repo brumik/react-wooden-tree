@@ -9,7 +9,7 @@ To use the Wooden Tree two requirements must met.
 ## Install
 The component can be installed with `npm`:
 ```bash
-npm install -save react-wooden-tree
+npm install --save react-wooden-tree
 ```
 
 or you can download manually from this repository.
@@ -172,8 +172,36 @@ selectedIcon?: string;              // < Sets the selected icon for the node.
 lazyLoad?: boolean;                 // < Determines if the node calls the lazy loading function on expand.
 loading?: boolean;                  // < Determines if the node is currently loading: Null when error occurred
 
+attr?: {[key: string]: string};     // < The passed attributes which appear in HTML as well and are searchable.
+
 // Styling
 icon?: string;                      // < Custom icon for the node.
+iconColor?: string;                 // < The color of the custom icon.
+iconBackground?: string;            // < The background color of the custom icon.
 image?: string;                     // < Custom image for the node - preferred over the icon.
 classes?: string;                   // < Custom classes for the node.
 ```
+
+## Additional options
+The tree provides additional static methods over the data. In this section they are listed and explained.
+
+### Search
+To use this function there should be `data-*` attributes passed to the nodes. This can be done on node basis as the following:
+`{text: 'Node with data attribute', attr: {'data-random': 'random'}}`. These attributes are appearing in HTML and can be used
+to search for a node or nodes with the same attributes.
+
+The function for searching can be called as: `Tree.nodeSearch(tree, nodeId, attributeName, attributeValue)` where
+```typescrypt
+/**
+ * Searches trough the tree or subtree in attr field for the given string.
+ * Only works if the nodeSelector can be applied on the tree.
+ *
+ * @param {NodeProps[]} tree The tree in which the function will search.
+ * @param nodeID The id of the parent node (pass null if want to search the whole tree).
+ * @param attrName The name of the attribute to search in.
+ * @param searchString The string to search for.
+ * @return string[] Array of ID's where the string is present.
+ */
+public static nodeSearch(tree: NodeProps[], nodeID: string, attrName: string, searchString: string)
+```
+And you get back an array of node IDs where the attribute has the specified value.
