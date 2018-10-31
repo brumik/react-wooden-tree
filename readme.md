@@ -1,4 +1,7 @@
-# React Wooden Tree
+# React Wooden Tree 
+
+[![Build Status](https://travis-ci.com/brumik/react-wooden-tree.svg?branch=master)](https://travis-ci.com/brumik/react-wooden-tree)
+
 A simple solution to display hierarchical structures (Tree View) while using React.
 
 ## Dependencies
