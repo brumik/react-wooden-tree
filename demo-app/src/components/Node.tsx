@@ -20,6 +20,10 @@ export interface OnLazyLoad {
     (nodeId: string): void;
 }
 
+export interface TreeData {
+    [key: string]: NodeProps;
+}
+
 /**
  * Interface for all data required from the tree root.
  */
@@ -57,9 +61,11 @@ export interface ParentData {
  * Node properties interface.
  */
 export interface NodeProps {
-    nodeId?: string;
+    tree?: TreeData;
+
+    nodeId: string;
     text: string;
-    nodes?: NodeProps[];
+    nodes?: string[];
     state?: NodeState;
 
     checkable?: boolean;
@@ -90,7 +96,7 @@ export interface NodeProps {
  *
  * Displays a node and communicates with submodules and tree.
  */
-export class Node extends React.Component<NodeProps, {}> {
+export class Node extends React.PureComponent<NodeProps, {}> {
     /**
      * Used for default values.
      */
@@ -104,25 +110,30 @@ export class Node extends React.Component<NodeProps, {}> {
     /**
      * Creates the Node[] components from given nodes.
      *
-     * @param {NodeProps[]} nodes The nodes to render.
+     * @param {string[]} nodeIds The nodes to render.
      * @param {ParentData} parentData The parent data to pass.
+     * @param {TreeData} tree
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodes: NodeProps[], parentData: ParentData): JSX.Element[] {
-        if (nodes) {
-            let elements: JSX.Element[] = [];
-            for (let i = 0; i < nodes.length; i++) {
-                elements.push(
-                    <Node
-                        key={nodes[i].nodeId}
-                        parentData={parentData}
-                        {...nodes[i]}
-                    />
-                );
-            }
-            return elements;
-        } else { return null; }
+    public static renderSublist(nodeIds: string[], parentData: ParentData, tree: TreeData): JSX.Element[] {
+        let elements: JSX.Element[] = [];
+        for (let i = 0; i < nodeIds.length; i++) {
+            elements.push(
+                <Node
+                    tree={tree}
+                    key={tree[nodeIds[i]].nodeId}
+                    parentData={parentData}
+                    {...tree[nodeIds[i]]}
+                />
+            );
+        }
+        return elements;
     }
+    //
+    // shouldComponentUpdate(nextProps: Readonly<NodeProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+    //     return this.props.tree[this.props.nodeId] === nextProps.tree[nextProps.nodeId];
+    //     // return true;
+    // }
 
     /**
      * Renders the tree element.
@@ -203,7 +214,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         // Children
         const sublist = this.props.state.expanded ? (
-            Node.renderSublist(this.props.nodes, this.props.parentData)
+            Node.renderSublist(this.props.nodes, this.props.parentData, this.props.tree)
         ) : null;
 
         // Determining icon order
@@ -239,7 +250,6 @@ export class Node extends React.Component<NodeProps, {}> {
                     {icon1}
                     {selectedIcon}
                     {icon2}
-                    {/* TODO Somehow remove span but prevent change if clicked on expand or check button */}
                     <span onClick={this.handleSelected}>{this.props.text}</span>
                 </li>
                 {sublist}
@@ -312,9 +322,10 @@ export class Node extends React.Component<NodeProps, {}> {
  * Node default values.
  */
 Node.defaultProps = {
+    tree: null,
     nodeId: '',
     text: '',
-    nodes: null,
+    nodes: [],
     state: {
         checked: false,
         expanded: false,

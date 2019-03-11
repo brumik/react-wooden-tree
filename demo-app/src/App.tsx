@@ -2,23 +2,24 @@ import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 import { Tree } from './components/Tree';
-import { generator } from './Generator';
-import { NodeProps } from './components/Node';
+import { generator } from './Generator-Bigger';
+import { NodeProps, TreeData } from './components/Node';
+import {callBack} from "./redux";
 
 interface AppState {
-    tree: NodeProps[];
+    tree: TreeData;
 }
 
 class App extends React.Component<{}, AppState> {
-    private data: NodeProps[];
+    private data: TreeData;
 
     private actionMapper = {
         'state.expanded': Tree.nodeExpanded,
-        'state.checked': Tree.nodeChecked,
-        'state.disabled': Tree.nodeDisabled,
-        'state.selected': Tree.nodeSelected,
-        'nodes': Tree.nodeChildren,
-        'loading': Tree.nodeLoading,
+        // 'state.checked': Tree.nodeChecked,
+        // 'state.disabled': Tree.nodeDisabled,
+        // 'state.selected': Tree.nodeSelected,
+        // 'nodes': Tree.nodeChildren,
+        // 'loading': Tree.nodeLoading,
     };
 
     /**
@@ -30,7 +31,7 @@ class App extends React.Component<{}, AppState> {
 
         this.data = Tree.initTree(generator());
 
-        console.log(Tree.nodeSearch(this.data, null, 'data-random', 'random'));
+        // console.log(Tree.nodeSearch(this.data, null, 'data-random', 'random'));
 
         this.state = {
             tree: this.data,
@@ -54,11 +55,9 @@ class App extends React.Component<{}, AppState> {
         if (this.actionMapper.hasOwnProperty(type)) {
             node = this.actionMapper[type](node, value);
             this.data = Tree.nodeUpdater(this.data, node);
-        } else {
-            // console.log(nodeId, type, value);
-        }
 
-        this.setState({tree: this.data});
+            this.setState({tree: this.data});
+        }
     }
 
     /**
@@ -67,7 +66,7 @@ class App extends React.Component<{}, AppState> {
      * @param {NodeProps} node The node to get children.
      * @returns {NodeProps[]} The children.
      */
-    lazyLoad(node: NodeProps): Promise<NodeProps[]> {
+    lazyLoad(node: NodeProps): Promise<TreeData> {
         let isWorking = true;
 
         return new Promise((resolve, reject) => {
@@ -102,4 +101,15 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    tree: state.tree
+});
+
+const mapDispatchToProps = {
+    callBack
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
