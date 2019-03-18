@@ -1,4 +1,4 @@
-import { TreeData } from '../components/Node';
+import { TreeData } from '../internal';
 
 export interface TreeActionType {
     type: string;
@@ -19,6 +19,7 @@ export const ActionTypes = {
     CHECKED: 'state.checked',
     DISABLED: 'state.disabled',
     SELECTED: 'state.selected',
-    NODES: 'nodes',
+    CHILD_NODES: 'child_nodes',
+    ADD_NODES: 'add.nodes',
     LOADING: 'loading'
 };

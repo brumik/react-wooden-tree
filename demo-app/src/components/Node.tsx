@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CheckboxButton, CheckboxButtonOnChange } from './CheckboxButton';
 import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
-import ConnectedNode from '../redux/components/ReduxNode';
+import { ConnectedNode } from '../internal';
 
 /**
  * Interface for the node's state property.
@@ -29,6 +29,9 @@ export interface TreeData {
  * Interface for all data required from the tree root.
  */
 export interface ParentData {
+    // Non redux
+    tree: TreeData;
+
     // Callbacks
     checkboxOnChange: CheckboxButtonOnChange;
     expandOnChange: ExpandButtonOnChange;
@@ -56,16 +59,15 @@ export interface ParentData {
 
     // Other
     checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
+    isRedux: boolean;                // < Determines if it should use the redux or the non redux version.
 }
 
 /**
  * Node properties interface.
  */
 export interface NodeProps {
-    tree?: TreeData;
-
-    nodeId: string;
-    text: string;
+    nodeId?: string;
+    text?: string;
     nodes?: string[];
     state?: NodeState;
 
@@ -97,7 +99,7 @@ export interface NodeProps {
  *
  * Displays a node and communicates with submodules and tree.
  */
-export class Node extends React.Component<NodeProps, {}> {
+export class Node extends React.PureComponent<NodeProps, {}> {
     /**
      * Used for default values.
      */
@@ -113,38 +115,31 @@ export class Node extends React.Component<NodeProps, {}> {
      *
      * @param {string[]} nodeIds The nodes to render.
      * @param {ParentData} parentData The parent data to pass.
-     * @param {TreeData} tree
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodeIds: string[], parentData: ParentData, tree: TreeData): JSX.Element[] {
+    public static renderSublist(nodeIds: string[], parentData: ParentData): JSX.Element[] {
         let elements: JSX.Element[] = [];
         for (let i = 0; i < nodeIds.length; i++) {
-            elements.push(
-                <ConnectedNode
-                    tree={tree}
-                    key={tree[nodeIds[i]].nodeId}
-                    parentData={parentData}
-                    {...tree[nodeIds[i]]}
-                />
-            );
+            if ( parentData.isRedux ) {
+                elements.push(
+                    <ConnectedNode
+                        key={nodeIds[i]}
+                        parentData={parentData}
+                        nodeId={nodeIds[i]}
+                    />
+                );
+            } else {
+                elements.push(
+                    <Node
+                        key={nodeIds[i]}
+                        parentData={parentData}
+                        nodeId={nodeIds[i]}
+                        {...parentData.tree[nodeIds[i]]}
+                    />
+                );
+            }
         }
         return elements;
-    }
-
-    public shouldComponentUpdate(nextProps: Readonly<NodeProps>, nextState: Readonly<{}>, nextContext: any): boolean {
-        for ( let key in nextProps.state ) {
-            if ( nextProps.state[key] !== this.props.state[key] ) {
-                return true;
-            }
-        }
-
-        for ( let key in nextProps ) {
-            if ( nextProps[key] !== this.props[key] ) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -226,7 +221,7 @@ export class Node extends React.Component<NodeProps, {}> {
 
         // Children
         const sublist = this.props.state.expanded ? (
-            Node.renderSublist(this.props.nodes, this.props.parentData, this.props.tree)
+            Node.renderSublist(this.props.nodes, this.props.parentData)
         ) : null;
 
         // Determining icon order
@@ -273,7 +268,7 @@ export class Node extends React.Component<NodeProps, {}> {
      * Constructor.
      * @param {NodeProps} props
      */
-    private constructor(props: NodeProps) {
+     public constructor(props: NodeProps) {
         super(props);
 
         if ( this.props.state.selected ) {
@@ -334,7 +329,6 @@ export class Node extends React.Component<NodeProps, {}> {
  * Node default values.
  */
 Node.defaultProps = {
-    tree: null,
     nodeId: '',
     text: '',
     nodes: [],

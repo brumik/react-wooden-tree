@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import { Node, TreeData, NodeProps } from '../../components/Node';
+import { Node, TreeData, NodeProps } from '../../internal';
 
 const mapStateToProps = ({ treeData }: TreeData, ownProps: NodeProps) => {
-    return {...treeData[ownProps.nodeId], parentData: ownProps.parentData};
+    return {...treeData[ownProps.nodeId]};
 };
 
-// @ts-ignore
-export default connect(mapStateToProps)(Node);
+export const ConnectedNode = connect(mapStateToProps)(Node);

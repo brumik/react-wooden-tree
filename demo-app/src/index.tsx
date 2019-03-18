@@ -1,9 +1,9 @@
+// Redux Caller
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { store } from './App';
 import { Provider } from 'react-redux';
+import { ConnectedApp as App, store } from './App';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -12,3 +12,15 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
+
+// Non Redux Caller
+// import * as React from 'react';
+// import * as ReactDOM from 'react-dom';
+// import App from './App-NonRedux';
+// import registerServiceWorker from './registerServiceWorker';
+//
+// ReactDOM.render(
+//     <App />,
+//     document.getElementById('root') as HTMLElement
+// );
+// registerServiceWorker();
