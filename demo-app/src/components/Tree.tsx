@@ -163,18 +163,18 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     public static nodeUpdater(tree: TreeData, node: NodeProps): TreeData {
         return {...tree, [node.nodeId]: node};
     }
-    //
-    // /**
-    //  * Helper function: Checks the node.
-    //  *
-    //  * @param {NodeProps} node The node to change.
-    //  * @param {boolean} value The new value of the checked field.
-    //  * @returns {NodeProps} The changed node.
-    //  */
-    // public static nodeChecked(node: NodeProps, value: boolean): NodeProps {
-    //     return {...node, state: {...node.state, checked: value} };
-    // }
-    //
+
+    /**
+     * Helper function: Checks the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the checked field.
+     * @returns {NodeProps} The changed node.
+     */
+    public static nodeChecked(node: NodeProps, value: boolean): NodeProps {
+        return {...node, state: {...node.state, checked: value} };
+    }
+
     /**
      * Helper function: Expands or collapses the node.
      *
@@ -185,29 +185,29 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     public static nodeExpanded(node: NodeProps, value: boolean): NodeProps {
         return {...node, state: {...node.state, expanded: value} };
     }
-    //
-    // /**
-    //  * Helper function: Disables or enables the node.
-    //  *
-    //  * @param {NodeProps} node The node to change.
-    //  * @param {boolean} value The new value of the disabled field.
-    //  * @returns {NodeProps} The changed node.
-    //  */
-    // public static nodeDisabled(node: NodeProps, value: boolean): NodeProps {
-    //     return {...node, state: {...node.state, disabled: value} };
-    // }
-    //
-    // /**
-    //  * Helper function: Selects or deselects the node.
-    //  *
-    //  * @param {NodeProps} node The node to change.
-    //  * @param {boolean} value The new value of the selected field.
-    //  * @returns {NodeProps} The changed node.
-    //  */
-    // public static nodeSelected(node: NodeProps, value: boolean): NodeProps {
-    //     return {...node, state: {...node.state, selected: value} };
-    // }
-    //
+
+    /**
+     * Helper function: Disables or enables the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the disabled field.
+     * @returns {NodeProps} The changed node.
+     */
+    public static nodeDisabled(node: NodeProps, value: boolean): NodeProps {
+        return {...node, state: {...node.state, disabled: value} };
+    }
+
+    /**
+     * Helper function: Selects or deselects the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new value of the selected field.
+     * @returns {NodeProps} The changed node.
+     */
+    public static nodeSelected(node: NodeProps, value: boolean): NodeProps {
+        return {...node, state: {...node.state, selected: value} };
+    }
+
     // /**
     //  * Helper function: Updates the children of the node.
     //  *
@@ -218,17 +218,17 @@ export class Tree extends React.Component<TreeProps, TreeState> {
     // public static nodeChildren(node: NodeProps, nodes: NodeProps[]): NodeProps {
     //     return {...node, nodes: nodes};
     // }
-    //
-    // /**
-    //  * Helper function: Updates the loading state of the node.
-    //  *
-    //  * @param {NodeProps} node The node to change.
-    //  * @param {boolean} value The new loading value.
-    //  * @returns {NodeProps} The changed node.
-    //  */
-    // public static nodeLoading(node: NodeProps, value: boolean): NodeProps {
-    //     return {...node, loading: value};
-    // }
+
+    /**
+     * Helper function: Updates the loading state of the node.
+     *
+     * @param {NodeProps} node The node to change.
+     * @param {boolean} value The new loading value.
+     * @returns {NodeProps} The changed node.
+     */
+    public static nodeLoading(node: NodeProps, value: boolean): NodeProps {
+        return {...node, loading: value};
+    }
 
     /**
      * Recursively gets the max depth of the tree.

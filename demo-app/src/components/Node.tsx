@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CheckboxButton, CheckboxButtonOnChange } from './CheckboxButton';
 import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
+import ConnectedNode from '../redux/components/ReduxNode';
 
 /**
  * Interface for the node's state property.
@@ -96,7 +97,7 @@ export interface NodeProps {
  *
  * Displays a node and communicates with submodules and tree.
  */
-export class Node extends React.PureComponent<NodeProps, {}> {
+export class Node extends React.Component<NodeProps, {}> {
     /**
      * Used for default values.
      */
@@ -119,7 +120,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
         let elements: JSX.Element[] = [];
         for (let i = 0; i < nodeIds.length; i++) {
             elements.push(
-                <Node
+                <ConnectedNode
                     tree={tree}
                     key={tree[nodeIds[i]].nodeId}
                     parentData={parentData}
@@ -129,11 +130,22 @@ export class Node extends React.PureComponent<NodeProps, {}> {
         }
         return elements;
     }
-    //
-    // shouldComponentUpdate(nextProps: Readonly<NodeProps>, nextState: Readonly<{}>, nextContext: any): boolean {
-    //     return this.props.tree[this.props.nodeId] === nextProps.tree[nextProps.nodeId];
-    //     // return true;
-    // }
+
+    public shouldComponentUpdate(nextProps: Readonly<NodeProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+        for ( let key in nextProps.state ) {
+            if ( nextProps.state[key] !== this.props.state[key] ) {
+                return true;
+            }
+        }
+
+        for ( let key in nextProps ) {
+            if ( nextProps[key] !== this.props[key] ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Renders the tree element.
