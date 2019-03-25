@@ -196,7 +196,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         let ret: string[] = [];
 
         for ( let i = 0; i < keys.length; i++ ) {
-            if ( keys[i].startsWith(nodeId) ) {
+            if ( keys[i].startsWith(nodeId + '.') ) {
                 ret.push(keys[i]);
             }
         }
@@ -371,7 +371,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
             }
 
             // Children part
-            if ( Tree.nodeSelector(this.props.data, nodeId).nodes.length > 0 ) {
+            if ( Tree.nodeSelector(this.props.data, nodeId).nodes ) {
                 let descendants = Tree.getDescendants(this.props.data, nodeId);
                 for ( let i = 0; i < descendants.length; i++ ) {
                     if ( Tree.nodeSelector(this.props.data, descendants[i]).state.checked !== checked) {
