@@ -21,12 +21,9 @@ class App extends React.Component<AppProps, {}> {
         super(props);
     }
 
-    render() {
-        let callbacks = {
-            onDataChange: (nodeId: string, type: string, value: any) =>
-                this.props.callBack(nodeId, type, value)
-        };
+    onDataChange = (nodeId: string, type: string, value: any) => this.props.callBack(nodeId, type, value);
 
+    render() {
         return (
             <div className="App">
                 <ReduxTree
@@ -37,7 +34,11 @@ class App extends React.Component<AppProps, {}> {
                     allowReselect={true}
                     checkboxFirst={true}
                     nodeIcon={'fa fa-fw fa-circle'}
-                    callbacks={callbacks}
+                    callbacks={
+                        {
+                            onDataChange: this.onDataChange
+                        }
+                    }
                 />
             </div>
         );
