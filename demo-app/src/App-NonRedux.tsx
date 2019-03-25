@@ -51,8 +51,6 @@ export class AppNonRedux extends React.Component<{}, AppState> {
             node = actionMapper[type](node, value);
             this.data = Tree.nodeUpdater(this.data, node);
 
-            // TODO components does not update, as data changes.
-            // TODO It is not because it has a pure component.
             this.setState({tree: this.data});
         }
     }

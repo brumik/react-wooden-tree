@@ -1,18 +1,5 @@
 import * as React from 'react';
-
-export interface ExpandButtonProps {
-    onChange: (checked: boolean) => void;
-    expanded: boolean;
-    loading: boolean; // null when error occurred.
-    expandIcon: string;
-    collapseIcon: string;
-    loadingIcon: string;
-    errorIcon: string;
-}
-
-export interface ExpandButtonOnChange {
-    (nodeId: string, opened: boolean): void;
-}
+import { ExpandButtonProps } from './types';
 
 export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
     render() {

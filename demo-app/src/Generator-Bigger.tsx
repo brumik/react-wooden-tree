@@ -1,4 +1,4 @@
-import { TreeData } from './components/Node';
+import { TreeData } from './internal';
 
 function generate_object(size: number): TreeData {
     let obj: TreeData = {'': null};

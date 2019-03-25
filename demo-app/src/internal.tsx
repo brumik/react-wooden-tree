@@ -1,3 +1,6 @@
+export * from './components/types';
+export * from './components/CheckboxButton';
+export * from './components/ExpandButton';
 export * from './components/Node';
 export * from './redux/components/ReduxNode';
 export * from './components/Tree';

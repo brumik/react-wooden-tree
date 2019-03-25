@@ -1,63 +1,7 @@
 import * as React from 'react';
-import  { ActionTypes, Node, NodeProps, ParentData, TreeData } from '../internal';
+import { ActionTypes, Node, NodeProps, ParentData, TreeData, Checkbox, TreeProps } from '../internal';
 import './Tree.css';
 import { defVal } from './Helpers';
-
-export interface TreeProps {
-    data?: TreeData;                     // < The definitions of the tree nodes.
-
-    // Checkbox
-    showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
-    hierarchicalCheck?: boolean;        // < If enabled parent and children are reflecting each other changes.
-    checkboxFirst?: boolean;            // < Determines if the node icon or the checkbox is the first.
-
-    // Selection
-    multiSelect?: boolean;              // < Determines if multiple nodes can be selected.
-    preventDeselect?: boolean;          // < Determines if can be deselected all nodes.
-    allowReselect?: boolean;            // < Used with preventDeselect allows to fire selected event on selected node.
-
-    // Icons
-    showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
-    showImage?: boolean;                // < Determines if images are preferred to the icons.
-    nodeIcon?: string;                  // < Default icon for nodes without it.
-    checkedIcon?: string;               // < The checkbox-checked icon.
-    uncheckedIcon?: string;             // < The checkbox-unchecked icon.
-    partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
-    collapseIcon?: string;              // < The icon for collapsing parents.
-    expandIcon?: string;                // < The icon for expanding parents.
-    loadingIcon?: string;               // < The loading icon when loading data with ajax.
-    errorIcon?: string;                 // < The icon displayed when lazyLoading went wrong.
-    selectedIcon?: string;              // < The icon for selected nodes.
-
-    // Styling
-    changedCheckboxClass?: string;      // < Extra class for the changed checkbox nodes.
-    selectedClass?: string;             // < Extra class for the selected nodes.
-
-    // Other
-    isRedux?: boolean;                // < Determines which version to use (redux or non)
-
-    callbacks: {
-        // Callbacks
-        /**
-         * All changes made in the tree will be propagated upwards.
-         * Every time the tree changes the node's data the callback will be fired.
-         *
-         * @param {string} nodeId The node's nodeId.
-         * @param {string} dataType The currently changed information.
-         * @param {boolean} newValue The newly assigned value.
-         */
-        onDataChange: (nodeId: string, dataType: string, newValue: any) => void;
-
-        /**
-         * The function which will be called when a lazily loadable node is
-         * expanded first time.
-         *
-         * @param {NodeProps} node The node of the node which has to be loaded.
-         * @returns {Promise<NodeProps[]>} Promise about the children of the given node.
-         */
-        lazyLoad?: (node: NodeProps) => Promise<TreeData>;
-    };
-}
 
 export class Tree extends React.PureComponent<TreeProps, {}> {
     /**
@@ -69,7 +13,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * This structure contains all the data that nodes need from the
      * tree component root like settings and callback functions.
      */
-    private readonly parentData: ParentData;
+    private parentData: ParentData;
 
     /**
      * Indicates if there is a node currently selected and which one.
@@ -221,12 +165,52 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     }
 
     /**
+     * Returns all parents for the node in an array.
+     *
+     * @param nodeId The node id of the node for wich we need the parents.
+     * @return string[] Array of node ids - the parents of the given node.
+     */
+    public static getAncestors(nodeId: string): string[] {
+        let idArr = nodeId.split('.');
+        let parents: string[] = [];
+
+        for (let i = 1; i < idArr.length; i++) {
+            let id = idArr[0];
+            for (let k = 1; k < i; k++) {
+                id += '.' + idArr[k];
+            }
+            parents.push(id);
+        }
+        return parents;
+    }
+
+    /**
+     * Returns all descendants of the node in an array.
+     *
+     * @param tree The tree where the node is.
+     * @param nodeId The node id to get the descendants for.
+     * @return string[] Array of node ids - the descendants.
+     */
+    public static getDescendants(tree: TreeData, nodeId: string): string[] {
+        let keys = Object.keys(tree);
+        let ret: string[] = [];
+
+        for ( let i = 0; i < keys.length; i++ ) {
+            if ( keys[i].startsWith(nodeId) ) {
+                ret.push(keys[i]);
+            }
+        }
+
+        return ret;
+    }
+
+    /**
      * Recursively gets the max depth of the tree.
      *
      * @param {NodeProps[]} tree The root node of the tree.
      * @returns {number} The max depth of the tree.
      */
-    private static getDepth(tree: TreeData): number {
+    public static getDepth(tree: TreeData): number {
         let depth = 0;
         if (tree) {
             for ( let key in tree) {
@@ -254,6 +238,12 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
             cssRules += '.indent-' + i + '{padding-left:' + indentSize * i + 'px}';
         }
         return cssRules;
+    }
+
+    componentWillReceiveProps(nextProps: Readonly<TreeProps>, nextContext: any): void {
+        if ( !this.props.isRedux ) {
+            this.parentData = {...this.parentData, tree: nextProps.data};
+        }
     }
 
     /**
@@ -320,81 +310,40 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     }
 
     /**
-     * Uses recurse to update all parent if a checkbox is changed.
-     * Iterates over all children to determine the parent state.
-     *
-     * @param {boolean} checked The new state of the child.
-     * @param {NodeProps} node The child node.
+     * Returns the parent's checkbox state
+     * @param nodes The children of the parent node.
+     * @param childCheckboxState The children from which te function is called.
+     * @param changedChildrenId The id of the children what is currently changed.
+     * @returns boolean Checkbox.CHECKED if should be checked, Checkbox.UNCHECKED if not,
+     * Checkbox.Partially if partially checked, and undefined if the nodes is empty list.
      */
-    // private parentCheckboxChange(checked: boolean, node: NodeProps): void {
-    //     let idArr = node.nodeId.split('.');
-    //
-    //     // Root node
-    //     if ( idArr.length === 1 ) { return; }
-    //
-    //     // Others:
-    //     idArr.splice(-1, 1);
-    //     const parentID = idArr.join('.');
-    //     let parentNode = Tree.nodeSelector(this.props.data, parentID);
-    //
-    //     let state = false;
-    //     let checkedCounter = 0;
-    //     for (let i = 0; i < parentNode.nodes.length; i++) {
-    //         let currState = parentNode.nodes[i].state.checked;
-    //
-    //         // If even one is partially selected then the parent will be too.
-    //         if ( currState === null ) {
-    //             state = null;
-    //             break;
-    //
-    //         // Otherwise we start to count the number of selected boxes.
-    //         } else if ( currState === true ) {
-    //             checkedCounter++;
-    //         }
-    //     }
-    //
-    //     // If stayed unselected then was no partially selected.
-    //     if ( state === false ) {
-    //         if (checkedCounter === parentNode.nodes.length) {
-    //             state = true;
-    //         } else if (checkedCounter > 0) {
-    //             state = null;
-    //         }
-    //     }
-    //
-    //     if ( parentNode.state.checked !== state ) {
-    //         this.props.callbacks.onDataChange(parentNode.nodeId, 'state.checked', state);
-    //     }
-    //
-    //     return this.parentCheckboxChange(state, parentNode);
-    // }
+    private parentCheckboxState(nodes: string[], childCheckboxState: boolean, changedChildrenId: string): boolean {
+        if ( !nodes ) {
+            return undefined;
+        }
 
-    /**
-     * Changes the sate of the node and all children recursively.
-     * Calls callbacks.onDataChange for each change.
-     *
-     * @param {boolean} checked The new state of the node.
-     * @param {NodeProps} node The node to change the state.
-     * @param {boolean} directlyChanged Defines if changed by user or just the recursive call.
-     */
-    // private nodeCheckboxChange(checked: boolean, node: NodeProps, directlyChanged: boolean = false): void {
-    //     this.props.callbacks.onDataChange(node.nodeId, 'state.checked', checked);
-    //
-    //     if ( directlyChanged && this.props.hierarchicalCheck ) {
-    //         this.parentCheckboxChange(checked, node);
-    //     }
-    //
-    //     if ( node.nodes ) {
-    //         if ( this.props.hierarchicalCheck ) {
-    //
-    //             // Set checkbox state for all children nodes.
-    //             for (let i = 0; i < node.nodes.length; i++) {
-    //                 this.nodeCheckboxChange(checked, node.nodes[i]);
-    //             }
-    //         }
-    //     }
-    // }
-    //
+        if ( childCheckboxState === Checkbox.PARTIALLY ) {
+            return Checkbox.PARTIALLY;
+        }
+
+        let first: boolean = childCheckboxState;
+
+        if ( first === Checkbox.PARTIALLY ) {
+            return Checkbox.PARTIALLY;
+        }
+
+        for ( let i = 0; i < nodes.length; i++ ) {
+            if ( nodes[i] === changedChildrenId ) {
+                continue;
+            }
+            if ( first !== Tree.nodeSelector(this.props.data, nodes[i]).state.checked ) {
+                return Checkbox.PARTIALLY;
+            }
+        }
+
+        return first;
+    }
+
     /**
      * Handles checkbox change if made on checkbox.
      *
@@ -402,8 +351,35 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {string} nodeId The element which checkbox was changed.
      */
     private handleCheckboxChange = (checked: boolean, nodeId: string): void => {
-        // let node: NodeProps = Tree.nodeSelector(this.props.data, nodeId);
-        // this.nodeCheckboxChange(checked, node, true);
+        this.props.callbacks.onDataChange(nodeId, ActionTypes.CHECKED, checked);
+
+        if ( this.props.hierarchicalCheck ) {
+
+            // Parent part
+            let state = checked;
+            let changedChildId = nodeId;
+            let parents = Tree.getAncestors(nodeId);
+
+            for (let i = parents.length - 1; i >= 0; i--) {
+                let parent = Tree.nodeSelector(this.props.data, parents[i]);
+                state = this.parentCheckboxState(parent.nodes, state, changedChildId);
+
+                if ( parent.state.checked !== checked) {
+                    this.props.callbacks.onDataChange(parents[i], ActionTypes.CHECKED, state);
+                }
+                changedChildId = parents[i];
+            }
+
+            // Children part
+            if ( Tree.nodeSelector(this.props.data, nodeId).nodes.length > 0 ) {
+                let descendants = Tree.getDescendants(this.props.data, nodeId);
+                for ( let i = 0; i < descendants.length; i++ ) {
+                    if ( Tree.nodeSelector(this.props.data, descendants[i]).state.checked !== checked) {
+                        this.props.callbacks.onDataChange(descendants[i], ActionTypes.CHECKED, checked);
+                    }
+                }
+            }
+        }
     }
 
     /**
