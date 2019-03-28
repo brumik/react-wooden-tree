@@ -40,11 +40,9 @@ export interface TreeProps {
          * All changes made in the tree will be propagated upwards.
          * Every time the tree changes the node's data the callback will be fired.
          *
-         * @param {string} nodeId The node's nodeId.
-         * @param {string} dataType The currently changed information.
-         * @param {boolean} newValue The newly assigned value.
+         * @param commands Array of commands: [nodeId, type, value].
          */
-        onDataChange: (nodeId: string, dataType: string, newValue: any) => void;
+        onDataChange: (commands: CommandQueueType[]) => void;
 
         /**
          * The function which will be called when a lazily loadable node is
@@ -128,6 +126,12 @@ export interface NodeProps {
 
     // Private
     parentData?: ParentData;
+}
+
+export interface CommandQueueType {
+    nodeId: string;
+    type: string;
+    value: any;
 }
 
 /**

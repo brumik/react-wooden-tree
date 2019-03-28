@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ActionTypes, Node, NodeProps, ParentData, TreeData, Checkbox, TreeProps } from '../internal';
+import { ActionTypes, Node, NodeProps, ParentData, TreeData, Checkbox, TreeProps, CommandQueueType } from '../internal';
 import './Tree.css';
 import { defVal } from './Helpers';
 
@@ -21,6 +21,13 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * Not needed when multi-select is enabled.
      */
     private selectedNode: string;
+
+    /**
+     * A queue for the commands to batch them together.
+     * When some operation is over the queue is sent via callback
+     * and the queue is cleared.
+     */
+    private commandQueue: CommandQueueType[];
 
     /**
      * Generates the IDs and states for all nodes recursively.
@@ -273,6 +280,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
 
         // Default values
         this.selectedNode = null;
+        this.commandQueue = [];
 
         this.parentData = {
             // Non redux
@@ -307,6 +315,38 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
             checkboxFirst: this.props.checkboxFirst,
             isRedux: this.props.isRedux,
         };
+    }
+
+    /**
+     * Adds the single command to the queue to send later.
+     *
+     * @param nodeId The id of the node to change.
+     * @param type The type of change.
+     * @param value The new value.
+     */
+    private addCommandToQueue(nodeId: string, type: string, value: any): void {
+        this.commandQueue.push({nodeId: nodeId, type: type, value: value});
+    }
+
+    /**
+     * Sends a single command.
+     *
+     * @param nodeId The id of the node to change.
+     * @param type The type of change.
+     * @param value The new value.
+     */
+    private sendSignleCommand(nodeId: string, type: string, value: any): void {
+        this.props.callbacks.onDataChange([{nodeId: nodeId, type: type, value: value}]);
+    }
+
+    /**
+     * Sends the queue and empties it.
+     */
+    private sendCommandQueue(): void {
+        if ( this.commandQueue ) {
+            this.props.callbacks.onDataChange(this.commandQueue);
+            this.commandQueue = [];
+        }
     }
 
     /**
@@ -351,7 +391,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {string} nodeId The element which checkbox was changed.
      */
     private handleCheckboxChange = (checked: boolean, nodeId: string): void => {
-        this.props.callbacks.onDataChange(nodeId, ActionTypes.CHECKED, checked);
+        this.addCommandToQueue(nodeId, ActionTypes.CHECKED, checked);
 
         if ( this.props.hierarchicalCheck ) {
 
@@ -365,7 +405,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
                 state = this.parentCheckboxState(parent.nodes, state, changedChildId);
 
                 if ( parent.state.checked !== checked) {
-                    this.props.callbacks.onDataChange(parents[i], ActionTypes.CHECKED, state);
+                    this.addCommandToQueue(parents[i], ActionTypes.CHECKED, state);
                 }
                 changedChildId = parents[i];
             }
@@ -375,11 +415,13 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
                 let descendants = Tree.getDescendants(this.props.data, nodeId);
                 for ( let i = 0; i < descendants.length; i++ ) {
                     if ( Tree.nodeSelector(this.props.data, descendants[i]).state.checked !== checked) {
-                        this.props.callbacks.onDataChange(descendants[i], ActionTypes.CHECKED, checked);
+                        this.addCommandToQueue(descendants[i], ActionTypes.CHECKED, checked);
                     }
                 }
             }
         }
+
+        this.sendCommandQueue();
     }
 
     /**
@@ -390,7 +432,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {boolean} expanded The current state
      */
     private handleExpandedChange = (nodeId: string, expanded: boolean): void => {
-        this.props.callbacks.onDataChange(nodeId, ActionTypes.EXPANDED, expanded);
+        this.sendSignleCommand(nodeId, ActionTypes.EXPANDED, expanded);
     }
 
     /**
@@ -403,7 +445,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     private initSelectedNode = (nodeId: string): void => {
         if ( !this.props.multiSelect ) {
             if ( this.selectedNode != null ) {
-                this.props.callbacks.onDataChange(nodeId, ActionTypes.SELECTED, false);
+                this.sendSignleCommand(nodeId, ActionTypes.SELECTED, false);
             } else {
                 this.selectedNode = nodeId;
             }
@@ -425,22 +467,24 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         // Preventing deselect but if re-select is active then simulating select.
         if ( this.props.preventDeselect && !selected ) {
             if ( this.props.allowReselect ) {
-                this.props.callbacks.onDataChange(nodeId, ActionTypes.SELECTED, true);
+                this.addCommandToQueue(nodeId, ActionTypes.SELECTED, true);
             }
         } else if ( !this.props.multiSelect && selected ) {
 
             // Deselect previous
             if ( this.selectedNode != null ) {
-                this.props.callbacks.onDataChange(this.selectedNode, ActionTypes.SELECTED, false);
+                this.addCommandToQueue(this.selectedNode, ActionTypes.SELECTED, false);
             }
             // Select the new
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.SELECTED, true);
+            this.addCommandToQueue(nodeId, ActionTypes.SELECTED, true);
             this.selectedNode = nodeId;
 
         } else {
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.SELECTED, selected);
+            this.addCommandToQueue(nodeId, ActionTypes.SELECTED, selected);
             this.selectedNode = null;
         }
+
+        this.sendCommandQueue();
     }
 
     /**
@@ -454,23 +498,26 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
 
         // If no function defined return empty and set to error
         if ( this.props.callbacks.lazyLoad == null ) {
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.CHILD_NODES, []);
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.LOADING, null);
+            this.addCommandToQueue(nodeId, ActionTypes.CHILD_NODES, []);
+            this.addCommandToQueue(nodeId, ActionTypes.LOADING, null);
+            this.sendCommandQueue();
             return;
         }
 
         // Add loading icon
-        this.props.callbacks.onDataChange(nodeId, ActionTypes.LOADING, true);
+        this.sendSignleCommand(nodeId, ActionTypes.LOADING, true);
 
         this.props.callbacks.lazyLoad(node).then((data: TreeData) => {
-            this.props.callbacks.onDataChange(null, ActionTypes.ADD_NODES, Tree.initTree(data));
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.CHILD_NODES, Object.keys(data));
+            // TODO
+            this.addCommandToQueue(null, ActionTypes.ADD_NODES, Tree.initTree(data));
+            this.addCommandToQueue(nodeId, ActionTypes.CHILD_NODES, Object.keys(data));
 
             // Remove loading icon
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.LOADING, false);
+            this.addCommandToQueue(nodeId, ActionTypes.LOADING, false);
+            this.sendCommandQueue();
         }, () => {
             // Add error icon
-            this.props.callbacks.onDataChange(nodeId, ActionTypes.LOADING, null);
+            this.sendSignleCommand(nodeId, ActionTypes.LOADING, null);
         });
     }
 }

@@ -24,19 +24,23 @@ export class AppNonRedux extends React.Component<{}, AppState> {
     /**
      * The callback function for changing data in the tree.
      *
-     * @param {string} nodeId The nodeId of the node.
-     * @param {string} type The field name which changed.
-     * @param {boolean} value The new value to assign.
+     * @param {[string, string, any]} commands The array of node changing commands.
      */
-    onDataChange = (nodeId: string, type: string, value: boolean) => {
-        let node = Tree.nodeSelector(this.state.tree, nodeId);
-        if ( node === null ) { return; }
+    onDataChange = (commands: [string, string, any]) => {
+        let temp = {...this.state.tree};
+        for ( let i = 0; i < commands.length; i++ ) {
+            let command = commands[i];
+            let node = Tree.nodeSelector(temp, command.nodeId);
+            if (node === null) {
+                continue;
+            }
 
-        if (actionMapper.hasOwnProperty(type)) {
-            node = actionMapper[type](node, value);
-            console.log(node.nodeId, node.state.checked);
-            this.setState({ tree: Tree.nodeUpdater(this.state.tree, node) });
+            if (actionMapper.hasOwnProperty(command.type)) {
+                node = actionMapper[command.type](node, command.value);
+                temp = Tree.nodeUpdater(temp, node);
+            }
         }
+        this.setState({tree: temp});
     }
 
     render() {

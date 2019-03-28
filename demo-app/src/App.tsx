@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
-import { combinedReducers, callBack, ReduxTree, generator,
-    TreeCallBackFunction, TreeState, TreeData, Tree } from './internal';
+import {
+    combinedReducers, callBack, ReduxTree, generator,
+    TreeCallBackFunction, TreeState, TreeData, Tree, CommandQueueType
+} from './internal';
 import 'font-awesome/css/font-awesome.min.css';
 
 interface AppProps {
@@ -21,7 +23,11 @@ class App extends React.Component<AppProps, {}> {
         super(props);
     }
 
-    onDataChange = (nodeId: string, type: string, value: any) => this.props.callBack(nodeId, type, value);
+    onDataChange = (command: CommandQueueType[]) => {
+        for ( let i = 0; i < command.length; i++ ) {
+            this.props.callBack(command[i].nodeId, command[i].type, command[i].value);
+        }
+    }
 
     render() {
         return (
