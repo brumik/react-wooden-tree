@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { ActionTypes, Node, NodeProps, ParentDataType,
-    TreeDataType, Checkbox, TreeProps, CommandQueueType } from '../internal';
+import {
+    ActionTypes, Node, NodeProps, ParentDataType,
+    TreeDataType, Checkbox, TreeProps, CommandQueueType, HierarchicalNodeProps
+} from '../internal';
 import './Tree.css';
 import { defVal } from './Helpers';
 
@@ -29,6 +31,76 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * and the queue is cleared.
      */
     private commandQueue: CommandQueueType[];
+
+    /**
+     * Generates the IDs and states for all nodes recursively.
+     * The IDs are crucial for the tree to work.
+     * The state is needed to avoid not defined exceptions.
+     *
+     * @param {HierarchicalNodeProps[]} tree The tree to fill the IDs up.
+     * @param {string} parentID The parent nodeId of the current nodes. For root left this param out.
+     * @returns {HierarchicalNodeProps[]} The new filled tree.
+     */
+    public static initHierarchicalTree(tree: HierarchicalNodeProps[], parentID: string = ''): HierarchicalNodeProps[] {
+        let treeCopy = tree.slice();
+
+        for (let i = 0; i < treeCopy.length; i++) {
+            if ( parentID === '' ) {
+                treeCopy[i].nodeId = i.toString();
+            } else {
+                treeCopy[i].nodeId = parentID + '.' + i;
+            }
+
+            if ( treeCopy[i].state == null ) {
+                treeCopy[i].state = {};
+            }
+
+            treeCopy[i].state = {
+                checked: defVal(treeCopy[i].state.checked, false),
+                expanded: defVal(treeCopy[i].state.expanded, false),
+                disabled: defVal(treeCopy[i].state.disabled, false),
+                selected: defVal(treeCopy[i].state.selected, false),
+            };
+
+            if ( treeCopy[i].nodes ) {
+                treeCopy[i].nodes = Tree.initHierarchicalTree(treeCopy[i].nodes, treeCopy[i].nodeId);
+            }
+        }
+        return treeCopy;
+    }
+
+    /**
+     * Converts initialized hierarchical tree to plain structure.
+     *
+     * @param {HierarchicalNodeProps[]} tree The initialized hierarchical tree.
+     * @return {TreeDataType} The plain tree structure, consumable by redux, used in the component.
+     */
+    public static convertHierarchicalTree(tree: HierarchicalNodeProps[]): TreeDataType {
+        let newTree: TreeDataType = {};
+        let stack: HierarchicalNodeProps[] = [...tree];
+        let children: string[] = [];
+
+        // Init the root level
+        for (let i = 0; i < stack.length; i++) {
+            children.push(stack[i].nodeId);
+        }
+        newTree[''] = {nodeId: '', text: 'Root', nodes: children};
+
+        // Non Root level
+        while ( stack.length ) {
+            const next: HierarchicalNodeProps = stack.pop();
+            children = [];
+            if ( next.nodes && next.nodes.length > 0 ) {
+                for (let i = 0; i < next.nodes.length; i++ ) {
+                    children.push(next.nodes[i].nodeId);
+                }
+                stack.push(...next.nodes);
+            }
+            newTree[next.nodeId] = {...next, nodes: children};
+        }
+
+        return newTree;
+    }
 
     /**
      * Generates the IDs and states for all nodes recursively.

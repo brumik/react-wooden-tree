@@ -95,6 +95,15 @@ export interface ParentDataType {
 }
 
 /**
+ * The bone of the old structure. Used when converting to the new.
+ */
+export interface HierarchicalNodeProps {
+    nodeId?: string;
+    nodes?: HierarchicalNodeProps[];
+    [propTypes: string]: any;
+}
+
+/**
  * Node properties interface.
  */
 export interface NodeProps {
@@ -130,6 +139,9 @@ export interface NodeProps {
     parentData?: ParentDataType;
 }
 
+/**
+ * Type for internal command queue in the tree.
+ */
 export interface CommandQueueType {
     nodeId: string;
     type: string;

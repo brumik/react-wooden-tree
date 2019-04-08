@@ -2,11 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
 import {
-    combinedReducers, callBack, ReduxTree, generator,
+    combinedReducers, callBack, ReduxTree,
     TreeCallBackFunction, TreeState, TreeDataType, Tree, CommandQueueType,
     ConnectedNode
 } from './internal';
 import 'font-awesome/css/font-awesome.min.css';
+import { generator } from './Generator-Bigger';
 
 interface AppProps {
     TreeDataType?: TreeDataType;

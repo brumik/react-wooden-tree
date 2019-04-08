@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Tree, generator, NodeProps, TreeDataType, ActionTypes } from './internal';
+import { Tree, NodeProps, TreeDataType, ActionTypes } from './internal';
 import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
+import { generator } from './Generator';
 
 interface AppState {
     tree: TreeDataType;
@@ -16,9 +17,12 @@ const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} 
     [ActionTypes.LOADING]: Tree.nodeLoading,
 };
 
+console.log(Tree.initHierarchicalTree(generator()));
+console.log(Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator())));
+
 export class AppNonRedux extends React.Component<{}, AppState> {
     state = {
-        tree: Tree.initTree(generator())
+        tree: Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()))
     };
 
     /**
