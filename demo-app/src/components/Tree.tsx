@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { ActionTypes, Node, NodeProps, ParentData, TreeData, Checkbox, TreeProps, CommandQueueType } from '../internal';
+import { ActionTypes, Node, NodeProps, ParentDataType,
+    TreeDataType, Checkbox, TreeProps, CommandQueueType } from '../internal';
 import './Tree.css';
 import { defVal } from './Helpers';
 
@@ -13,7 +14,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * This structure contains all the data that nodes need from the
      * tree component root like settings and callback functions.
      */
-    private parentData: ParentData;
+    private parentData: ParentDataType;
 
     /**
      * Indicates if there is a node currently selected and which one.
@@ -37,7 +38,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {NodeProps[]} tree The tree to fill the IDs up.
      * @returns {NodeProps[]} The new filled tree.
      */
-    public static initTree(tree: TreeData): TreeData {
+    public static initTree(tree: TreeDataType): TreeDataType {
         let treeCopy = {...tree};
 
         for (let i in treeCopy) {
@@ -68,7 +69,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param searchString The string to search for.
      * @return string[] Array of ID's where the string is present.
      */
-    public static nodeSearch(tree: TreeData, nodeID: string, attrName: string, searchString: string): string[] {
+    public static nodeSearch(tree: TreeDataType, nodeID: string, attrName: string, searchString: string): string[] {
         let findInID: string[] = [];
 
         let keys = Object.keys(tree);
@@ -90,18 +91,18 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @returns {NodeProps}
      * @bug Doesn't checks the validity of the nodeId.
      */
-    public static nodeSelector(tree: TreeData, nodeId: string): NodeProps {
+    public static nodeSelector(tree: TreeDataType, nodeId: string): NodeProps {
         return tree[nodeId];
     }
 
     /**
      * Updates the given node's reference in the tree.
      *
-     * @param {TreeData} tree Where the node will be updated.
+     * @param {TreeDataType} tree Where the node will be updated.
      * @param {NodeProps} node The node to put reference in the tree.
      * @bug Doesn't checks the validity of the node's nodeId.
      */
-    public static nodeUpdater(tree: TreeData, node: NodeProps): TreeData {
+    public static nodeUpdater(tree: TreeDataType, node: NodeProps): TreeDataType {
         return {...tree, [node.nodeId]: node};
     }
 
@@ -198,7 +199,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param nodeId The node id to get the descendants for.
      * @return string[] Array of node ids - the descendants.
      */
-    public static getDescendants(tree: TreeData, nodeId: string): string[] {
+    public static getDescendants(tree: TreeDataType, nodeId: string): string[] {
         let keys = Object.keys(tree);
         let ret: string[] = [];
 
@@ -217,7 +218,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {NodeProps[]} tree The root node of the tree.
      * @returns {number} The max depth of the tree.
      */
-    public static getDepth(tree: TreeData): number {
+    public static getDepth(tree: TreeDataType): number {
         let depth = 0;
         if (tree) {
             for ( let key in tree) {
@@ -248,7 +249,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     }
 
     componentWillReceiveProps(nextProps: Readonly<TreeProps>, nextContext: any): void {
-        if ( !this.props.isRedux ) {
+        if ( !this.props.connectedNode ) {
             this.parentData = {...this.parentData, tree: nextProps.data};
         }
     }
@@ -313,7 +314,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
 
             // Other
             checkboxFirst: this.props.checkboxFirst,
-            isRedux: this.props.isRedux,
+            connectedNode: this.props.connectedNode,
         };
     }
 
@@ -507,7 +508,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         // Add loading icon
         this.sendSignleCommand(nodeId, ActionTypes.LOADING, true);
 
-        this.props.callbacks.lazyLoad(node).then((data: TreeData) => {
+        this.props.callbacks.lazyLoad(node).then((data: TreeDataType) => {
             // TODO
             this.addCommandToQueue(null, ActionTypes.ADD_NODES, Tree.initTree(data));
             this.addCommandToQueue(nodeId, ActionTypes.CHILD_NODES, Object.keys(data));
@@ -556,7 +557,7 @@ Tree.defaultProps = {
     selectedClass: 'selected',
 
     // Other
-    isRedux: undefined,
+    connectedNode: undefined,
 
     // Callbacks
     callbacks: {

@@ -1,4 +1,4 @@
-import { TreeData } from '../internal';
+import { TreeDataType } from '../internal';
 
 export interface TreeActionType {
     type: string;
@@ -11,7 +11,7 @@ export interface TreeCallBackFunction {
 }
 
 export interface TreeState {
-    treeData: TreeData;
+    TreeDataType: TreeDataType;
 }
 
 export const ActionTypes = {

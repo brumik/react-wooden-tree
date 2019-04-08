@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Tree, generator, NodeProps, TreeData, ActionTypes } from './internal';
+import { Tree, generator, NodeProps, TreeDataType, ActionTypes } from './internal';
 import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 
 interface AppState {
-    tree: TreeData;
+    tree: TreeDataType;
 }
 
 const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} = {

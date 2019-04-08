@@ -1,4 +1,4 @@
-import { TreeData, Tree, ActionTypes, TreeActionType, NodeProps } from '../../internal';
+import { TreeDataType, Tree, ActionTypes, TreeActionType, NodeProps } from '../../internal';
 
 const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} = {
     [ActionTypes.EXPANDED]: Tree.nodeExpanded,
@@ -9,7 +9,7 @@ const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} 
     [ActionTypes.LOADING]: Tree.nodeLoading,
 };
 
-const treeData = (state: TreeData = null, action: TreeActionType): TreeData => {
+const treeData = (state: TreeDataType = null, action: TreeActionType): TreeDataType => {
     switch (action.type) {
         case ActionTypes.EXPANDED:
         case ActionTypes.SELECTED:

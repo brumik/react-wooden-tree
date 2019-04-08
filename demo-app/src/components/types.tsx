@@ -4,7 +4,7 @@ import * as React from 'react';
  * The props interface for the tree component.
  */
 export interface TreeProps {
-    data?: TreeData;                     // < The definitions of the tree nodes.
+    data?: TreeDataType;                     // < The definitions of the tree nodes.
 
     // Checkbox
     showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
@@ -34,7 +34,7 @@ export interface TreeProps {
     selectedClass?: string;             // < Extra class for the selected nodes.
 
     // Other
-    isRedux?: React.ComponentType<NodeProps>;      // < Determines which version to use (redux or non)
+    connectedNode?: React.ComponentType<NodeProps>;      // < Determines which version to use (redux or non)
 
     callbacks: {
         // Callbacks
@@ -53,20 +53,20 @@ export interface TreeProps {
          * @param {NodeProps} node The node of the node which has to be loaded.
          * @returns {Promise<NodeProps[]>} Promise about the children of the given node.
          */
-        lazyLoad?: (node: NodeProps) => Promise<TreeData>;
+        lazyLoad?: (node: NodeProps) => Promise<TreeDataType>;
     };
 }
 
 /**
  * Interface for all data required from the tree root.
  */
-export interface ParentData {
+export interface ParentDataType {
     // Non redux
-    tree: TreeData;
+    tree: TreeDataType;
 
     // Callbacks
-    checkboxOnChange: CheckboxButtonOnChange;
-    expandOnChange: ExpandButtonOnChange;
+    checkboxOnChange: CheckboxButtonOnChangeType;
+    expandOnChange: ExpandButtonOnChangeType;
     selectOnChange: (nodeId: string, selected: boolean) => void;
     onLazyLoad: (nodeId: string) => void;
     showCheckbox: boolean;
@@ -91,7 +91,7 @@ export interface ParentData {
 
     // Other
     checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
-    isRedux: React.ComponentType<NodeProps>;      // < Determines if it should use the redux or the non redux version.
+    connectedNode: React.ComponentType<NodeProps>; // < Determines if it should use the redux or the non redux version.
 }
 
 /**
@@ -127,7 +127,7 @@ export interface NodeProps {
     classes?: string;
 
     // Private
-    parentData?: ParentData;
+    parentData?: ParentDataType;
 }
 
 export interface CommandQueueType {
@@ -137,9 +137,9 @@ export interface CommandQueueType {
 }
 
 /**
- * Defines the TreeData format
+ * Defines the TreeDataType format
  */
-export interface TreeData {
+export interface TreeDataType {
     [key: string]: NodeProps;
 }
 
@@ -155,7 +155,7 @@ export const Checkbox = {
 /**
  * Callback function for CheckboxButton.
  */
-export interface CheckboxButtonOnChange {
+export interface CheckboxButtonOnChangeType {
     (checked: boolean, nodeId: string): void;
 }
 
@@ -173,7 +173,7 @@ export interface CheckboxButtonProps {
 /**
  * Callback function for ExpandButton.
  */
-export interface ExpandButtonOnChange {
+export interface ExpandButtonOnChangeType {
     (nodeId: string, opened: boolean): void;
 }
 

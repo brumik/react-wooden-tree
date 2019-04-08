@@ -1,7 +1,7 @@
-import { TreeData } from './internal';
+import { TreeDataType } from './internal';
 
-function generate_object(size: number): TreeData {
-    let obj: TreeData = {'': null};
+function generate_object(size: number): TreeDataType {
+    let obj: TreeDataType = {'': null};
     obj[''] = {nodeId: '', text: 'Root', nodes: []};
 
     for (let i = 0; i < Math.cbrt(size); i++) {
@@ -25,6 +25,6 @@ function generate_object(size: number): TreeData {
     return obj;
 }
 
-export function generator(): TreeData {
+export function generator(): TreeDataType {
     return generate_object(10000);
 }

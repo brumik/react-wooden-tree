@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     CheckboxButton,
-    ExpandButton, NodeProps, ParentData,
+    ExpandButton, NodeProps, ParentDataType,
 } from '../internal';
 
 /**
@@ -25,13 +25,13 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      * Creates the Node[] components from given nodes.
      *
      * @param {string[]} nodeIds The nodes to render.
-     * @param {ParentData} parentData The parent data to pass.
+     * @param {ParentDataType} parentData The parent data to pass.
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodeIds: string[], parentData: ParentData): JSX.Element[] {
+    public static renderSublist(nodeIds: string[], parentData: ParentDataType): JSX.Element[] {
         let elements: JSX.Element[] = [];
-        if ( parentData.isRedux ) {
-            const ConnectedNode = parentData.isRedux;
+        if ( parentData.connectedNode ) {
+            const ConnectedNode = parentData.connectedNode;
             for (let i = 0; i < nodeIds.length; i++) {
                 elements.push(
                     <ConnectedNode
