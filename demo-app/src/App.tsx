@@ -4,17 +4,18 @@ import { createStore } from 'redux';
 import {
     combinedReducers, callBack, ReduxTree,
     TreeCallBackFunction, TreeState, TreeDataType, Tree, CommandQueueType,
-    ConnectedNode
+    ConnectedNode, NodeProps
 } from './internal';
 import 'font-awesome/css/font-awesome.min.css';
-import { generator } from './Generator-Bigger';
+import { generator, flat_lazy_children } from './Generator';
 
 interface AppProps {
     TreeDataType?: TreeDataType;
     callBack: TreeCallBackFunction;
 }
 
-export const store = createStore(combinedReducers, { treeData: Tree.initTree(generator())});
+const tree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()));
+export const store = createStore(combinedReducers, { treeData: tree});
 
 class App extends React.Component<AppProps, {}> {
     /**
@@ -23,12 +24,25 @@ class App extends React.Component<AppProps, {}> {
      */
     constructor(props: AppProps) {
         super(props);
+        this.lazyLoad = this.lazyLoad.bind(this);
     }
 
     onDataChange = (command: CommandQueueType[]) => {
         for ( let i = 0; i < command.length; i++ ) {
             this.props.callBack(command[i].nodeId, command[i].type, command[i].value);
         }
+    }
+
+    lazyLoad(node: NodeProps): Promise<TreeDataType> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if ( node.nodeId === '0.3') {
+                    resolve(flat_lazy_children(node.nodeId));
+                } else {
+                    reject(new Error('Something happened.'));
+                }
+            }, 2000);
+        });
     }
 
     render() {
@@ -45,7 +59,8 @@ class App extends React.Component<AppProps, {}> {
                     nodeIcon={'fa fa-fw fa-circle'}
                     callbacks={
                         {
-                            onDataChange: this.onDataChange
+                            onDataChange: this.onDataChange,
+                            lazyLoad: this.lazyLoad
                         }
                     }
                 />

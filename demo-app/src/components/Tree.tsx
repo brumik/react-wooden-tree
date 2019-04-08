@@ -245,6 +245,17 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     }
 
     /**
+     * Adds nodes to the tree, by merging the two arrays.
+     *
+     * @param {TreeDataType} tree The current tree.
+     * @param {TreeDataType} nodes The array of the new nodes - they must be initialized (nodeId, state)
+     * @return {TreeDataType} The new tree with the added nodes.
+     */
+    public static addNodes(tree: TreeDataType, nodes: TreeDataType): TreeDataType {
+        return {...tree, ...nodes};
+    }
+
+    /**
      * Returns all parents for the node in an array.
      *
      * @param nodeId The node id of the node for wich we need the parents.
@@ -581,8 +592,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         this.sendSignleCommand(nodeId, ActionTypes.LOADING, true);
 
         this.props.callbacks.lazyLoad(node).then((data: TreeDataType) => {
-            // TODO
-            this.addCommandToQueue(null, ActionTypes.ADD_NODES, Tree.initTree(data));
+            this.addCommandToQueue(null, ActionTypes.ADD_NODES, data);
             this.addCommandToQueue(nodeId, ActionTypes.CHILD_NODES, Object.keys(data));
 
             // Remove loading icon
@@ -621,7 +631,7 @@ Tree.defaultProps = {
     collapseIcon: 'fa fa-angle-down',
     expandIcon: 'fa fa-angle-right',
     loadingIcon: 'fa fa-spinner fa-spin',
-    errorIcon: 'fa-exclamation-triangle',
+    errorIcon: 'fa fa-fw fa-exclamation',
     selectedIcon: 'fa fa-check',
 
     // Styling

@@ -1,4 +1,4 @@
-import { HierarchicalNodeProps } from './internal';
+import { HierarchicalNodeProps, TreeDataType } from './internal';
 
 export function generator(): HierarchicalNodeProps[] {
     return [
@@ -8,7 +8,8 @@ export function generator(): HierarchicalNodeProps[] {
                 {text: 'Child 2 - Non checkable and disabled - no icon', icon: 'fa fa-fw',
                     checkable: false, state: {disabled: true}},
                 {text: 'Child 3 - No checkbox', hideCheckbox: true},
-                {text: 'Child 4 - LazyLoadable', lazyLoad: true, attr: {'data-random': 'random'}}
+                {text: 'Child 4 - LazyLoadable', lazyLoad: true, attr: {'data-random': 'random'}},
+                {text: 'Child 5 - LazyLoadable - Fails', lazyLoad: true, attr: {'data-random': 'random'}}
             ]
         },
         {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
@@ -37,4 +38,15 @@ export function generator(): HierarchicalNodeProps[] {
                     icon: 'fa fa-circle', iconBackground: 'rgba(0,0,0,0.5'},
             ]}
     ];
+}
+
+export function flat_lazy_children(parentId: string): TreeDataType {
+    return {
+        [parentId + '.0']: {nodeId: parentId + '.0', text: 'Lazy-loaded 0',
+            state: {expanded: false, disabled: false, checked: false, selected: false}
+        },
+        [parentId + '.1']: {nodeId: parentId + '.1', text: 'Lazy-loaded 1',
+            state: {expanded: false, disabled: false, checked: false, selected: false}
+        }
+    };
 }

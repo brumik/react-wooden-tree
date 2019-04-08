@@ -6,7 +6,7 @@ const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} 
     [ActionTypes.DISABLED]: Tree.nodeDisabled,
     [ActionTypes.SELECTED]: Tree.nodeSelected,
     [ActionTypes.CHILD_NODES]: Tree.nodeChildren,
-    [ActionTypes.LOADING]: Tree.nodeLoading,
+    [ActionTypes.LOADING]: Tree.nodeLoading
 };
 
 const treeData = (state: TreeDataType = null, action: TreeActionType): TreeDataType => {
@@ -27,8 +27,7 @@ const treeData = (state: TreeDataType = null, action: TreeActionType): TreeDataT
                 return { state };
             }
         case ActionTypes.ADD_NODES:
-            // TODO
-            return state;
+            return Tree.addNodes(state, action.value);
         default:
             return state;
     }

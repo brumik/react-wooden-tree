@@ -213,7 +213,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      * @param {boolean} expanded True on expand false on collapse.
      */
     private handleOpenChange(expanded: boolean): void {
-        if ( this.props.lazyLoad && this.props.nodes === null ) {
+        if ( this.props.lazyLoad && this.props.nodes.length < 1 ) {
             this.props.parentData.onLazyLoad(this.props.nodeId);
         }
 
