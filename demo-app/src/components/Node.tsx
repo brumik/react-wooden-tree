@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-    ConnectedNode,
     CheckboxButton,
     ExpandButton, NodeProps, ParentData,
 } from '../internal';
@@ -31,8 +30,9 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      */
     public static renderSublist(nodeIds: string[], parentData: ParentData): JSX.Element[] {
         let elements: JSX.Element[] = [];
-        for (let i = 0; i < nodeIds.length; i++) {
-            if ( parentData.isRedux ) {
+        if ( parentData.isRedux ) {
+            const ConnectedNode = parentData.isRedux;
+            for (let i = 0; i < nodeIds.length; i++) {
                 elements.push(
                     <ConnectedNode
                         key={nodeIds[i]}
@@ -40,7 +40,9 @@ export class Node extends React.PureComponent<NodeProps, {}> {
                         nodeId={nodeIds[i]}
                     />
                 );
-            } else {
+            }
+        } else {
+            for (let i = 0; i < nodeIds.length; i++) {
                 elements.push(
                     <Node
                         key={nodeIds[i]}

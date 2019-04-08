@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { createStore } from 'redux';
 import {
     combinedReducers, callBack, ReduxTree, generator,
-    TreeCallBackFunction, TreeState, TreeData, Tree, CommandQueueType
+    TreeCallBackFunction, TreeState, TreeData, Tree, CommandQueueType,
+    ConnectedNode
 } from './internal';
 import 'font-awesome/css/font-awesome.min.css';
 
@@ -30,6 +31,7 @@ class App extends React.Component<AppProps, {}> {
     }
 
     render() {
+        // TODO: Injecting the ConnectedNode as a prop to the tree - no need for isRedux prop
         return (
             <div className="App">
                 <ReduxTree
@@ -39,6 +41,7 @@ class App extends React.Component<AppProps, {}> {
                     preventDeselect={true}
                     allowReselect={true}
                     checkboxFirst={true}
+                    isRedux={ConnectedNode}
                     nodeIcon={'fa fa-fw fa-circle'}
                     callbacks={
                         {

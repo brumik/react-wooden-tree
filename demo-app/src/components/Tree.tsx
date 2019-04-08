@@ -556,7 +556,7 @@ Tree.defaultProps = {
     selectedClass: 'selected',
 
     // Other
-    isRedux: false,
+    isRedux: undefined,
 
     // Callbacks
     callbacks: {

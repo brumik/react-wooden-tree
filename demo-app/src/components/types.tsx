@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 /**
  * The props interface for the tree component.
  */
@@ -32,7 +34,7 @@ export interface TreeProps {
     selectedClass?: string;             // < Extra class for the selected nodes.
 
     // Other
-    isRedux?: boolean;                // < Determines which version to use (redux or non)
+    isRedux?: React.ComponentType<NodeProps>;      // < Determines which version to use (redux or non)
 
     callbacks: {
         // Callbacks
@@ -89,7 +91,7 @@ export interface ParentData {
 
     // Other
     checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
-    isRedux: boolean;                  // < Determines if it should use the redux or the non redux version.
+    isRedux: React.ComponentType<NodeProps>;      // < Determines if it should use the redux or the non redux version.
 }
 
 /**

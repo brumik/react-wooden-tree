@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Tree, TreeProps, TreeData } from '../../internal';
 
 const mapStateToProps = ({ treeData }: TreeData) => {
-    return {data: {...treeData}, isRedux: true};
+    return {data: {...treeData}};
 };
 
 export const ReduxTree = connect(mapStateToProps)(
