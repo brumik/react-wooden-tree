@@ -19,9 +19,6 @@ const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} 
     [ActionTypes.LOADING]: Tree.nodeLoading,
 };
 
-console.log(Tree.initHierarchicalTree(generator()));
-console.log(Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator())));
-
 export class AppNonRedux extends React.Component<{}, AppState> {
     state = {
         tree: Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()))
