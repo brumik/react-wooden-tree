@@ -1,22 +1,5 @@
 import * as React from 'react';
-
-/**
- * Callback function for CheckboxButton.
- */
-export interface CheckboxButtonOnChange {
-    (checked: boolean, nodeId: string): void;
-}
-
-/**
- * CheckboxButton properties definition.
- */
-export interface CheckboxButtonProps {
-    onChange: (checked: boolean) => void;
-    checked: boolean;
-    checkedIcon: string;
-    partiallyCheckedIcon: string;
-    uncheckedIcon: string;
-}
+import { Checkbox, CheckboxButtonProps } from './types';
 
 /**
  * Creates a checkbox from button. On click event the callback function onChange is fired with the corresponding
@@ -31,15 +14,15 @@ export class CheckboxButton extends React.Component<CheckboxButtonProps, {}> {
         let switchVal: boolean;
 
         switch (this.props.checked) {
-            case false:
+            case Checkbox.UNCHECKED:
                 icon = this.props.uncheckedIcon;
                 switchVal = true;
                 break;
-            case null:
+            case Checkbox.PARTIALLY:
                 icon = this.props.partiallyCheckedIcon;
                 switchVal = true;
                 break;
-            case true:
+            case Checkbox.CHECKED:
                 icon = this.props.checkedIcon;
                 switchVal = false;
                 break;
