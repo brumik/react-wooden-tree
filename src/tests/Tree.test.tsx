@@ -6,18 +6,16 @@ import { ReactTestRendererJSON } from 'react-test-renderer';
 let treeH: HierarchicalNodeProps[];
 let tree2H: HierarchicalNodeProps[];
 let tree3H: HierarchicalNodeProps[];
-// let subTreeH: HierarchicalNodeProps[];
 let tree: TreeDataType;
 let tree2: TreeDataType;
 let tree3: TreeDataType;
-// let subTree: TreeDataType;
 
-// const initState = {
-//     checked: false,
-//     selected: false,
-//     disabled: false,
-//     expanded: false
-// };
+const initState = {
+    checked: false,
+    selected: false,
+    disabled: false,
+    expanded: false
+};
 
 const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} = {
     [ActionTypes.EXPANDED]: Tree.nodeExpanded,
@@ -58,6 +56,53 @@ let onDataChange = (commands: [string, string, any]) => {
         lastChange = [command.nodeId, command.type, command.value];
     }
     tree2 = temp;
+};
+
+/**
+ * Returns dummy children to a node in TreeDataType structure.
+ *
+ * @param parentId
+ */
+function flat_lazy_children(parentId: string): TreeDataType {
+    return {
+        [parentId + '.0']: {nodeId: parentId + '.0', text: 'Sub Parent 0',
+            state: {expanded: false, disabled: false, checked: false, selected: false}
+        },
+        [parentId + '.1']: {nodeId: parentId + '.1', text: 'Sub Parent 1',
+            state: {expanded: false, disabled: false, checked: false, selected: false}
+        },
+        [parentId + '.2']: {nodeId: parentId + '.2', text: 'Sub Parent 2',
+        state: {expanded: false, disabled: false, checked: true, selected: false}
+    }
+    };
+}
+
+/**
+ * Lazy load fail trigger
+ */
+let failLazyLoad: boolean;
+
+/**
+ * Promise Helper
+ */
+let promise: Promise<TreeDataType>;
+
+/**
+ * Lazy loading dummy
+ * @param node
+ */
+let lazyLoad = (node: NodeProps): Promise<TreeDataType> => {
+    promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if ( !failLazyLoad ) {
+                resolve(flat_lazy_children(node.nodeId));
+            } else {
+                reject(new Error('Something happened.'));
+            }
+        }, 2000);
+    });
+
+    return promise;
 };
 
 /**
@@ -137,6 +182,8 @@ function childrenSelector(li: ReactTestRendererJSON, button: string): ReactTestR
 beforeEach(() => {
     lastChange = null;
     changeCounter = 0;
+    failLazyLoad = false;
+    promise = null;
 
     treeH = [
         {text: 'Parent 0',
@@ -150,19 +197,6 @@ beforeEach(() => {
             ]},
         {text: 'Parent 1', state: {selected: true}, attr: {'data-info': 'search1', 'data-desc': 'searchDesc'}}
     ];
-
-    // subTreeH = [
-    //     {text: 'Sub Parent 0'},
-    //     {text: 'Sub Parent 1',
-    //         nodes: [
-    //             {text: 'Sub Child 1.0'},
-    //             {text: 'Sub Child 1.1'}
-    //         ]},
-    //     {text: 'Sub Parent 2',
-    //         nodes: [
-    //             {text: 'Sub Child 2.0', state: {checked: true}}
-    //         ]},
-    // ];
 
     tree2H = [
         {text: 'Parent 0', state: {disabled: true},
@@ -192,22 +226,21 @@ beforeEach(() => {
     tree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(treeH));
     tree2 = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(tree2H));
     tree3 = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(tree3H));
-    // subTree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(subTreeH));
 });
 
 describe('tree public method', () => {
-    // it('should initialize the ids and state correctly', () => {
-    //     expect(tree).not.toBeNull();
-    //
-    //     expect(tree[0].nodes[1].nodes[0].nodeId).toBe('0.1.0');
-    //     expect(tree[0].nodes[1].nodes[0].state).toMatchObject(initState);
-    //
-    //     expect(tree[0].nodes[0].nodeId).toBe('0.0');
-    //     expect(tree[0].nodes[0].state).toMatchObject(initState);
-    //
-    //     expect(tree[1].nodeId).toBe('1');
-    //     expect(tree[1].state).toMatchObject({...initState, selected: true});
-    // });
+    it('should initialize the ids and state correctly', () => {
+        expect(tree).not.toBeNull();
+
+        expect(treeH[0].nodes[1].nodes[0].nodeId).toBe('0.1.0');
+        expect(treeH[0].nodes[1].nodes[0].state).toMatchObject(initState);
+
+        expect(treeH[0].nodes[0].nodeId).toBe('0.0');
+        expect(treeH[0].nodes[0].state).toMatchObject(initState);
+
+        expect(treeH[1].nodeId).toBe('1');
+        expect(treeH[1].state).toMatchObject({...initState, selected: true});
+    });
 
     it('should return the correct node by id', () => {
         let node = Tree.nodeSelector(tree, '0.2');
@@ -322,31 +355,25 @@ describe('tree public method', () => {
         });
     });
 
-    // it('should return node with changed children nodes', () => {
-    //     let node = Tree.nodeSelector(tree, '1');
-    //
-    //     subTree = Tree.initTree(subTree, node.nodeId);
-    //     node = Tree.nodeChildren(node, subTree);
-    //
-    //     expect(node.nodes).not.toBeNull();
-    //     expect(node.nodes[1].nodes[0]).toMatchObject({
-    //         text: 'Sub Child 1.0', nodeId: '1.1.0', state: initState
-    //     });
-    //
-    //     expect(node.nodes[2].nodes[0]).toMatchObject({
-    //         text: 'Sub Child 2.0', nodeId: '1.2.0', state: {...initState, checked: true}
-    //     });
-    // });
-    //
-    // it('should return node with changed loading state', () => {
-    //     let node = Tree.nodeSelector(tree, '1');
-    //
-    //     node = Tree.nodeLoading(node, true);
-    //     expect(node.loading).toBeTruthy();
-    //
-    //     node = Tree.nodeLoading(node, false);
-    //     expect(node.loading).toBeFalsy();
-    // });
+    it('should return node with changed children nodes', () => {
+        let node = Tree.nodeSelector(tree, '1');
+
+        let subTree = flat_lazy_children(node.nodeId);
+        node = Tree.nodeChildren(node, Object.keys(subTree));
+
+        expect(node.nodes).not.toBeNull();
+        expect(node.nodes).toMatchObject(Object.keys(subTree));
+    });
+
+    it('should return node with changed loading state', () => {
+        let node = Tree.nodeSelector(tree, '1');
+
+        node = Tree.nodeLoading(node, true);
+        expect(node.loading).toBeTruthy();
+
+        node = Tree.nodeLoading(node, false);
+        expect(node.loading).toBeFalsy();
+    });
 });
 
 describe('tree events', () => {
@@ -555,74 +582,80 @@ describe('tree events', () => {
         expect(lastChange[1]).toMatch('state.expanded');
         expect(lastChange[2]).toBeTruthy();
     });
-    //
-    // it('should match lazy loaded nodes', async () => {
-    //     let p = new Promise<NodeProps[]>((resolve, reject) => {
-    //         setTimeout(() => {
-    //             resolve([{text: 'Lazy Loaded'}]);
-    //         }, 1000);
-    //     });
-    //
-    //     const node = renderer
-    //         .create(
-    //             <Tree
-    //                 data={tree2}
-    //                 callbacks={
-    //                     {
-    //                         onDataChange: onDataChange,
-    //                         lazyLoad: (node: NodeProps) => { return p; },
-    //                     }
-    //                 }
-    //             />
-    //         );
-    //
-    //     let expand = childrenSelector(liSelector(node.toJSON(), '2'), 'expand');
-    //     expand.props.onClick();
-    //
-    //     await p;
-    //     expect(changeCounter).toEqual(4);
-    //
-    //     node.update(<Tree
-    //         data={tree2}
-    //         onDataChange={onDataChange}
-    //         lazyLoad={(node) => { return p; }}
-    //     />);
-    //     expect(node).toMatchSnapshot();
-    // });
-    //
-    // it('should match failed lazy load', async () => {
-    //     let p = new Promise<NodeProps[]>((resolve, reject) => {
-    //         setTimeout(() => {
-    //             reject(new Error('Something happened.'));
-    //         }, 1000);
-    //     });
-    //
-    //     const node = renderer
-    //         .create(<Tree
-    //             data={tree2}
-    //             onDataChange={onDataChange}
-    //             lazyLoad={(node) => { return p; }}
-    //         />);
-    //
-    //     let expand = childrenSelector(liSelector(node.toJSON(), '2'), 'expand');
-    //     expand.props.onClick();
-    //
-    //     // The promise gets rejected so all the testing goes into the catch block.
-    //     try {
-    //         await p;
-    //     } catch (e) {
-    //         expect(changeCounter).toEqual(3);
-    //
-    //         node.update(<Tree
-    //             data={tree2}
-    //             onDataChange={onDataChange}
-    //             lazyLoad={(node) => {
-    //                 return p;
-    //             }}
-    //         />);
-    //         expect(node).toMatchSnapshot();
-    //     }
-    // });
+
+    it('should match lazy loaded nodes', async () => {
+        failLazyLoad = false;
+        const node = renderer
+            .create(
+                <Tree
+                    data={tree2}
+                    callbacks={
+                        {
+                            onDataChange: onDataChange,
+                            lazyLoad: lazyLoad,
+                        }
+                    }
+                />
+            );
+
+        let expand = childrenSelector(liSelector(node.toJSON(), '2'), 'expand');
+        expand.props.onClick();
+
+        await promise;
+        expect(changeCounter).toEqual(5);
+
+        node.update(
+            <Tree
+                data={tree2}
+                callbacks={
+                    {
+                        onDataChange: onDataChange,
+                        lazyLoad: lazyLoad,
+                    }
+                }
+            />
+        );
+        expect(node).toMatchSnapshot();
+    });
+
+    it('should match failed lazy load', async () => {
+        failLazyLoad = true;
+        const node = renderer
+            .create(
+                <Tree
+                    data={tree2}
+                    callbacks={
+                        {
+                            onDataChange: onDataChange,
+                            lazyLoad: lazyLoad,
+                        }
+                    }
+                />
+            );
+
+        let expand = childrenSelector(liSelector(node.toJSON(), '2'), 'expand');
+        expand.props.onClick();
+
+        // The promise gets rejected so all the testing goes into the catch block.
+        try {
+            await promise;
+        } catch (e) {
+            expect(changeCounter).toEqual(3);
+
+            node.update(
+                <Tree
+                    data={tree2}
+                    callbacks={
+                        {
+                            onDataChange: onDataChange,
+                            lazyLoad: lazyLoad,
+                        }
+                    }
+                />
+            );
+            expect(node).toMatchSnapshot();
+        }
+    });
 
     it('should call collapse functions', () => {
         const node = renderer
