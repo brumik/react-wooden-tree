@@ -524,27 +524,6 @@ Array [
 ]
 `;
 
-exports[`node should render not render empty children 1`] = `
-<li
-  className="indent-0 NoOpenButton Selectable"
-  data-id="0"
->
-  <i
-    className="fa fa-square-o Icon CheckboxButton"
-    onClick={[Function]}
-  />
-  <i
-    className="Icon fa fa-ban fa-fw"
-    style={Object {}}
-  />
-  <span
-    onClick={[Function]}
-  >
-    Rendered Node
-  </span>
-</li>
-`;
-
 exports[`node should render switched node and checkbox icon 1`] = `
 <li
   className="indent-0 NoOpenButton Selectable"

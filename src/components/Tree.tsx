@@ -151,7 +151,13 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     public static nodeSearch(tree: TreeDataType, nodeID: string, attrName: string, searchString: string): string[] {
         let findInID: string[] = [];
 
-        let keys = Object.keys(tree);
+        let keys = [];
+        if ( !nodeID ) {
+            keys = Object.keys(tree);
+        } else {
+            keys = Tree.getDescendants(tree, nodeID);
+        }
+
         for (let i = 0; i < keys.length; i++) {
             let node = this.nodeSelector(tree, keys[i]);
             if ( node.attr && node.attr[attrName] && node.attr[attrName] === searchString ) {
