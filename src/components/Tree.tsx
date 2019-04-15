@@ -455,10 +455,6 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * Checkbox.Partially if partially checked, and undefined if the nodes is empty list.
      */
     private parentCheckboxState(nodes: string[], childCheckboxState: boolean, changedChildrenId: string): boolean {
-        if ( !nodes ) {
-            return undefined;
-        }
-
         if ( childCheckboxState === Checkbox.PARTIALLY ) {
             return Checkbox.PARTIALLY;
         }

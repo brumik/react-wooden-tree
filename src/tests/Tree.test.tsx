@@ -51,6 +51,8 @@ let onDataChange = (commands: [string, string, any]) => {
         if (actionMapper.hasOwnProperty(command.type)) {
             node = actionMapper[command.type](node, command.value);
             temp = Tree.nodeUpdater(temp, node);
+        } else if ( command.type === ActionTypes.ADD_NODES ) {
+            temp = Tree.addNodes(temp, command.value);
         }
         changeCounter++;
         lastChange = [command.nodeId, command.type, command.value];
@@ -63,7 +65,7 @@ let onDataChange = (commands: [string, string, any]) => {
  *
  * @param parentId
  */
-function flat_lazy_children(parentId: string): TreeDataType {
+function flatLazyChildren(parentId: string): TreeDataType {
     return {
         [parentId + '.0']: {nodeId: parentId + '.0', text: 'Sub Parent 0',
             state: {expanded: false, disabled: false, checked: false, selected: false}
@@ -95,11 +97,11 @@ let lazyLoad = (node: NodeProps): Promise<TreeDataType> => {
     promise = new Promise((resolve, reject) => {
         setTimeout(() => {
             if ( !failLazyLoad ) {
-                resolve(flat_lazy_children(node.nodeId));
+                resolve(flatLazyChildren(node.nodeId));
             } else {
                 reject(new Error('Something happened.'));
             }
-        }, 2000);
+        }, 10);
     });
 
     return promise;
@@ -229,7 +231,24 @@ beforeEach(() => {
 });
 
 describe('tree public method', () => {
-    it('should initialize the ids and state correctly', () => {
+    it('should initialize the state correctly from flat tree', () => {
+        let flatTree: TreeDataType = {
+            ['']: {text: 'Root', nodeId: '', nodes: ['0', '1']},
+            ['0']: {text: 'Parent 0', nodeId: '0', nodes: []},
+            ['1']: {text: 'Parent 1', nodeId: '1', nodes: ['1.0']},
+            ['1.0']: {text: 'Children 0', nodeId: '1.0', nodes: []},
+        };
+
+        flatTree = Tree.initTree(flatTree);
+        for ( let node in flatTree ) {
+            if ( !flatTree.hasOwnProperty(node) ) {
+                continue;
+            }
+            expect(flatTree[node].state).toMatchObject(initState);
+        }
+    });
+
+    it('should initialize the ids and state correctly from hierarchical tree', () => {
         expect(tree).not.toBeNull();
 
         expect(treeH[0].nodes[1].nodes[0].nodeId).toBe('0.1.0');
@@ -358,7 +377,7 @@ describe('tree public method', () => {
     it('should return node with changed children nodes', () => {
         let node = Tree.nodeSelector(tree, '1');
 
-        let subTree = flat_lazy_children(node.nodeId);
+        let subTree = flatLazyChildren(node.nodeId);
         node = Tree.nodeChildren(node, Object.keys(subTree));
 
         expect(node.nodes).not.toBeNull();
@@ -855,4 +874,8 @@ describe('tree events', () => {
         expect(changeCounter).toEqual(1);
         expect(lastChange).toMatchObject(['1.0.0', 'state.selected', true]);
     });
+});
+
+describe('redux tree events', () => {
+
 });

@@ -419,7 +419,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       <span
         onClick={[Function]}
       >
-        
+        Sub Parent 0
       </span>
     </li>
     <li
@@ -433,7 +433,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       <span
         onClick={[Function]}
       >
-        
+        Sub Parent 1
       </span>
     </li>
     <li
@@ -447,7 +447,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       <span
         onClick={[Function]}
       >
-        
+        Sub Parent 2
       </span>
     </li>
   </ul>
