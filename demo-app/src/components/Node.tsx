@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {
-    CheckboxButton,
-    ExpandButton, NodeProps, ParentDataType,
-} from '../internal';
+import { NodeProps, ParentDataType } from './types';
+import { CheckboxButton } from './CheckboxButton';
+import { ExpandButton } from './ExpandButton';
 
 /**
  * @class Node

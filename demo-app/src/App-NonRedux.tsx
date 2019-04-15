@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Tree, NodeProps, TreeDataType, ActionTypes } from './internal';
 import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 import { generator } from './Generator';
+import { NodeProps, TreeDataType } from './components/types';
+import { ActionTypes } from './redux/types';
+import { Tree } from './components/Tree';
 
 interface AppState {
     tree: TreeDataType;

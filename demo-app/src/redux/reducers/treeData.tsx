@@ -1,4 +1,6 @@
-import { TreeDataType, Tree, ActionTypes, TreeActionType, NodeProps } from '../../internal';
+import { NodeProps, TreeDataType } from '../../components/types';
+import { ActionTypes, TreeActionType } from '../types';
+import { Tree } from '../../components/Tree';
 
 const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} = {
     [ActionTypes.EXPANDED]: Tree.nodeExpanded,

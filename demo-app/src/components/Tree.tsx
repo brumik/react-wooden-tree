@@ -1,10 +1,17 @@
 import * as React from 'react';
-import {
-    ActionTypes, Node, NodeProps, ParentDataType,
-    TreeDataType, Checkbox, TreeProps, CommandQueueType, HierarchicalNodeProps
-} from '../internal';
 import './Tree.css';
 import { defVal } from './Helpers';
+import {
+    Checkbox,
+    CommandQueueType,
+    HierarchicalNodeProps,
+    NodeProps,
+    ParentDataType,
+    TreeDataType,
+    TreeProps
+} from './types';
+import { Node } from './Node';
+import { ActionTypes } from '../redux/types';
 
 export class Tree extends React.PureComponent<TreeProps, {}> {
     /**

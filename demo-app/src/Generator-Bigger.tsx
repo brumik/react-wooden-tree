@@ -1,4 +1,4 @@
-import { TreeDataType } from './internal';
+import { TreeDataType } from './components/types';
 
 function generate_object(size: number): TreeDataType {
     let obj: TreeDataType = {'': null};

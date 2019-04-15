@@ -1,4 +1,4 @@
-import { HierarchicalNodeProps, TreeDataType } from './internal';
+import { HierarchicalNodeProps, TreeDataType } from './components/types';
 
 export function generator(): HierarchicalNodeProps[] {
     return [

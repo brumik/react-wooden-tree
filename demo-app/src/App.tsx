@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
-import {
-    combinedReducers, callBack, ReduxTree,
-    TreeCallBackFunction, TreeState, TreeDataType, Tree, CommandQueueType,
-    ConnectedNode, NodeProps
-} from './internal';
 import 'font-awesome/css/font-awesome.min.css';
 import { generator, flat_lazy_children } from './Generator';
+import { CommandQueueType, NodeProps, TreeDataType } from './components/types';
+import { TreeCallBackFunction, TreeState } from './redux/types';
+import { Tree } from './components/Tree';
+import combinedReducers from './redux/reducers';
+import { ReduxTree } from './redux/components/ReduxTree';
+import { ConnectedNode } from './redux/components/ReduxNode';
+import callBack from './redux/actions/tree';
 
 interface AppProps {
     TreeDataType?: TreeDataType;
