@@ -1,6 +1,8 @@
-import { NodeProps, TreeDataType } from '../../components/types';
-import { ActionTypes, TreeActionType } from '../types';
-import { Tree } from '../../components/Tree';
+import {
+    NodeProps, TreeDataType,
+    ActionTypes, TreeActionType,
+    Tree
+} from '../..';
 
 const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} = {
     [ActionTypes.EXPANDED]: Tree.nodeExpanded,
@@ -11,7 +13,7 @@ const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} 
     [ActionTypes.LOADING]: Tree.nodeLoading
 };
 
-const treeData = (state: TreeDataType = null, action: TreeActionType): TreeDataType => {
+export const treeDataReducer = (state: TreeDataType = null, action: TreeActionType): TreeDataType => {
     switch (action.type) {
         case ActionTypes.EXPANDED:
         case ActionTypes.SELECTED:
@@ -34,5 +36,3 @@ const treeData = (state: TreeDataType = null, action: TreeActionType): TreeDataT
             return state;
     }
 };
-
-export default treeData;

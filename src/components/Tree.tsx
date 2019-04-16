@@ -8,10 +8,10 @@ import {
     NodeProps,
     ParentDataType,
     TreeDataType,
-    TreeProps
-} from './types';
-import { Node } from './Node';
-import { ActionTypes } from '../redux/types';
+    TreeProps,
+    Node,
+    ActionTypes
+} from '..';
 
 export class Tree extends React.PureComponent<TreeProps, {}> {
     /**

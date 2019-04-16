@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NodeProps, ParentDataType } from './types';
+import { NodeProps, ParentDataType } from '..';
 import { CheckboxButton } from './CheckboxButton';
 import { ExpandButton } from './ExpandButton';
 

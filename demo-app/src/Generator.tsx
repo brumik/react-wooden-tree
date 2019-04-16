@@ -1,4 +1,4 @@
-import { HierarchicalNodeProps, TreeDataType } from './components/types';
+import { HierarchicalNodeProps, TreeDataType } from 'react-wooden-tree';
 
 export function generator(): HierarchicalNodeProps[] {
     return [

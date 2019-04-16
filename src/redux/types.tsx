@@ -1,4 +1,4 @@
-import { TreeDataType } from '../components/types';
+import { TreeDataType } from '..';
 
 export interface TreeActionType {
     type: string;

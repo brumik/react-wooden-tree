@@ -12,6 +12,11 @@ export { Tree } from './components/Tree';
 
 // Redux
 export { Node } from './components/Node';
-export * from './redux/types';
-export * from './redux/actions/tree';
-export * from './redux/reducers/treeData';
+export {
+    TreeActionType,
+    ActionTypes,
+    TreeCallBackFunction,
+    TreeState
+} from './redux/types';
+export { callBack } from './redux/actions/tree';
+export { treeDataReducer } from './redux/reducers/treeData';

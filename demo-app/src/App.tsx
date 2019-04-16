@@ -2,14 +2,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
 import 'font-awesome/css/font-awesome.min.css';
+import 'react-wooden-tree/dist/react-wooden-tree.css';
+import {
+    CommandQueueType, NodeProps, Tree, TreeDataType, TreeCallBackFunction, TreeState, callBack
+} from 'react-wooden-tree';
 import { generator, flat_lazy_children } from './Generator';
-import { CommandQueueType, NodeProps, TreeDataType } from './components/types';
-import { TreeCallBackFunction, TreeState } from './redux/types';
-import { Tree } from './components/Tree';
-import combinedReducers from './redux/reducers';
 import { ReduxTree } from './redux/components/ReduxTree';
 import { ConnectedNode } from './redux/components/ReduxNode';
-import callBack from './redux/actions/tree';
+import combinedReducers from './redux/reducers';
 
 interface AppProps {
     TreeDataType?: TreeDataType;

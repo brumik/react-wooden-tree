@@ -1,4 +1,4 @@
-import { TreeDataType } from './components/types';
+import { TreeDataType } from 'react-wooden-tree';
 
 function generate_object(size: number): TreeDataType {
     let obj: TreeDataType = {'': null};

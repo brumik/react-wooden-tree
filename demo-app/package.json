@@ -4,11 +4,12 @@
   "private": true,
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "react": "^16.2.0",
-    "react-dom": "16.8.*",
+    "react": "^16.8.6",
+    "react-dom": "16.8.6",
     "react-scripts-ts": "^3.1.0",
     "react-redux": "6.0.1",
-    "redux": "4.0.1"
+    "redux": "4.0.1",
+    "react-wooden-tree": "file:../"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -19,21 +20,14 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/jest": "^22.1.3",
-    "@types/node": "^9.4.6",
-    "@types/react": "16.8.*",
-    "@types/react-dom": "^16.8.*",
-    "@types/react-redux": "^7.0.3",
-    "@types/react-test-renderer": "^16.0.1",
-    "react-test-renderer": "^16.2.0",
-    "serve": "^10.0.2",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.4",
+    "@types/react": "^16.8.13",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.6",
+    "@types/react-test-renderer": "^16.8.1",
+    "react-test-renderer": "^16.8.6",
+    "serve": "^11.0.0",
     "typescript": "3.3.*"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/components/**/*.{js,jsx,tsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/"
-    ]
   }
 }

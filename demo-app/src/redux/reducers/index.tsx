@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import treeData from './treeData';
+import { treeDataReducer as treeData } from 'react-wooden-tree';
 
 export const combinedReducers = combineReducers({ treeData });
 
