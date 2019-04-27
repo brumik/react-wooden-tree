@@ -28,7 +28,7 @@ export const treeDataReducer = (state: TreeDataType = null, action: TreeActionTy
                 node = actionMapper[action.type](node, action.value);
                 return Tree.nodeUpdater(state, node);
             } else {
-                return { state };
+                return state;
             }
         case ActionTypes.ADD_NODES:
             return Tree.addNodes(state, action.value);

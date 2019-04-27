@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { ActionTypes, HierarchicalNodeProps, NodeProps, Tree, TreeDataType } from '..';
+import { HierarchicalNodeProps, NodeProps, Tree, treeDataReducer, TreeDataType } from '..';
 import { ReactTestRendererJSON } from 'react-test-renderer';
 
 let treeH: HierarchicalNodeProps[];
@@ -15,15 +15,6 @@ const initState = {
     selected: false,
     disabled: false,
     expanded: false
-};
-
-const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} = {
-    [ActionTypes.EXPANDED]: Tree.nodeExpanded,
-    [ActionTypes.CHECKED]: Tree.nodeChecked,
-    [ActionTypes.DISABLED]: Tree.nodeDisabled,
-    [ActionTypes.SELECTED]: Tree.nodeSelected,
-    [ActionTypes.CHILD_NODES]: Tree.nodeChildren,
-    [ActionTypes.LOADING]: Tree.nodeLoading,
 };
 
 /** Updated if called onDataChange */
@@ -43,17 +34,7 @@ let onDataChange = (commands: [string, string, any]) => {
     let temp = {...tree2};
     for ( let i = 0; i < commands.length; i++ ) {
         let command = commands[i];
-        let node = Tree.nodeSelector(temp, command.nodeId);
-        if (node === null) {
-            continue;
-        }
-
-        if (actionMapper.hasOwnProperty(command.type)) {
-            node = actionMapper[command.type](node, command.value);
-            temp = Tree.nodeUpdater(temp, node);
-        } else if ( command.type === ActionTypes.ADD_NODES ) {
-            temp = Tree.addNodes(temp, command.value);
-        }
+        temp = treeDataReducer(temp, command);
         changeCounter++;
         lastChange = [command.nodeId, command.type, command.value];
     }
