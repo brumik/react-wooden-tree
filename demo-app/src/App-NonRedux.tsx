@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
+import 'react-wooden-tree/dist/react-wooden-tree.css';
 import { ActionTypes, NodeProps, Tree, TreeDataType } from 'react-wooden-tree';
-import './App.css';
 import { generator } from './Generator';
 
 interface AppState {
