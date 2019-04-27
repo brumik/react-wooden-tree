@@ -45,7 +45,7 @@ export interface TreeProps {
     /** The icon displayed when lazyLoading went wrong. */
     errorIcon?: string;
     /** The icon for selected nodes. */
-    selectedIcon?: string
+    selectedIcon?: string;
 
     // Styling
     /** Extra class for the changed checkbox nodes. */
