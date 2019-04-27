@@ -461,10 +461,6 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
 
         let first: boolean = childCheckboxState;
 
-        if ( first === Checkbox.PARTIALLY ) {
-            return Checkbox.PARTIALLY;
-        }
-
         for ( let i = 0; i < nodes.length; i++ ) {
             if ( nodes[i] === changedChildrenId ) {
                 continue;

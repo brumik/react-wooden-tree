@@ -214,7 +214,8 @@ beforeEach(() => {
                         {text: 'Child 1.0.1'},
                         {text: 'Child 1.0.2'}
                     ]
-                }
+                },
+                {text: 'Child 1.1'}
             ]
         },
         {text: 'Parent 2', lazyLoad: true},
@@ -469,7 +470,7 @@ describe('tree events', () => {
 
         let check = childrenSelector(liSelector(node, '1'), 'check');
         check.props.onClick();
-        expect(changeCounter).toEqual(5);
+        expect(changeCounter).toEqual(6);
 
         // Last change check
         expect(lastChange[1]).toMatch('state.checked');
@@ -515,8 +516,22 @@ describe('tree events', () => {
         let check = childrenSelector(liSelector(node.toJSON(), '1.0'), 'check');
         check.props.onClick();
 
-        // Check self, parent and two children
-        expect(changeCounter).toEqual(5);
+        node.update(
+            <Tree
+                data={tree2}
+                callbacks={{
+                    onDataChange: onDataChange,
+                }}
+                showCheckbox={true}
+                hierarchicalCheck={true}
+            />
+        );
+
+        check = childrenSelector(liSelector(node.toJSON(), '1.1'), 'check');
+        check.props.onClick();
+
+        // Check self, parent and two children + self, parent
+        expect(changeCounter).toEqual(7);
 
         node.update(
             <Tree
@@ -559,11 +574,11 @@ describe('tree events', () => {
         );
         expect(node).toMatchSnapshot();
 
-        check = childrenSelector(liSelector(node.toJSON(), '1.0.1'), 'check');
+        check = childrenSelector(liSelector(node.toJSON(), '1.1'), 'check');
         check.props.onClick();
 
         // Check self, parent and two children
-        expect(changeCounter).toEqual(6);
+        expect(changeCounter).toEqual(5);
 
         node.update(
             <Tree
