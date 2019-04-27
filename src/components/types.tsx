@@ -4,37 +4,58 @@ import * as React from 'react';
  * The props interface for the tree component.
  */
 export interface TreeProps {
-    data?: TreeDataType;                     // < The definitions of the tree nodes.
+    /** The definitions of the tree nodes. */
+    data?: TreeDataType;
 
     // Checkbox
-    showCheckbox?: boolean;             // < Option: whenever the checkboxes are displayed.
-    hierarchicalCheck?: boolean;        // < If enabled parent and children are reflecting each other changes.
-    checkboxFirst?: boolean;            // < Determines if the node icon or the checkbox is the first.
+    /** Option: whenever the checkboxes are displayed. */
+    showCheckbox?: boolean;
+    /** If enabled parent and children are reflecting each other changes. */
+    hierarchicalCheck?: boolean;
+    /** Determines if the node icon or the checkbox is the first. */
+    checkboxFirst?: boolean;
 
     // Selection
-    multiSelect?: boolean;              // < Determines if multiple nodes can be selected.
-    preventDeselect?: boolean;          // < Determines if can be deselected all nodes.
-    allowReselect?: boolean;            // < Used with preventDeselect allows to fire selected event on selected node.
+    /** Determines if multiple nodes can be selected. */
+    multiSelect?: boolean;
+    /** Determines if can be deselected all nodes. */
+    preventDeselect?: boolean;
+    /** Used with preventDeselect allows to fire selected event on selected node. */
+    allowReselect?: boolean;
 
     // Icons
-    showIcon?: boolean;                 // < Determines if the icons are showed in nodes.
-    showImage?: boolean;                // < Determines if images are preferred to the icons.
-    nodeIcon?: string;                  // < Default icon for nodes without it.
-    checkedIcon?: string;               // < The checkbox-checked icon.
-    uncheckedIcon?: string;             // < The checkbox-unchecked icon.
-    partiallyCheckedIcon?: string;      // < The checkbox-partially selected icon.
-    collapseIcon?: string;              // < The icon for collapsing parents.
-    expandIcon?: string;                // < The icon for expanding parents.
-    loadingIcon?: string;               // < The loading icon when loading data with ajax.
-    errorIcon?: string;                 // < The icon displayed when lazyLoading went wrong.
-    selectedIcon?: string;              // < The icon for selected nodes.
+    /** Determines if the icons are showed in nodes. */
+    showIcon?: boolean;
+    /** Determines if images are preferred to the icons. */
+    showImage?: boolean;
+    /** Default icon for nodes without it. */
+    nodeIcon?: string;
+    /** The checkbox-checked icon. */
+    checkedIcon?: string;
+    /** The checkbox-unchecked icon. */
+    uncheckedIcon?: string;
+    /** The checkbox-partially selected icon. */
+    partiallyCheckedIcon?: string;
+    /** The icon for collapsing parents. */
+    collapseIcon?: string;
+    /** The icon for expanding parents. */
+    expandIcon?: string;
+    /** The loading icon when loading data with ajax. */
+    loadingIcon?: string;
+    /** The icon displayed when lazyLoading went wrong. */
+    errorIcon?: string;
+    /** The icon for selected nodes. */
+    selectedIcon?: string
 
     // Styling
-    changedCheckboxClass?: string;      // < Extra class for the changed checkbox nodes.
-    selectedClass?: string;             // < Extra class for the selected nodes.
+    /** Extra class for the changed checkbox nodes. */
+    changedCheckboxClass?: string;
+    /** Extra class for the selected nodes. */
+    selectedClass?: string;
 
     // Other
-    connectedNode?: React.ComponentType<NodeProps>;      // < Determines which version to use (redux or non)
+    /** Determines which version to use (redux or non) */
+    connectedNode?: React.ComponentType<NodeProps>;
 
     callbacks: {
         // Callbacks
@@ -73,25 +94,40 @@ export interface ParentDataType {
     initSelectedNode: (nodeId: string) => void;
 
     // Icons
-    showIcon: boolean;                 // < Determines if the icons are showed in nodes.
-    showImage: boolean;                // < Determines if images are preferred to the icons.
-    nodeIcon: string;                  // < Default icon for nodes without it.
-    checkedIcon: string;               // < The checkbox-checked icon.
-    uncheckedIcon: string;             // < The checkbox-unchecked icon.
-    partiallyCheckedIcon: string;      // < The checkbox-partially selected icon.
-    collapseIcon: string;              // < The icon for collapsing parents.
-    expandIcon: string;                // < The icon for expanding parents.
-    loadingIcon: string;               // < The loading icon when loading data with ajax.
-    errorIcon: string;                 // < The icon displayed when lazyLoading went wrong.
-    selectedIcon: string;              // < The icon for selected nodes.
+    /** Determines if the icons are showed in nodes. */
+    showIcon: boolean;
+    /** Determines if images are preferred to the icons. */
+    showImage: boolean;
+    /** Default icon for nodes without it. */
+    nodeIcon: string;
+    /** The checkbox-checked icon. */
+    checkedIcon: string;
+    /** The checkbox-unchecked icon. */
+    uncheckedIcon: string;
+    /** The checkbox-partially selected icon. */
+    partiallyCheckedIcon: string;
+    /** The icon for collapsing parents. */
+    collapseIcon: string;
+    /** The icon for expanding parents. */
+    expandIcon: string;
+    /** The loading icon when loading data with ajax. */
+    loadingIcon: string;
+    /** The icon displayed when lazyLoading went wrong. */
+    errorIcon: string;
+    /** The icon for selected nodes. */
+    selectedIcon: string;
 
     // Styling
-    changedCheckboxClass: string;      // < Extra class for the changed checkbox nodes.
-    selectedClass: string;             // < Extra class for the selected nodes.
+    /** Extra class for the changed checkbox nodes. */
+    changedCheckboxClass: string;
+    /** Extra class for the selected nodes. */
+    selectedClass: string;
 
     // Other
-    checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
-    connectedNode: React.ComponentType<NodeProps>; // < Determines if it should use the redux or the non redux version.
+    /** Determines the order of the icon and the checkbox. */
+    checkboxFirst: boolean;
+    /** Determines if it should use the redux or the non redux version. */
+    connectedNode: React.ComponentType<NodeProps>;
 }
 
 /**
