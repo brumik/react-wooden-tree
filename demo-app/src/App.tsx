@@ -16,10 +16,16 @@ interface AppProps {
     callBack: TreeCallBackFunction;
 }
 
+interface AppState {
+    commandHistory: (CommandQueueType & {key: Number})[];
+}
+
 const tree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()));
 export const store = createStore(combinedReducers, { treeData: tree});
 
-class App extends React.Component<AppProps, {}> {
+class App extends React.Component<AppProps, AppState> {
+    private uKey: number;
+
     /**
      * Constructor.
      * @param {{}} props
@@ -27,11 +33,22 @@ class App extends React.Component<AppProps, {}> {
     constructor(props: AppProps) {
         super(props);
         this.lazyLoad = this.lazyLoad.bind(this);
+
+        this.state = {
+            commandHistory: [],
+        };
+
+        this.uKey = 0;
     }
 
     onDataChange = (command: CommandQueueType[]) => {
         for ( let i = 0; i < command.length; i++ ) {
             this.props.callBack(command[i].nodeId, command[i].type, command[i].value);
+
+            // Only to display the command history. Not needed for the tree.
+            let newHistory = this.state.commandHistory;
+            newHistory.push({...command[i], key: this.uKey++});
+            this.setState({commandHistory: newHistory});
         }
     }
 
@@ -49,23 +66,58 @@ class App extends React.Component<AppProps, {}> {
 
     render() {
         return (
-            <div className="App">
-                <ReduxTree
-                    hierarchicalCheck={true}
-                    showCheckbox={true}
-                    multiSelect={false}
-                    preventDeselect={true}
-                    allowReselect={true}
-                    checkboxFirst={true}
-                    connectedNode={ConnectedNode}
-                    nodeIcon={'fa fa-fw fa-circle'}
-                    callbacks={
-                        {
-                            onDataChange: this.onDataChange,
-                            lazyLoad: this.lazyLoad
+            <div
+                className="App"
+                style={{
+                    display: 'flex'
+                }}
+            >
+                <div
+                    style={{
+                        flex: '50%'
+                    }}
+                >
+                    <ReduxTree
+                        hierarchicalCheck={true}
+                        showCheckbox={true}
+                        multiSelect={false}
+                        preventDeselect={true}
+                        allowReselect={true}
+                        checkboxFirst={true}
+                        connectedNode={ConnectedNode}
+                        nodeIcon={'fa fa-fw fa-circle'}
+                        callbacks={
+                            {
+                                onDataChange: this.onDataChange,
+                                lazyLoad: this.lazyLoad
+                            }
                         }
-                    }
-                />
+                    />
+                </div>
+                <table
+                    style={{
+                        flex: '50%'
+                    }}
+                >
+                    <thead>
+                        <tr>
+                            <th colSpan={3}><h3>Action History</h3></th>
+                        </tr>
+                        <tr>
+                            <th>NodeId</th>
+                            <th>Action Type</th>
+                            <th>Passed Value</th>
+                        </tr>
+                    </thead>
+                    <tbody style={{textAlign: 'center'}}>
+                        {this.state.commandHistory.map(element =>
+                        <tr key={element.key.toString()}>
+                            <td>{element.nodeId}</td>
+                            <td>{element.type}</td>
+                            <td>{JSON.stringify(element.value)}</td>
+                        </tr>)}
+                    </tbody>
+                </table>
             </div>
         );
     }
