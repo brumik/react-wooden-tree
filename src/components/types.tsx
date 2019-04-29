@@ -90,7 +90,6 @@ export interface ParentDataType {
     expandOnChange: ExpandButtonOnChangeType;
     selectOnChange: (nodeId: string, selected: boolean) => void;
     onLazyLoad: (nodeId: string) => void;
-    showCheckbox: boolean;
     initSelectedNode: (nodeId: string) => void;
 
     // Icons
@@ -124,6 +123,8 @@ export interface ParentDataType {
     selectedClass: string;
 
     // Other
+    /** Determines if checkbox is displayed or not */
+    showCheckbox: boolean;
     /** Determines the order of the icon and the checkbox. */
     checkboxFirst: boolean;
     /** Determines if it should use the redux or the non redux version. */
@@ -136,16 +137,29 @@ export interface ParentDataType {
 export interface HierarchicalNodeProps {
     nodeId?: string;
     nodes?: HierarchicalNodeProps[];
+    /** Other props from NodeProps interface */
     [propTypes: string]: any;
+}
+
+/**
+ * Defines the TreeDataType format
+ */
+export interface TreeDataType {
+    /** The key should be the same as nodeId */
+    [key: string]: NodeProps;
 }
 
 /**
  * Node properties interface.
  */
 export interface NodeProps {
+    /** The node ID - Required */
     nodeId?: string;
+    /** The text to display on node */
     text?: string;
+    /** List of node ids of the node's children */
     nodes?: string[];
+    /** The state of the node */
     state?: {
         checked?: boolean;
         disabled?: boolean;
@@ -159,9 +173,12 @@ export interface NodeProps {
     selectable?: boolean;
     selectedIcon?: string;
 
+    /** Inidcates if node is lazy loadable or not */
     lazyLoad?: boolean;
-    loading?: boolean; // Null when error occurred
+    /** If true, loading icon is showed, if null, then error icon is showed */
+    loading?: boolean;
 
+    /** Custom attribute field */
     attr?: {[key: string]: string};
 
     // Styling
@@ -182,13 +199,6 @@ export interface CommandQueueType {
     nodeId: string;
     type: string;
     value: any;
-}
-
-/**
- * Defines the TreeDataType format
- */
-export interface TreeDataType {
-    [key: string]: NodeProps;
 }
 
 /**
