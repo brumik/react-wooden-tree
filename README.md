@@ -106,3 +106,14 @@ nesting the objects. If you have a structure like this you do not need to
 initialize the `nodeId` but before usage you have to initialize the tree
 with `Tree.initHierarchicalTree()` and flatten it with te function
 `Tree.convertHierarchicalTree()`. 
+
+
+## Contributing
+Bug reports and pull requests are welcome on GitHub at
+[https://github.com/brumik/react-wooden-tree/](https://github.com/brumik/react-wooden-tree/).
+
+## License
+The gem is available as open source under the terms of the 
+[MIT License](https://opensource.org/licenses/MIT). 
+ 
+
