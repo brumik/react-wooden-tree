@@ -1,88 +1,7 @@
 import * as React from 'react';
-import { CheckboxButton, CheckboxButtonOnChange } from './CheckboxButton';
-import { ExpandButton, ExpandButtonOnChange } from './ExpandButton';
-
-/**
- * Interface for the node's state property.
- */
-export interface NodeState {
-    checked?: boolean;
-    disabled?: boolean;
-    expanded?: boolean;
-    selected?: boolean;
-}
-
-export interface SelectOnChange {
-    (nodeId: string, selected: boolean): void;
-}
-
-export interface OnLazyLoad {
-    (nodeId: string): void;
-}
-
-/**
- * Interface for all data required from the tree root.
- */
-export interface ParentData {
-    // Callbacks
-    checkboxOnChange: CheckboxButtonOnChange;
-    expandOnChange: ExpandButtonOnChange;
-    selectOnChange: SelectOnChange;
-    onLazyLoad: OnLazyLoad;
-    showCheckbox: boolean;
-    initSelectedNode: (nodeId: string) => void;
-
-    // Icons
-    showIcon: boolean;                 // < Determines if the icons are showed in nodes.
-    showImage: boolean;                // < Determines if images are preferred to the icons.
-    nodeIcon: string;                  // < Default icon for nodes without it.
-    checkedIcon: string;               // < The checkbox-checked icon.
-    uncheckedIcon: string;             // < The checkbox-unchecked icon.
-    partiallyCheckedIcon: string;      // < The checkbox-partially selected icon.
-    collapseIcon: string;              // < The icon for collapsing parents.
-    expandIcon: string;                // < The icon for expanding parents.
-    loadingIcon: string;               // < The loading icon when loading data with ajax.
-    errorIcon: string;                 // < The icon displayed when lazyLoading went wrong.
-    selectedIcon: string;              // < The icon for selected nodes.
-
-    // Styling
-    changedCheckboxClass: string;      // < Extra class for the changed checkbox nodes.
-    selectedClass: string;             // < Extra class for the selected nodes.
-
-    // Other
-    checkboxFirst: boolean;            // < Determines the order of the icon and the checkbox.
-}
-
-/**
- * Node properties interface.
- */
-export interface NodeProps {
-    nodeId?: string;
-    text: string;
-    nodes?: NodeProps[];
-    state?: NodeState;
-
-    checkable?: boolean;
-    hideCheckbox?: boolean;
-
-    selectable?: boolean;
-    selectedIcon?: string;
-
-    lazyLoad?: boolean;
-    loading?: boolean; // Null when error occurred
-
-    attr?: {[key: string]: string};
-
-    // Styling
-    icon?: string;
-    iconColor?: string;
-    iconBackground?: string;
-    image?: string;
-    classes?: string;
-
-    // Private
-    parentData?: ParentData;
-}
+import { NodeProps, ParentDataType } from '..';
+import { CheckboxButton } from './CheckboxButton';
+import { ExpandButton } from './ExpandButton';
 
 /**
  * @class Node
@@ -90,7 +9,7 @@ export interface NodeProps {
  *
  * Displays a node and communicates with submodules and tree.
  */
-export class Node extends React.Component<NodeProps, {}> {
+export class Node extends React.PureComponent<NodeProps, {}> {
     /**
      * Used for default values.
      */
@@ -104,24 +23,36 @@ export class Node extends React.Component<NodeProps, {}> {
     /**
      * Creates the Node[] components from given nodes.
      *
-     * @param {NodeProps[]} nodes The nodes to render.
-     * @param {ParentData} parentData The parent data to pass.
+     * @param {string[]} nodeIds The nodes to render.
+     * @param {ParentDataType} parentData The parent data to pass.
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodes: NodeProps[], parentData: ParentData): JSX.Element[] {
-        if (nodes) {
-            let elements: JSX.Element[] = [];
-            for (let i = 0; i < nodes.length; i++) {
+    public static renderSublist(nodeIds: string[], parentData: ParentDataType): JSX.Element[] {
+        let elements: JSX.Element[] = [];
+        if ( parentData.connectedNode ) {
+            const ConnectedNode = parentData.connectedNode;
+            for (let i = 0; i < nodeIds.length; i++) {
                 elements.push(
-                    <Node
-                        key={nodes[i].nodeId}
+                    <ConnectedNode
+                        key={nodeIds[i]}
                         parentData={parentData}
-                        {...nodes[i]}
+                        nodeId={nodeIds[i]}
                     />
                 );
             }
-            return elements;
-        } else { return null; }
+        } else {
+            for (let i = 0; i < nodeIds.length; i++) {
+                elements.push(
+                    <Node
+                        key={nodeIds[i]}
+                        parentData={parentData}
+                        nodeId={nodeIds[i]}
+                        {...parentData.tree[nodeIds[i]]}
+                    />
+                );
+            }
+        }
+        return elements;
     }
 
     /**
@@ -239,7 +170,6 @@ export class Node extends React.Component<NodeProps, {}> {
                     {icon1}
                     {selectedIcon}
                     {icon2}
-                    {/* TODO Somehow remove span but prevent change if clicked on expand or check button */}
                     <span onClick={this.handleSelected}>{this.props.text}</span>
                 </li>
                 {sublist}
@@ -251,7 +181,7 @@ export class Node extends React.Component<NodeProps, {}> {
      * Constructor.
      * @param {NodeProps} props
      */
-    private constructor(props: NodeProps) {
+     public constructor(props: NodeProps) {
         super(props);
 
         if ( this.props.state.selected ) {
@@ -282,7 +212,7 @@ export class Node extends React.Component<NodeProps, {}> {
      * @param {boolean} expanded True on expand false on collapse.
      */
     private handleOpenChange(expanded: boolean): void {
-        if ( this.props.lazyLoad && this.props.nodes === null ) {
+        if ( this.props.lazyLoad && this.props.nodes.length < 1 ) {
             this.props.parentData.onLazyLoad(this.props.nodeId);
         }
 
@@ -314,7 +244,7 @@ export class Node extends React.Component<NodeProps, {}> {
 Node.defaultProps = {
     nodeId: '',
     text: '',
-    nodes: null,
+    nodes: [],
     state: {
         checked: false,
         expanded: false,

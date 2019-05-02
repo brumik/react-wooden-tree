@@ -28,7 +28,7 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 Selectable changed-checkbox"
       data-id="1"
     >
       <i
@@ -36,7 +36,7 @@ exports[`tree events should check parent if all children checked 1`] = `
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-check-square Icon CheckboxButton"
         onClick={[Function]}
       />
       <i
@@ -126,6 +126,24 @@ exports[`tree events should check parent if all children checked 1`] = `
         onClick={[Function]}
       >
         Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable changed-checkbox"
+      data-id="1.1"
+    >
+      <i
+        className="fa fa-check-square Icon CheckboxButton"
+        onClick={[Function]}
+      />
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.1
       </span>
     </li>
     <li
@@ -262,11 +280,25 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
+      className="indent-1 NoOpenButton Selectable"
+      data-id="1.1"
+    >
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.1
+      </span>
+    </li>
+    <li
       className="indent-0 Selectable"
       data-id="2"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-fw fa-exclamation Icon ExpandButton"
         onClick={[Function]}
       />
       <i
@@ -391,11 +423,25 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
+      className="indent-1 NoOpenButton Selectable"
+      data-id="1.1"
+    >
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.1
+      </span>
+    </li>
+    <li
       className="indent-0 Selectable"
       data-id="2"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-down Icon ExpandButton"
         onClick={[Function]}
       />
       <i
@@ -406,6 +452,48 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         onClick={[Function]}
       >
         Parent 2
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable"
+      data-id="2.0"
+    >
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Sub Parent 0
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable"
+      data-id="2.1"
+    >
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Sub Parent 1
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable"
+      data-id="2.2"
+    >
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Sub Parent 2
       </span>
     </li>
   </ul>
@@ -443,7 +531,7 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 Selectable changed-checkbox"
       data-id="1"
     >
       <i
@@ -451,7 +539,7 @@ exports[`tree events should partially check parent if not all children checked 1
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square Icon CheckboxButton"
         onClick={[Function]}
       />
       <i
@@ -541,6 +629,24 @@ exports[`tree events should partially check parent if not all children checked 1
         onClick={[Function]}
       >
         Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable"
+      data-id="1.1"
+    >
+      <i
+        className="fa fa-square-o Icon CheckboxButton"
+        onClick={[Function]}
+      />
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.1
       </span>
     </li>
     <li
@@ -600,7 +706,7 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 Selectable changed-checkbox"
       data-id="1"
     >
       <i
@@ -608,7 +714,7 @@ exports[`tree events should partially check parent if not all children checked 2
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square Icon CheckboxButton"
         onClick={[Function]}
       />
       <i
@@ -665,11 +771,11 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable changed-checkbox"
+      className="indent-2 NoOpenButton Selectable"
       data-id="1.0.1"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-square-o Icon CheckboxButton"
         onClick={[Function]}
       />
       <i
@@ -698,6 +804,24 @@ exports[`tree events should partially check parent if not all children checked 2
         onClick={[Function]}
       >
         Child 1.0.2
+      </span>
+    </li>
+    <li
+      className="indent-1 NoOpenButton Selectable changed-checkbox"
+      data-id="1.1"
+    >
+      <i
+        className="fa fa-check-square Icon CheckboxButton"
+        onClick={[Function]}
+      />
+      <i
+        className="Icon fa fa-ban"
+        style={Object {}}
+      />
+      <span
+        onClick={[Function]}
+      >
+        Child 1.1
       </span>
     </li>
     <li

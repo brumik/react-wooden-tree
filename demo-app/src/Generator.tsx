@@ -1,22 +1,6 @@
-import { NodeProps } from './components/Node';
-//
-// function generate_object(size: number): NodeProps[] {
-//     let obj: NodeProps[] = [];
-//
-//     for (let i = 0; i < Math.cbrt(size); i++) {
-//         obj[i] = {text: 'Parent ' + i, nodes: [], state: {expanded: true}};
-//         for (let k = 0; k < Math.cbrt(size); k++) {
-//             obj[i].nodes[k] = {text: 'First Child ' + i + '.' + k, nodes: [], state: {expanded: true}};
-//             for (let l = 0; l < Math.cbrt(size); l++) {
-//                 obj[i].nodes[k].nodes[l] = {text: 'Second Child ' + i + '.' + k + '.' + l};
-//             }
-//         }
-//     }
-//
-//     return obj;
-// }
+import { HierarchicalNodeProps, TreeDataType } from 'react-wooden-tree';
 
-export function generator(): NodeProps[] {
+export function generator(): HierarchicalNodeProps[] {
     return [
         {text: 'Parent 1 - Expanded', state: {expanded: true, checked: true}, attr: {'data-random': 'notThatRandom'},
             nodes: [
@@ -24,7 +8,8 @@ export function generator(): NodeProps[] {
                 {text: 'Child 2 - Non checkable and disabled - no icon', icon: 'fa fa-fw',
                     checkable: false, state: {disabled: true}},
                 {text: 'Child 3 - No checkbox', hideCheckbox: true},
-                {text: 'Child 4 - LazyLoadable', lazyLoad: true, attr: {'data-random': 'random'}}
+                {text: 'Child 4 - LazyLoadable', lazyLoad: true, attr: {'data-random': 'random'}},
+                {text: 'Child 5 - LazyLoadable - Fails', lazyLoad: true, attr: {'data-random': 'random'}}
             ]
         },
         {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
@@ -53,4 +38,15 @@ export function generator(): NodeProps[] {
                     icon: 'fa fa-circle', iconBackground: 'rgba(0,0,0,0.5'},
             ]}
     ];
+}
+
+export function flat_lazy_children(parentId: string): TreeDataType {
+    return {
+        [parentId + '.0']: {nodeId: parentId + '.0', text: 'Lazy-loaded 0',
+            state: {expanded: false, disabled: false, checked: false, selected: false}
+        },
+        [parentId + '.1']: {nodeId: parentId + '.1', text: 'Lazy-loaded 1',
+            state: {expanded: false, disabled: false, checked: false, selected: false}
+        }
+    };
 }

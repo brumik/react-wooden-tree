@@ -1,79 +1,76 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { createStore } from 'redux';
 import 'font-awesome/css/font-awesome.min.css';
-import './App.css';
-import { Tree } from './components/Tree';
-import { generator } from './Generator';
-import { NodeProps } from './components/Node';
+import 'react-wooden-tree/dist/react-wooden-tree.css';
+import {
+    ActionTypes, CommandQueueType, NodeProps, Tree, TreeDataType, TreeCallBackFunction, TreeState, callBack
+} from 'react-wooden-tree';
+import { generator, flat_lazy_children } from './Generator';
+import { ReduxTree } from './redux/components/ReduxTree';
+import { ConnectedNode } from './redux/components/ReduxNode';
+import combinedReducers from './redux/reducers';
 
-interface AppState {
-    tree: NodeProps[];
+interface AppProps {
+    TreeDataType?: TreeDataType;
+    callBack: TreeCallBackFunction;
 }
 
-class App extends React.Component<{}, AppState> {
-    private data: NodeProps[];
+interface AppState {
+    commandHistory: (CommandQueueType & {key: Number})[];
+}
 
-    private actionMapper = {
-        'state.expanded': Tree.nodeExpanded,
-        'state.checked': Tree.nodeChecked,
-        'state.disabled': Tree.nodeDisabled,
-        'state.selected': Tree.nodeSelected,
-        'nodes': Tree.nodeChildren,
-        'loading': Tree.nodeLoading,
-    };
+/** Create the tree from hierarchical data */
+const tree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()));
+/** The store */
+export const store = createStore(combinedReducers, { treeData: tree});
+
+class App extends React.Component<AppProps, AppState> {
+    private uKey: number;
 
     /**
      * Constructor.
      * @param {{}} props
      */
-    constructor(props: {}) {
+    constructor(props: AppProps) {
         super(props);
 
-        this.data = Tree.initTree(generator());
-
-        console.log(Tree.nodeSearch(this.data, null, 'data-random', 'random'));
-
         this.state = {
-            tree: this.data,
+            commandHistory: [],
         };
 
-        this.onDataChange = this.onDataChange.bind(this);
-        this.lazyLoad = this.lazyLoad.bind(this);
+        this.uKey = 0;
     }
 
     /**
-     * The callback function for changing data in the tree.
+     * On data change this function is called. In this example it is just
+     * dispatches redux event (and for demo app purposes logs the dispatched event).
      *
-     * @param {string} nodeId The nodeId of the node.
-     * @param {string} type The field name which changed.
-     * @param {boolean} value The new value to assign.
+     * @param command The commands which is requested by the tree.
      */
-    onDataChange(nodeId: string, type: string, value: boolean): void {
-        let node = Tree.nodeSelector(this.data, nodeId);
-        if ( node == null ) { return; }
+    onDataChange = (command: CommandQueueType[]) => {
+        for ( let i = 0; i < command.length; i++ ) {
+            this.props.callBack(command[i].nodeId, command[i].type, command[i].value);
 
-        if (this.actionMapper.hasOwnProperty(type)) {
-            node = this.actionMapper[type](node, value);
-            this.data = Tree.nodeUpdater(this.data, node);
-        } else {
-            // console.log(nodeId, type, value);
+            // Only to display the command history. Not needed for the tree.
+            let newHistory = this.state.commandHistory;
+            newHistory.push({...command[i], key: this.uKey++});
+            this.setState({commandHistory: newHistory});
         }
-
-        this.setState({tree: this.data});
     }
 
     /**
-     * The lazy loading function - Dummy
+     * The lazy load callback returns a new promise. In this example
+     * we return few children if it was requested for a specific node id.
+     * Otherwise we return reject.
      *
-     * @param {NodeProps} node The node to get children.
-     * @returns {NodeProps[]} The children.
+     * @param node The node which is getting lazy loaded
      */
-    lazyLoad(node: NodeProps): Promise<NodeProps[]> {
-        let isWorking = true;
-
+    lazyLoad = (node: NodeProps): Promise<TreeDataType> => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if ( isWorking ) {
-                    resolve(generator());
+                if ( node.nodeId === '0.3') {
+                    resolve(flat_lazy_children(node.nodeId));
                 } else {
                     reject(new Error('Something happened.'));
                 }
@@ -81,25 +78,141 @@ class App extends React.Component<{}, AppState> {
         });
     }
 
+    /**
+     * Helper function to do something with all the parent nodes.
+     * Used for command buttons in the demo app.
+     */
+    actionToAllRoot = (type: string, value: any) => {
+        let commands: CommandQueueType[] = [
+            {nodeId: '0', type: type, value: value},
+            {nodeId: '1', type: type, value: value},
+            {nodeId: '2', type: type, value: value},
+            {nodeId: '3', type: type, value: value}
+        ];
+
+        this.onDataChange(commands);
+    }
+
     render() {
         return (
-          <div className="App">
-            <Tree
-                hierarchicalCheck={true}
-                showCheckbox={true}
-                multiSelect={false}
-                preventDeselect={true}
-                allowReselect={true}
-                checkboxFirst={true}
-                nodeIcon={'fa fa-fw fa-circle'}
-                // partiallyCheckedIcon={'fa fa-ban'}
-                data={this.state.tree}
-                onDataChange={this.onDataChange}
-                lazyLoad={this.lazyLoad}
-            />
-          </div>
+            <div
+                className="App"
+                style={{
+                    display: 'flex'
+                }}
+            >
+                <div
+                    style={{
+                        flex: '50%'
+                    }}
+                >
+                    {/* The Tree */}
+                    <ReduxTree
+                        hierarchicalCheck={true}
+                        showCheckbox={true}
+                        multiSelect={false}
+                        preventDeselect={true}
+                        allowReselect={true}
+                        checkboxFirst={true}
+                        connectedNode={ConnectedNode}
+                        nodeIcon={'fa fa-fw fa-circle'}
+                        callbacks={
+                            {
+                                onDataChange: this.onDataChange,
+                                lazyLoad: this.lazyLoad
+                            }
+                        }
+                    />
+                    {/* End Of The Tree */}
+                    {/* Control buttons  */}
+                    <div>
+                        <button
+                            onClick={
+                                () => this.actionToAllRoot(ActionTypes.EXPANDED, true)
+                            }
+                        >
+                            Expand Parents
+                        </button>
+                        <button
+                            onClick={
+                                () => this.actionToAllRoot(ActionTypes.EXPANDED, false)
+                            }
+                        >
+                            Collapse Parents
+                        </button>
+                        <br />
+                        <button
+                            onClick={
+                                () => this.actionToAllRoot(ActionTypes.SELECTED, true)
+                            }
+                        >
+                            Select All Parents (disregarding multi-select)
+                        </button>
+                        <button
+                            onClick={
+                                () => this.actionToAllRoot(ActionTypes.SELECTED, false)
+                            }
+                        >
+                            Deselect All Parents (disregarding prevent deselect)
+                        </button>
+                        <br />
+                        <button
+                            onClick={
+                                () => this.actionToAllRoot(ActionTypes.CHECKED, true)
+                            }
+                        >
+                            Check all Parents (disregarding hierarchical check)
+                        </button>
+                        <button
+                            onClick={
+                                () => this.actionToAllRoot(ActionTypes.CHECKED, false)
+                            }
+                        >
+                            Uncheck all Parents (disregarding hierarchical check)
+                        </button>
+                    </div>
+                    {/* End Of Control Buttons */}
+                </div>
+                {/* Action Logger */}
+                <table
+                    style={{
+                        flex: '50%'
+                    }}
+                >
+                    <thead>
+                        <tr>
+                            <th colSpan={3}><h3>Action History</h3></th>
+                        </tr>
+                        <tr>
+                            <th>NodeId</th>
+                            <th>Action Type</th>
+                            <th>Passed Value</th>
+                        </tr>
+                    </thead>
+                    <tbody style={{textAlign: 'center'}}>
+                        {this.state.commandHistory.map(element =>
+                        <tr key={element.key.toString()}>
+                            <td>{element.nodeId}</td>
+                            <td>{element.type}</td>
+                            <td>{JSON.stringify(element.value)}</td>
+                        </tr>)}
+                    </tbody>
+                </table>
+                {/* End Of Action Logger */}
+            </div>
         );
     }
 }
 
-export default App;
+const mapStateToProps = (state: TreeState) => ({
+    TreeDataType: state.TreeDataType
+});
+
+const mapDispatchToProps = {
+    callBack
+};
+
+export const ConnectedApp = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
