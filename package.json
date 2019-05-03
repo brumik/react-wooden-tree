@@ -1,6 +1,6 @@
 {
   "name": "react-wooden-tree",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "private": false,
   "description": "Tree view component for react.",
   "main": "./dist/react-wooden-tree.js",
