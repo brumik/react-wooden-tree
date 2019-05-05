@@ -2,5 +2,6 @@
 !dist/*
 src/*
 benchmark
-demo-app
+demo
 docs
+coverage

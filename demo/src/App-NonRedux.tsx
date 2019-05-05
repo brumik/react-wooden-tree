@@ -1,6 +1,5 @@
 import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import 'react-wooden-tree/dist/react-wooden-tree.css';
 import { CommandQueueType, ActionTypes, NodeProps, Tree, TreeDataType } from 'react-wooden-tree';
 import { flat_lazy_children, generator } from './Generator';
 

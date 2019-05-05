@@ -1,21 +1,23 @@
 const { resolve } = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     context: __dirname,
     entry: {
-        'react-wooden-tree': resolve(__dirname, './src/index.ts'),
+        'demo': resolve(__dirname, './src/index.tsx'),
     },
     devtool: 'source-map',
     output: {
         path: resolve(__dirname, './dist'),
-        filename: '[name].js',
-        library: '[name]',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        filename: '[name].js'
     },
     plugins: [
-        new CopyWebpackPlugin(['src/**/*.d.ts'])
+        new CopyWebpackPlugin(['src/**/*.d.ts']),
+        new HtmlWebPackPlugin({
+            template: './public/index.html',
+            filename: './index.html',
+        })
     ],
     module: {
         rules: [
@@ -26,7 +28,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(ts|tsx)$/,
                 use: 'babel-loader',
                 exclude: /node_modules/
             },
@@ -42,15 +44,17 @@ module.exports = {
                     'css-loader'
                 ]
             },
+            {
+                test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
+                    }
+                }]
+            }
         ]
     },
     resolve: {extensions: ['.js', '.ts','.tsx', '.css']},
-    externals: {
-        'react': {
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'react',
-            root: 'React'
-        }
-    }
 };

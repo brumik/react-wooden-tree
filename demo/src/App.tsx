@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
 import 'font-awesome/css/font-awesome.min.css';
-import 'react-wooden-tree/dist/react-wooden-tree.css';
 import {
     ActionTypes, CommandQueueType, NodeProps, Tree, TreeDataType, TreeCallBackFunction, TreeState, callBack
 } from 'react-wooden-tree';
