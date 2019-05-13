@@ -64,35 +64,102 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 id="react-wooden-tree">React Wooden Tree</h1>
 				<p><a href="https://travis-ci.com/brumik/react-wooden-tree"><img src="https://travis-ci.com/brumik/react-wooden-tree.svg?branch=master" alt="Build Status"></a></p>
-				<p>The tree is bit more complex in the new version. You can use it with
-				redux and of course without it. </p>
+				<p>The tree can be used with redux and of course without it. With the correct
+				usage of redux the tree renders the changes faster.</p>
 				<p>For detailed information visit the docs page: (and turn off inherited methods)
 				<a href="https://brumik.github.io/react-wooden-tree/">https://brumik.github.io/react-wooden-tree/</a>.</p>
 				<h2 id="dependencies">Dependencies</h2>
-				<p>To use the Wooden Tree you need two dependencies:</p>
 				<ul>
 					<li><a href="https://reactjs.org/">React</a></li>
+					<li><a href="https://www.npmjs.com/package/react-dom">React Dom</a></li>
 					<li><a href="https://redux.js.org/">Redux</a> and <a href="https://react-redux.js.org/">React-Redux</a> - only if you want to use with redux</li>
 					<li><a href="https://fontawesome.com/">Font Awesome</a> - only if using default icons</li>
 				</ul>
 				<h2 id="install">Install</h2>
 				<p>The component can be installed with <code>npm</code>:</p>
 				<pre><code class="language-bash">npm install --save react-wooden-tree</code></pre>
-				<p>or you can download manually from this repository.</p>
+				<p>or you can download manually from <a href="https://github.com/brumik/react-wooden-tree">GitHub</a>.</p>
 				<h2 id="basic-usage">Basic usage</h2>
-				<p>In the <code>demo-app</code> folder there are two examples:</p>
+				<p>See the <code>demo</code> folder for the examples</p>
 				<ul>
 					<li><code>App.tsx</code> - This is the redux example</li>
 					<li><code>App-NonRedux.tsx</code></li>
 				</ul>
-				<p>To make it work first in the main directory run <code>npm run build</code> to generate
-					the package as the demo applications use the local one. Then run
-				<code>npm install</code> from <code>/demo-app</code> and <code>npm run start</code> to start the application.</p>
-				<p>To switch between the redux and non redux version in the
-					<code>demo-app/src/index</code> switch the comments (uncomment commented and comment
-				uncommented). </p>
+				<p>To start run <code>npm install</code> and then <code>npm run start</code>. It starts the demo
+				application.</p>
 				<p>All the helper methods and definitions
 				are documented on the <a href="https://brumik.github.io/react-wooden-tree/">docs page</a>.</p>
+				<h2 id="data-structure">Data Structure</h2>
+				<p>The tree accepts flat structured data but supplies function for conversion
+				from hierarchical data. </p>
+				<h3 id="flat-data-structure">Flat Data Structure</h3>
+				<p>The structure used by the tree:</p>
+				<pre><code class="language-typescript"><span class="hljs-comment">/**
+ * Defines the TreeDataType format
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TreeDataType {
+    <span class="hljs-comment">/** The key should be the same as nodeId */</span>
+    [key: <span class="hljs-built_in">string</span>]: NodeProps;
+}
+
+<span class="hljs-comment">/**
+ * Node properties interface.
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> NodeProps {
+    <span class="hljs-comment">/** The node ID - Required */</span>
+    nodeId?: <span class="hljs-built_in">string</span>;
+    <span class="hljs-comment">/** The text to display on node */</span>
+    text?: <span class="hljs-built_in">string</span>;
+    <span class="hljs-comment">/** List of node ids of the node's children */</span>
+    nodes?: <span class="hljs-built_in">string</span>[];
+    <span class="hljs-comment">/** The state of the node */</span>
+    state?: {
+        checked?: <span class="hljs-built_in">boolean</span>;
+        disabled?: <span class="hljs-built_in">boolean</span>;
+        expanded?: <span class="hljs-built_in">boolean</span>;
+        selected?: <span class="hljs-built_in">boolean</span>;
+    };
+
+    checkable?: <span class="hljs-built_in">boolean</span>;
+    hideCheckbox?: <span class="hljs-built_in">boolean</span>;
+
+    selectable?: <span class="hljs-built_in">boolean</span>;
+    selectedIcon?: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-comment">/** Inidcates if node is lazy loadable or not */</span>
+    lazyLoad?: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-comment">/** If true, loading icon is showed, if null, then error icon is showed */</span>
+    loading?: <span class="hljs-built_in">boolean</span>;
+
+    <span class="hljs-comment">/** Custom attribute field */</span>
+    attr?: {[key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>};
+
+    <span class="hljs-comment">// Styling</span>
+    icon?: <span class="hljs-built_in">string</span>;
+    iconColor?: <span class="hljs-built_in">string</span>;
+    iconBackground?: <span class="hljs-built_in">string</span>;
+    image?: <span class="hljs-built_in">string</span>;
+    classes?: <span class="hljs-built_in">string</span>;
+}</code></pre>
+				<p>State should be initialized with the <code>Tree.initTree()</code> function before use.</p>
+				<h3 id="hierarchical-data-structure">Hierarchical data structure</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> HierarchicalNodeProps {
+    nodeId?: <span class="hljs-built_in">string</span>;
+    nodes?: HierarchicalNodeProps[];
+    <span class="hljs-comment">/** Other props from NodeProps interface */</span>
+    [propTypes: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;
+}</code></pre>
+				<p>This is more people friendly structure, where the hierarchy is maintained by
+					nesting the objects. If you have a structure like this you do not need to
+					initialize the <code>nodeId</code> but before usage you have to initialize the tree
+					with <code>Tree.initHierarchicalTree()</code> and flatten it with te function
+				<code>Tree.convertHierarchicalTree()</code>. </p>
+				<h2 id="contributing">Contributing</h2>
+				<p>Bug reports and pull requests are welcome on GitHub at
+				<a href="https://github.com/brumik/react-wooden-tree/">https://github.com/brumik/react-wooden-tree/</a>.</p>
+				<h2 id="license">License</h2>
+				<p>The gem is available as open source under the terms of the
+				<a href="https://opensource.org/licenses/MIT">MIT License</a>. </p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

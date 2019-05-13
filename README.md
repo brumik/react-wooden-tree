@@ -22,14 +22,12 @@ npm install --save react-wooden-tree
 or you can download manually from [GitHub](https://github.com/brumik/react-wooden-tree).
 
 ## Basic usage
-See the `demo-app` folder for the examples
+See the `demo` folder for the examples
 * `App.tsx` - This is the redux example
 * `App-NonRedux.tsx`
 
-To make it work first in the main directory run `npm install` and `
-npm run build` to generate the package as the demo application uses 
-local build. Then run `npm install` from `/demo-app` and `npm run start`
-to start the application.
+To start run `npm install` and then `npm run start`. It starts the demo 
+application.
 
 All the helper methods and definitions
 are documented on the [docs page](https://brumik.github.io/react-wooden-tree/).

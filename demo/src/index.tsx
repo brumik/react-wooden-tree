@@ -1,7 +1,6 @@
 // Common import statements
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
 // Redux App import statements
 import { Provider } from 'react-redux';
 import { ConnectedApp as App, store } from './App';
@@ -20,4 +19,3 @@ ReactDOM.render(
     </div>,
 document.getElementById('root') as HTMLElement
 );
-registerServiceWorker();
