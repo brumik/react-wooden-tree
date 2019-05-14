@@ -8,7 +8,7 @@ export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
             icon = this.props.loadingIcon;
         } else if ( this.props.loading === null ) {
             icon = this.props.errorIcon;
-        } else if (this.props.expanded) {
+        } else if ( this.props.expanded ) {
             icon = this.props.collapseIcon;
         } else {
             icon = this.props.expandIcon;
