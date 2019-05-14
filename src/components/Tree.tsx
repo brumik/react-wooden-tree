@@ -593,7 +593,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
             return;
         }
 
-        // Add loading icon
+        // Add loading icon and expanded
         this.sendSignleCommand(nodeId, ActionTypes.LOADING, true);
 
         this.props.callbacks.lazyLoad(node).then((data: TreeDataType) => {
@@ -602,6 +602,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
 
             // Remove loading icon
             this.addCommandToQueue(nodeId, ActionTypes.LOADING, false);
+            this.addCommandToQueue(nodeId, ActionTypes.EXPANDED, true);
             this.sendCommandQueue();
         }, () => {
             // Add error icon

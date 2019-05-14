@@ -17,23 +17,9 @@ const actionMapper: {[key: string]: (node: NodeProps, value: any) => NodeProps} 
 };
 
 export class AppNonRedux extends React.Component<{}, AppState> {
-    // This is needed. At too fast changes (multiple changes before the state changes)
-    // we may lose some data, as we update the same node multiple times, but the second one
-    // overrides the first change. Happening with lazy load loading icon.
-    private tree: TreeDataType;
-
-    /**
-     * Constructor.
-     * @param {{}} props
-     */
-    constructor(props: {}) {
-        super(props);
-
-        this.tree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()));
-        this.state = {
-            tree: this.tree,
-        };
-    }
+    state = {
+        tree: Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator())),
+    };
 
     /**
      * The callback function for changing data in the tree.
@@ -41,21 +27,22 @@ export class AppNonRedux extends React.Component<{}, AppState> {
      * @param {[string, string, any]} commands The array of node changing commands.
      */
     onDataChange = (commands: CommandQueueType[]) => {
+        let tree: TreeDataType = {...this.state.tree};
         for ( let i = 0; i < commands.length; i++ ) {
             let command = commands[i];
-            let node = Tree.nodeSelector(this.tree, command.nodeId);
+            let node = Tree.nodeSelector(tree, command.nodeId);
             if (node === null) {
                 continue;
             }
 
             if (actionMapper.hasOwnProperty(command.type)) {
                 node = actionMapper[command.type](node, command.value);
-                this.tree = Tree.nodeUpdater(this.tree, node);
+                tree = Tree.nodeUpdater(tree, node);
             } else if ( command.type === ActionTypes.ADD_NODES ) {
-                this.tree = Tree.addNodes(this.tree, command.value);
+                tree = Tree.addNodes(tree, command.value);
             }
         }
-        this.setState({tree: this.tree});
+        this.setState({tree: tree});
     }
 
     lazyLoad = (node: NodeProps): Promise<TreeDataType> => {

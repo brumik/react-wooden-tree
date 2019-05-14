@@ -5,12 +5,9 @@ interface AppState {
     tree: TreeDataType;
 }
 export declare class AppNonRedux extends React.Component<{}, AppState> {
-    private tree;
-    /**
-     * Constructor.
-     * @param {{}} props
-     */
-    constructor(props: {});
+    state: {
+        tree: TreeDataType;
+    };
     /**
      * The callback function for changing data in the tree.
      *

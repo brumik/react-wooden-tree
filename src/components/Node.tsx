@@ -214,9 +214,9 @@ export class Node extends React.PureComponent<NodeProps, {}> {
     private handleOpenChange(expanded: boolean): void {
         if ( this.props.lazyLoad && this.props.nodes.length < 1 ) {
             this.props.parentData.onLazyLoad(this.props.nodeId);
+        } else {
+            this.props.parentData.expandOnChange(this.props.nodeId, expanded);
         }
-
-        this.props.parentData.expandOnChange(this.props.nodeId, expanded);
     }
 
     /**
