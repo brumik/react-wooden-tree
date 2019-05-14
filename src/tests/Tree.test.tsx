@@ -591,11 +591,11 @@ describe('tree events', () => {
         let expand = childrenSelector(liSelector(node, '2'), 'expand');
         expand.props.onClick();
         // No function passed: Nodes: [], loading: null, expanded: true
-        expect(changeCounter).toEqual(3);
+        expect(changeCounter).toEqual(2);
 
         // Last change check
-        expect(lastChange[1]).toMatch('state.expanded');
-        expect(lastChange[2]).toBeTruthy();
+        expect(lastChange[1]).toMatch('loading');
+        expect(lastChange[2]).toBeNull();
     });
 
     it('should match lazy loaded nodes', async () => {
@@ -655,7 +655,7 @@ describe('tree events', () => {
         try {
             await promise;
         } catch (e) {
-            expect(changeCounter).toEqual(3);
+            expect(changeCounter).toEqual(2);
 
             node.update(
                 <Tree
@@ -870,8 +870,4 @@ describe('tree events', () => {
         expect(changeCounter).toEqual(1);
         expect(lastChange).toMatchObject(['1.0.0', 'state.selected', true]);
     });
-});
-
-describe('redux tree events', () => {
-
 });
