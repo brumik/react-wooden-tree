@@ -3,6 +3,8 @@ node_modules/
 coverage/
 dist/
 src/**/*.d.ts
+demo/**/*.d.ts
+demo/src/index.js
 package-lock.json
 yarn.lock
 yarn-error.log
