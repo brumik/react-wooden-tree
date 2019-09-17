@@ -60,7 +60,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      *
      * @returns {JSX.Element}
      */
-    public render () {
+    public render (): JSX.Element {
         // Indent class
         let NodeClasses = 'indent-' + this.getItemIndentSize();
 
@@ -222,10 +222,14 @@ export class Node extends React.PureComponent<NodeProps, {}> {
     /**
      * Handles the selected event. If allowed to select then calls the callback
      * function with the opposite of currently selected state.
+     *
+     * If select is disabled on the node then it works like expand.
      */
     private handleSelected(): void {
         if ( this.props.selectable && !this.props.state.disabled ) {
             this.props.parentData.selectOnChange(this.props.nodeId, !this.props.state.selected);
+        } else {
+            this.handleOpenChange(!this.props.state.expanded);
         }
     }
 

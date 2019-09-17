@@ -397,7 +397,7 @@ describe('tree events', () => {
         expect(changeCounter).toEqual(0);
     });
 
-    it('should not call selected event if node is disabled', () => {
+    it('should not call selected event but expand event if node is disabled', () => {
         const node = renderer
             .create(
                 <Tree
@@ -412,7 +412,8 @@ describe('tree events', () => {
 
         let span = childrenSelector(liSelector(node, '0'), 'text');
         span.props.onClick();
-        expect(changeCounter).toEqual(0);
+        expect(changeCounter).toEqual(1);
+        expect(lastChange).toMatchObject(['0', 'state.expanded', true]);
     });
 
     it('should call check function once with no hierarchical check', () => {

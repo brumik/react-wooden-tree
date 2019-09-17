@@ -36,6 +36,12 @@ export function generator(): HierarchicalNodeProps[] {
                     icon: 'fa fa-circle', iconColor: 'red', iconBackground: '#0d21ba'},
                 {text: 'Child 4 - Changed background color - with transparency',
                     icon: 'fa fa-circle', iconBackground: 'rgba(0,0,0,0.5'},
+            ]},
+        {text: 'Parent 5 - Not selectable with children',
+            selectable: false,
+            nodes: [
+                {text: 'Child 1', icon: 'fa fa-circle '},
+                {text: 'Child 2', icon: 'fa fa-circle'},
             ]}
     ];
 }
