@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { NodeProps, TreeDataType, Node } from 'react-wooden-tree';
+import { NodeProps, TreeDataType, Node } from '../../../../src/index';
 
 const mapStateToProps = ({ treeData }: TreeDataType, ownProps: NodeProps) => {
     return {...treeData[ownProps.nodeId]};

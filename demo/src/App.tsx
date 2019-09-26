@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 import 'font-awesome/css/font-awesome.min.css';
 import {
     ActionTypes, CommandQueueType, NodeProps, Tree, TreeDataType, TreeCallBackFunction, TreeState, callBack
-} from 'react-wooden-tree';
+} from '../../src/index';
 import { generator, flat_lazy_children } from './Generator';
 import { ReduxTree } from './redux/components/ReduxTree';
 import { ConnectedNode } from './redux/components/ReduxNode';
@@ -20,12 +20,17 @@ interface AppState {
 }
 
 /** Create the tree from hierarchical data */
+// @ts-ignore
 const tree = Tree.convertHierarchicalTree(Tree.initHierarchicalTree(generator()));
 /** The store */
-export const store = createStore(combinedReducers, { treeData: tree});
+export const store = createStore(combinedReducers);
 
 class App extends React.Component<AppProps, AppState> {
     private uKey: number;
+
+    componentDidMount() {
+        this.props.callBack('', ActionTypes.ADD_NODES, tree);
+    }
 
     /**
      * Constructor.
