@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import { CommandQueueType, ActionTypes, NodeProps, Tree, TreeDataType } from 'react-wooden-tree';
+import { CommandQueueType, ActionTypes, NodeProps, Tree, TreeDataType } from '../../src/index';
 import { flat_lazy_children, generator } from './Generator';
 
 interface AppState {

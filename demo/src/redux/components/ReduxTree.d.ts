@@ -1,3 +1,3 @@
 /// <reference types="react" />
-import { TreeProps } from 'react-wooden-tree';
+import { TreeProps } from '../../../../src/index';
 export declare const ReduxTree: import("react").ComponentClass<TreeProps, {}>;
