@@ -359,7 +359,8 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         return (
             <div className="Tree">
                 <ul>
-                    {Node.renderSublist(this.props.data[''].nodes, this.parentData)}
+                    {this.props.data && this.props.data[''] && this.props.data[''].nodes &&
+                        Node.renderSublist(this.props.data[''].nodes, this.parentData)}
                 </ul>
                 <style>
                     {Tree.generateIndentCSS(Tree.getDepth(this.props.data))}
@@ -381,7 +382,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
 
         this.parentData = {
             // Non redux
-            tree: this.props.data,
+            tree: this.props.data ? this.props.data : { ['']: { nodes: []} },
 
             // Callbacks
             checkboxOnChange: this.handleCheckboxChange,
