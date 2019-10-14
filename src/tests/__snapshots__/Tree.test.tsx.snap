@@ -170,7 +170,7 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
   </style>
 </div>
 `;
@@ -313,7 +313,7 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
   </style>
 </div>
 `;
@@ -498,7 +498,7 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
   </style>
 </div>
 `;
@@ -673,7 +673,7 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
   </style>
 </div>
 `;
@@ -848,7 +848,7 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:18px}.indent-2{padding-left:36px}.indent-3{padding-left:54px}
+    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
   </style>
 </div>
 `;
