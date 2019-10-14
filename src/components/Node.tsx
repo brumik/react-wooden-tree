@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NodeProps, ParentDataType } from '..';
 import { CheckboxButton } from './CheckboxButton';
 import { ExpandButton } from './ExpandButton';
+import { ParentDataContext } from './Tree';
 
 /**
  * @class Node
@@ -27,15 +28,14 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      * @param {ParentDataType} parentData The parent data to pass.
      * @returns {JSX.Element[]} The array of JSX elements with nodes.
      */
-    public static renderSublist(nodeIds: string[], parentData: ParentDataType): JSX.Element[] {
+    public static renderSublist(nodeIds: string[], { connectedNode, tree }: ParentDataType): JSX.Element[] {
         let elements: JSX.Element[] = [];
-        if ( parentData.connectedNode ) {
-            const ConnectedNode = parentData.connectedNode;
+        if ( connectedNode ) {
+            const ConnectedNode = connectedNode;
             for (let i = 0; i < nodeIds.length; i++) {
                 elements.push(
                     <ConnectedNode
                         key={nodeIds[i]}
-                        parentData={parentData}
                         nodeId={nodeIds[i]}
                     />
                 );
@@ -45,9 +45,8 @@ export class Node extends React.PureComponent<NodeProps, {}> {
                 elements.push(
                     <Node
                         key={nodeIds[i]}
-                        parentData={parentData}
                         nodeId={nodeIds[i]}
-                        {...parentData.tree[nodeIds[i]]}
+                        {...tree[nodeIds[i]]}
                     />
                 );
             }
@@ -65,13 +64,13 @@ export class Node extends React.PureComponent<NodeProps, {}> {
         let NodeClasses = 'indent-' + this.getItemIndentSize();
 
         // Checkbox
-        const checkbox = !this.props.hideCheckbox && this.props.parentData.showCheckbox ? (
+        const checkbox = !this.props.hideCheckbox && this.context.showCheckbox ? (
             <CheckboxButton
                 onChange={this.handleCheckChange}
                 checked={this.props.state.checked}
-                checkedIcon={this.props.parentData.checkedIcon}
-                partiallyCheckedIcon={this.props.parentData.partiallyCheckedIcon}
-                uncheckedIcon={this.props.parentData.uncheckedIcon}
+                checkedIcon={this.context.checkedIcon}
+                partiallyCheckedIcon={this.context.partiallyCheckedIcon}
+                uncheckedIcon={this.context.uncheckedIcon}
             />
         ) : null;
 
@@ -83,10 +82,10 @@ export class Node extends React.PureComponent<NodeProps, {}> {
                     onChange={this.handleOpenChange}
                     expanded={this.props.state.expanded}
                     loading={this.props.loading}
-                    expandIcon={this.props.parentData.expandIcon}
-                    collapseIcon={this.props.parentData.collapseIcon}
-                    loadingIcon={this.props.parentData.loadingIcon}
-                    errorIcon={this.props.parentData.errorIcon}
+                    expandIcon={this.context.expandIcon}
+                    collapseIcon={this.context.collapseIcon}
+                    loadingIcon={this.context.loadingIcon}
+                    errorIcon={this.context.errorIcon}
                 />
             );
         } else {
@@ -96,7 +95,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
 
         // Icon
         let icon: JSX.Element = null;
-        if ( this.props.parentData.showIcon ) {
+        if ( this.context.showIcon ) {
 
             let iconStyle: {color?: string, backgroundColor?: string} = {};
 
@@ -108,12 +107,12 @@ export class Node extends React.PureComponent<NodeProps, {}> {
                 iconStyle.backgroundColor = this.props.iconBackground;
             }
 
-            if ( this.props.parentData.showImage && this.props.image ) {
+            if ( this.context.showImage && this.props.image ) {
                 icon = <img className={'NodeIconImage'} src={this.props.image}/>;
             } else if ( this.props.icon ) {
                 icon = <i className={'Icon ' + this.props.icon} style={iconStyle}/>;
             } else {
-                icon = <i className={'Icon ' + this.props.parentData.nodeIcon} style={iconStyle}/>;
+                icon = <i className={'Icon ' + this.context.nodeIcon} style={iconStyle}/>;
             }
         }
 
@@ -123,7 +122,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
             if ( this.props.selectedIcon ) {
                 selectedIcon = <i className={this.props.selectedIcon}/>;
             } else {
-                selectedIcon = <i className={this.props.parentData.selectedIcon}/>;
+                selectedIcon = <i className={this.context.selectedIcon}/>;
             }
         }
 
@@ -134,12 +133,12 @@ export class Node extends React.PureComponent<NodeProps, {}> {
 
         // Children
         const sublist = this.props.state.expanded ? (
-            Node.renderSublist(this.props.nodes, this.props.parentData)
+            Node.renderSublist(this.props.nodes, this.context)
         ) : null;
 
         // Determining icon order
         let icon1, icon2: JSX.Element;
-        if ( this.props.parentData.checkboxFirst ) {
+        if ( this.context.checkboxFirst ) {
             icon1 = checkbox;
             icon2 = icon;
         } else {
@@ -153,11 +152,11 @@ export class Node extends React.PureComponent<NodeProps, {}> {
         }
         // Changed checkbox class
         if ( this.props.state.checked !== this.defaultCheckbox ) {
-            NodeClasses += ' ' + this.props.parentData.changedCheckboxClass;
+            NodeClasses += ' ' + this.context.changedCheckboxClass;
         }
         // Selected class
         if ( this.props.state.selected ) {
-            NodeClasses += ' ' + this.props.parentData.selectedClass;
+            NodeClasses += ' ' + this.context.selectedClass;
         }
 
         // Data Attributes list
@@ -181,27 +180,23 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      * Constructor.
      * @param {NodeProps} props
      */
-     public constructor(props: NodeProps) {
-        super(props);
+     public constructor(props: NodeProps, context: ParentDataType) {
+        super(props, context);
 
         if ( this.props.state.selected ) {
-            this.props.parentData.initSelectedNode(this.props.nodeId);
+            this.context.initSelectedNode(this.props.nodeId);
         }
 
         this.defaultCheckbox = this.props.state.checked;
-
-        this.handleSelected = this.handleSelected.bind(this);
-        this.handleCheckChange = this.handleCheckChange.bind(this);
-        this.handleOpenChange = this.handleOpenChange.bind(this);
     }
 
     /**
      * Own checkbox handler.
      * @param {boolean} checked Contains the input field value.
      */
-    private handleCheckChange(checked: boolean): void {
+    private handleCheckChange = (checked: boolean): void => {
         if ( this.props.checkable && !this.props.state.disabled ) {
-            this.props.parentData.checkboxOnChange(checked, this.props.nodeId);
+            this.context.checkboxOnChange(checked, this.props.nodeId);
         }
     }
 
@@ -211,11 +206,11 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      *
      * @param {boolean} expanded True on expand false on collapse.
      */
-    private handleOpenChange(expanded: boolean): void {
+    private handleOpenChange = (expanded: boolean): void => {
         if ( this.props.lazyLoad && this.props.nodes.length < 1 ) {
-            this.props.parentData.onLazyLoad(this.props.nodeId);
+            this.context.onLazyLoad(this.props.nodeId);
         } else {
-            this.props.parentData.expandOnChange(this.props.nodeId, expanded);
+            this.context.expandOnChange(this.props.nodeId, expanded);
         }
     }
 
@@ -225,9 +220,9 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      *
      * If select is disabled on the node then it works like expand.
      */
-    private handleSelected(): void {
+    private handleSelected = (): void => {
         if ( this.props.selectable && !this.props.state.disabled ) {
-            this.props.parentData.selectOnChange(this.props.nodeId, !this.props.state.selected);
+            this.context.selectOnChange(this.props.nodeId, !this.props.state.selected);
         } else {
             this.handleOpenChange(!this.props.state.expanded);
         }
@@ -237,10 +232,10 @@ export class Node extends React.PureComponent<NodeProps, {}> {
      * Returns the computed padding size for the current list item for indent.
      * @returns {number} The computed padding level.
      */
-    private getItemIndentSize(): number {
-        return (this.props.nodeId.split('.').length - 1);
-    }
+    private getItemIndentSize = (): number => this.props.nodeId.split('.').length - 1;
 }
+
+Node.contextType = ParentDataContext;
 
 /**
  * Node default values.
@@ -271,7 +266,4 @@ Node.defaultProps = {
     iconBackground: null,
     image: null,
     classes: '',
-
-    // Private
-    parentData: null,
 };

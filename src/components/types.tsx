@@ -187,9 +187,6 @@ export interface NodeProps {
     iconBackground?: string;
     image?: string;
     classes?: string;
-
-    // Private
-    parentData?: ParentDataType;
 }
 
 /**

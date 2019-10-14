@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import { Node, Tree } from '..';
 import { ParentDataType } from '..';
+import { ParentDataContext } from '../components/Tree';
 
 let parentData: ParentDataType;
 const initState = {
@@ -29,7 +30,7 @@ beforeEach(() => {
         selectOnChange: null,
         onLazyLoad: null,
         showCheckbox: true,
-        initSelectedNode: function(nodeId: string) { return nodeId  ; },
+        initSelectedNode: function(nodeId: string) { return nodeId; },
 
         // Icons
         showIcon: true,
@@ -58,12 +59,13 @@ describe('node', () => {
     it('should render basic node', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -72,13 +74,14 @@ describe('node', () => {
     it('should not render empty children', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, expanded: true}}
-                    nodes={[]}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, expanded: true}}
+                        nodes={[]}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -87,12 +90,13 @@ describe('node', () => {
     it('should render switched node and checkbox icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={{...parentData, checkboxFirst: false}}
-                    nodeId={'0'}
-                    state={initState}
-                />
+                <ParentDataContext.Provider value={{...parentData, checkboxFirst: false}}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -101,13 +105,14 @@ describe('node', () => {
     it('should render expanded node with children', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, expanded: true}}
-                    nodes={subNodesList}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, expanded: true}}
+                        nodes={subNodesList}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -116,13 +121,14 @@ describe('node', () => {
     it('should not render children nodes if collapsed', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    nodes={subNodesList}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        nodes={subNodesList}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -131,13 +137,14 @@ describe('node', () => {
     it('should render children nodes if expanded', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, expanded: true}}
-                    nodes={subNodesList}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, expanded: true}}
+                        nodes={subNodesList}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -146,13 +153,14 @@ describe('node', () => {
     it('should display unique selected icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, selected: true}}
-                    selectedIcon={'icon icon-selected'}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, selected: true}}
+                        selectedIcon={'icon icon-selected'}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -161,13 +169,14 @@ describe('node', () => {
     it('should not display any icon (checkbox, icon, expand icon)', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={{...parentData, showCheckbox: false, showIcon: false}}
-                    nodeId={'0'}
-                    state={initState}
-                    hideCheckbox={true}
-                />
+                <ParentDataContext.Provider value={{...parentData, showCheckbox: false, showIcon: false}}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        hideCheckbox={true}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -176,14 +185,15 @@ describe('node', () => {
     it('should display custom icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={{...parentData, showCheckbox: true, showIcon: true}}
-                    nodeId={'0'}
-                    state={initState}
-                    hideCheckbox={true}
-                    icon={'fa fa-custom-icon'}
-                />
+                <ParentDataContext.Provider value={{...parentData, showCheckbox: true, showIcon: true}}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        hideCheckbox={true}
+                        icon={'fa fa-custom-icon'}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -192,15 +202,16 @@ describe('node', () => {
     it('should display custom image as icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={{...parentData, showCheckbox: true, showIcon: true}}
-                    nodeId={'0'}
-                    state={initState}
-                    hideCheckbox={true}
-                    icon={'fa fa-custom-icon'}
-                    image={'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
-                />
+                <ParentDataContext.Provider value={{...parentData, showCheckbox: true, showIcon: true}}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        hideCheckbox={true}
+                        icon={'fa fa-custom-icon'}
+                        image={'https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png'}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -209,14 +220,15 @@ describe('node', () => {
     it('should display loading icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    loading={true}
-                    lazyLoad={true}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        loading={true}
+                        lazyLoad={true}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -225,14 +237,15 @@ describe('node', () => {
     it('should display error lazy loading icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    loading={null}
-                    lazyLoad={true}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        loading={null}
+                        lazyLoad={true}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -241,13 +254,14 @@ describe('node', () => {
     it('should add custom class', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    classes={'custom-class'}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        classes={'custom-class'}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -256,12 +270,13 @@ describe('node', () => {
     it('should indicate selected node (icon and class)', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, selected: true}}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, selected: true}}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -270,12 +285,13 @@ describe('node', () => {
     it('should display partially checked icon', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, checked: null}}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, checked: null}}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -284,12 +300,13 @@ describe('node', () => {
     it('should display warning icon when undefined', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, checked: undefined}}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, checked: undefined}}
+                    />
+                </ParentDataContext.Provider>
             )
             .toJSON();
         expect(node).toMatchSnapshot();
@@ -298,22 +315,24 @@ describe('node', () => {
     it('should indicate changed checked node (icon and class)', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={{...initState, checked: false}}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={{...initState, checked: false}}
+                    />
+                </ParentDataContext.Provider>
             );
 
         // Simulate props change
         node.update(
-            <Node
-                text={'Rendered Node'}
-                parentData={parentData}
-                nodeId={'0'}
-                state={{...initState, checked: true}}
-            />
+            <ParentDataContext.Provider value={parentData}>
+                <Node
+                    text={'Rendered Node'}
+                    nodeId={'0'}
+                    state={{...initState, checked: true}}
+                />
+            </ParentDataContext.Provider>
         );
 
         expect(node.toJSON()).toMatchSnapshot();
@@ -322,14 +341,15 @@ describe('node', () => {
     it('should color the node icon with hex color', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    icon={'fa fa-circle'}
-                    iconColor={'#F5F5F5'}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        icon={'fa fa-circle'}
+                        iconColor={'#F5F5F5'}
+                    />
+                </ParentDataContext.Provider>
             );
         expect(node.toJSON()).toMatchSnapshot();
     });
@@ -337,14 +357,15 @@ describe('node', () => {
     it('should recolor the node icon background with rgb color', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    icon={'fa fa-circle'}
-                    iconBackground={'rgb(100,255,100)'}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        icon={'fa fa-circle'}
+                        iconBackground={'rgb(100,255,100)'}
+                    />
+                </ParentDataContext.Provider>
             );
         expect(node.toJSON()).toMatchSnapshot();
     });
@@ -352,15 +373,16 @@ describe('node', () => {
     it('should recolor both node icon ad icon background with color names', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    icon={'fa fa-circle'}
-                    iconColor={'red'}
-                    iconBackground={'green'}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        icon={'fa fa-circle'}
+                        iconColor={'red'}
+                        iconBackground={'green'}
+                    />
+              </ParentDataContext.Provider>
             );
         expect(node.toJSON()).toMatchSnapshot();
     });
@@ -368,14 +390,15 @@ describe('node', () => {
     it('should recolor the default icon color and background with rgba colors', () => {
         const node = renderer
             .create(
-                <Node
-                    text={'Rendered Node'}
-                    parentData={parentData}
-                    nodeId={'0'}
-                    state={initState}
-                    iconColor={'rgba(10,10,10,0.5)'}
-                    iconBackground={'rgba(90,60,90,1)'}
-                />
+                <ParentDataContext.Provider value={parentData}>
+                    <Node
+                        text={'Rendered Node'}
+                        nodeId={'0'}
+                        state={initState}
+                        iconColor={'rgba(10,10,10,0.5)'}
+                        iconBackground={'rgba(90,60,90,1)'}
+                    />
+                </ParentDataContext.Provider>
             );
         expect(node.toJSON()).toMatchSnapshot();
 

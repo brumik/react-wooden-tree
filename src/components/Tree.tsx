@@ -13,17 +13,13 @@ import {
     ActionTypes
 } from '..';
 
+export const ParentDataContext = React.createContext({} as ParentDataType);
+
 export class Tree extends React.PureComponent<TreeProps, {}> {
     /**
      * Used for default values.
      */
     public static defaultProps: TreeProps;
-
-    /**
-     * This structure contains all the data that nodes need from the
-     * tree component root like settings and callback functions.
-     */
-    private parentData: ParentDataType;
 
     /**
      * Indicates if there is a node currently selected and which one.
@@ -337,17 +333,11 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      */
     private static generateIndentCSS(depth: number): string {
         let cssRules: string = '';
-        let indentSize = 18;
+        let indentSize = 1;
         for (let i = 1; i < depth; i++) {
-            cssRules += '.indent-' + i + '{padding-left:' + indentSize * i + 'px}';
+            cssRules += `.indent-${i}{padding-left:${indentSize * i}em}`;
         }
         return cssRules;
-    }
-
-    componentWillReceiveProps(nextProps: Readonly<TreeProps>, nextContext: any): void {
-        if ( !this.props.connectedNode ) {
-            this.parentData = {...this.parentData, tree: nextProps.data};
-        }
     }
 
     /**
@@ -358,10 +348,12 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     public render(): JSX.Element {
         return (
             <div className="Tree">
-                <ul>
-                    {this.props.data && this.props.data[''] && this.props.data[''].nodes &&
-                        Node.renderSublist(this.props.data[''].nodes, this.parentData)}
-                </ul>
+                <ParentDataContext.Provider value={this.setParentData(this.props)}>
+                    <ul>
+                        {this.props.data && this.props.data[''] && this.props.data[''].nodes &&
+                            Node.renderSublist(this.props.data[''].nodes, this.setParentData(this.props))}
+                    </ul>
+                </ParentDataContext.Provider>
                 <style>
                     {Tree.generateIndentCSS(Tree.getDepth(this.props.data))}
                 </style>
@@ -379,39 +371,46 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         // Default values
         this.selectedNode = null;
         this.commandQueue = [];
+    }
 
-        this.parentData = {
+    /**
+     * Creates the parentData object from the given values.
+     * @param {TreeProps} props
+     * @returns {ParentDataType}
+     */
+    private setParentData(props: TreeProps): ParentDataType {
+        return {
             // Non redux
-            tree: this.props.data ? this.props.data : { ['']: { nodes: []} },
+            tree: props.data ? props.data : { ['']: { nodes: []} },
 
             // Callbacks
             checkboxOnChange: this.handleCheckboxChange,
             expandOnChange: this.handleExpandedChange,
             selectOnChange: this.handleSelectedChange,
             onLazyLoad: this.handleLazyLoad,
-            showCheckbox: this.props.showCheckbox,
+            showCheckbox: props.showCheckbox,
             initSelectedNode: this.initSelectedNode,
 
             // Icons
-            showIcon: this.props.showIcon,
-            showImage: this.props.showImage,
-            nodeIcon: this.props.nodeIcon,
-            checkedIcon: this.props.checkedIcon,
-            uncheckedIcon: this.props.uncheckedIcon,
-            partiallyCheckedIcon: this.props.partiallyCheckedIcon,
-            collapseIcon: this.props.collapseIcon,
-            expandIcon: this.props.expandIcon,
-            loadingIcon: this.props.loadingIcon,
-            errorIcon: this.props.errorIcon,
-            selectedIcon: this.props.selectedIcon,
+            showIcon: props.showIcon,
+            showImage: props.showImage,
+            nodeIcon: props.nodeIcon,
+            checkedIcon: props.checkedIcon,
+            uncheckedIcon: props.uncheckedIcon,
+            partiallyCheckedIcon: props.partiallyCheckedIcon,
+            collapseIcon: props.collapseIcon,
+            expandIcon: props.expandIcon,
+            loadingIcon: props.loadingIcon,
+            errorIcon: props.errorIcon,
+            selectedIcon: props.selectedIcon,
 
             // Styling
-            changedCheckboxClass: this.props.changedCheckboxClass,
-            selectedClass: this.props.selectedClass,
+            changedCheckboxClass: props.changedCheckboxClass,
+            selectedClass: props.selectedClass,
 
             // Other
-            checkboxFirst: this.props.checkboxFirst,
-            connectedNode: this.props.connectedNode,
+            checkboxFirst: props.checkboxFirst,
+            connectedNode: props.connectedNode,
         };
     }
 
