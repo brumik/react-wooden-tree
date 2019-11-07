@@ -1,20 +1,14 @@
-li {
+.react-tree-view li {
     list-style: none;
 }
-.NoOpenButton {
-    margin-left: 18px;
-}
-.Icon {
-    padding: 2px 4px;
-    margin-right: 2px;
+.react-tree-view .icon {
+    min-width: 1em;
+    padding-right: 4px;
     box-sizing: border-box;
-    margin-top: 2px;
 }
-.NodeIconImage {
-    width: 14px;
-    height: auto;
-    margin: 0 4px -1px;
+.react-tree-view .icon.image {
+    width: 1em;
 }
-.Selectable {
+.react-tree-view .selectable {
     cursor: pointer;
 }

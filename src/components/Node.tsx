@@ -90,7 +90,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
             );
         } else {
             openButton = null;
-            NodeClasses += ' NoOpenButton';
+            NodeClasses += ' no-open-button';
         }
 
         // Icon
@@ -108,11 +108,11 @@ export class Node extends React.PureComponent<NodeProps, {}> {
             }
 
             if ( this.context.showImage && this.props.image ) {
-                icon = <img className={'NodeIconImage'} src={this.props.image}/>;
+                icon = <img className={'icon image'} src={this.props.image}/>;
             } else if ( this.props.icon ) {
-                icon = <i className={'Icon ' + this.props.icon} style={iconStyle}/>;
+                icon = <i className={'icon ' + this.props.icon} style={iconStyle}/>;
             } else {
-                icon = <i className={'Icon ' + this.context.nodeIcon} style={iconStyle}/>;
+                icon = <i className={'icon ' + this.context.nodeIcon} style={iconStyle}/>;
             }
         }
 
@@ -128,7 +128,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
 
         // Selectable class
         if ( this.props.selectable && !this.props.state.disabled ) {
-            NodeClasses += ' Selectable';
+            NodeClasses += ' selectable';
         }
 
         // Children

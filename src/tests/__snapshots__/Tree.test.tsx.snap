@@ -2,7 +2,7 @@
 
 exports[`tree events should check parent if all children checked 1`] = `
 <div
-  className="Tree"
+  className="react-tree-view"
 >
   <ul>
     <li
@@ -10,15 +10,15 @@ exports[`tree events should check parent if all children checked 1`] = `
       data-id="0"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -28,19 +28,19 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable changed-checkbox"
+      className="indent-0 selectable changed-checkbox"
       data-id="1"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -50,19 +50,19 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 Selectable changed-checkbox"
+      className="indent-1 selectable changed-checkbox"
       data-id="1.0"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -72,18 +72,18 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable changed-checkbox selected"
+      className="indent-2 no-open-button selectable changed-checkbox selected"
       data-id="1.0.0"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
         className="fa fa-check"
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -93,15 +93,15 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable changed-checkbox"
+      className="indent-2 no-open-button selectable changed-checkbox"
       data-id="1.0.1"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -111,15 +111,15 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable changed-checkbox"
+      className="indent-2 no-open-button selectable changed-checkbox"
       data-id="1.0.2"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -129,15 +129,15 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable changed-checkbox"
+      className="indent-1 no-open-button selectable changed-checkbox"
       data-id="1.1"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -147,19 +147,19 @@ exports[`tree events should check parent if all children checked 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="2"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -170,14 +170,20 @@ exports[`tree events should check parent if all children checked 1`] = `
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
+    
+                .react-tree-view .indent-1{padding-left:1em}
+                .react-tree-view .indent-1.no-open-button{padding-left:2em}
+                .react-tree-view .indent-2{padding-left:2em}
+                .react-tree-view .indent-2.no-open-button{padding-left:3em}
+                .react-tree-view .indent-3{padding-left:3em}
+                .react-tree-view .indent-3.no-open-button{padding-left:4em}
   </style>
 </div>
 `;
 
 exports[`tree events should match failed lazy load 1`] = `
 <div
-  className="Tree"
+  className="react-tree-view"
 >
   <ul>
     <li
@@ -185,11 +191,11 @@ exports[`tree events should match failed lazy load 1`] = `
       data-id="0"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -199,15 +205,15 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="1"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -217,15 +223,15 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 Selectable"
+      className="indent-1 selectable"
       data-id="1.0"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -235,14 +241,14 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable selected"
+      className="indent-2 no-open-button selectable selected"
       data-id="1.0.0"
     >
       <i
         className="fa fa-check"
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -252,11 +258,11 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.1"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -266,11 +272,11 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.2"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -280,11 +286,11 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable"
+      className="indent-1 no-open-button selectable"
       data-id="1.1"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -294,15 +300,15 @@ exports[`tree events should match failed lazy load 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="2"
     >
       <i
-        className="fa fa-fw fa-exclamation Icon ExpandButton"
+        className="fa fa-fw fa-exclamation icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -313,14 +319,20 @@ exports[`tree events should match failed lazy load 1`] = `
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
+    
+                .react-tree-view .indent-1{padding-left:1em}
+                .react-tree-view .indent-1.no-open-button{padding-left:2em}
+                .react-tree-view .indent-2{padding-left:2em}
+                .react-tree-view .indent-2.no-open-button{padding-left:3em}
+                .react-tree-view .indent-3{padding-left:3em}
+                .react-tree-view .indent-3.no-open-button{padding-left:4em}
   </style>
 </div>
 `;
 
 exports[`tree events should match lazy loaded nodes 1`] = `
 <div
-  className="Tree"
+  className="react-tree-view"
 >
   <ul>
     <li
@@ -328,11 +340,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       data-id="0"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -342,15 +354,15 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="1"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -360,15 +372,15 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 Selectable"
+      className="indent-1 selectable"
       data-id="1.0"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -378,14 +390,14 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable selected"
+      className="indent-2 no-open-button selectable selected"
       data-id="1.0.0"
     >
       <i
         className="fa fa-check"
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -395,11 +407,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.1"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -409,11 +421,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.2"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -423,11 +435,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable"
+      className="indent-1 no-open-button selectable"
       data-id="1.1"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -437,15 +449,15 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="2"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -455,11 +467,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable"
+      className="indent-1 no-open-button selectable"
       data-id="2.0"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -469,11 +481,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable"
+      className="indent-1 no-open-button selectable"
       data-id="2.1"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -483,11 +495,11 @@ exports[`tree events should match lazy loaded nodes 1`] = `
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable"
+      className="indent-1 no-open-button selectable"
       data-id="2.2"
     >
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -498,14 +510,20 @@ exports[`tree events should match lazy loaded nodes 1`] = `
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
+    
+                .react-tree-view .indent-1{padding-left:1em}
+                .react-tree-view .indent-1.no-open-button{padding-left:2em}
+                .react-tree-view .indent-2{padding-left:2em}
+                .react-tree-view .indent-2.no-open-button{padding-left:3em}
+                .react-tree-view .indent-3{padding-left:3em}
+                .react-tree-view .indent-3.no-open-button{padding-left:4em}
   </style>
 </div>
 `;
 
 exports[`tree events should partially check parent if not all children checked 1`] = `
 <div
-  className="Tree"
+  className="react-tree-view"
 >
   <ul>
     <li
@@ -513,15 +531,15 @@ exports[`tree events should partially check parent if not all children checked 1
       data-id="0"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -531,19 +549,19 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-0 Selectable changed-checkbox"
+      className="indent-0 selectable changed-checkbox"
       data-id="1"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square Icon CheckboxButton"
+        className="fa fa-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -553,19 +571,19 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-1 Selectable changed-checkbox"
+      className="indent-1 selectable changed-checkbox"
       data-id="1.0"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square Icon CheckboxButton"
+        className="fa fa-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -575,18 +593,18 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable changed-checkbox selected"
+      className="indent-2 no-open-button selectable changed-checkbox selected"
       data-id="1.0.0"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
         className="fa fa-check"
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -596,15 +614,15 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.1"
     >
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -614,15 +632,15 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.2"
     >
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -632,15 +650,15 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable"
+      className="indent-1 no-open-button selectable"
       data-id="1.1"
     >
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -650,19 +668,19 @@ exports[`tree events should partially check parent if not all children checked 1
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="2"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -673,14 +691,20 @@ exports[`tree events should partially check parent if not all children checked 1
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
+    
+                .react-tree-view .indent-1{padding-left:1em}
+                .react-tree-view .indent-1.no-open-button{padding-left:2em}
+                .react-tree-view .indent-2{padding-left:2em}
+                .react-tree-view .indent-2.no-open-button{padding-left:3em}
+                .react-tree-view .indent-3{padding-left:3em}
+                .react-tree-view .indent-3.no-open-button{padding-left:4em}
   </style>
 </div>
 `;
 
 exports[`tree events should partially check parent if not all children checked 2`] = `
 <div
-  className="Tree"
+  className="react-tree-view"
 >
   <ul>
     <li
@@ -688,15 +712,15 @@ exports[`tree events should partially check parent if not all children checked 2
       data-id="0"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -706,19 +730,19 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-0 Selectable changed-checkbox"
+      className="indent-0 selectable changed-checkbox"
       data-id="1"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square Icon CheckboxButton"
+        className="fa fa-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -728,19 +752,19 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-1 Selectable changed-checkbox"
+      className="indent-1 selectable changed-checkbox"
       data-id="1.0"
     >
       <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square Icon CheckboxButton"
+        className="fa fa-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -750,18 +774,18 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable changed-checkbox selected"
+      className="indent-2 no-open-button selectable changed-checkbox selected"
       data-id="1.0.0"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
         className="fa fa-check"
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -771,15 +795,15 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.1"
     >
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -789,15 +813,15 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-2 NoOpenButton Selectable"
+      className="indent-2 no-open-button selectable"
       data-id="1.0.2"
     >
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -807,15 +831,15 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-1 NoOpenButton Selectable changed-checkbox"
+      className="indent-1 no-open-button selectable changed-checkbox"
       data-id="1.1"
     >
       <i
-        className="fa fa-check-square Icon CheckboxButton"
+        className="fa fa-check-square icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -825,19 +849,19 @@ exports[`tree events should partially check parent if not all children checked 2
       </span>
     </li>
     <li
-      className="indent-0 Selectable"
+      className="indent-0 selectable"
       data-id="2"
     >
       <i
-        className="fa fa-angle-right Icon ExpandButton"
+        className="fa fa-angle-right icon expand-button"
         onClick={[Function]}
       />
       <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
       />
       <i
-        className="Icon fa fa-ban"
+        className="icon fa fa-ban"
         style={Object {}}
       />
       <span
@@ -848,7 +872,13 @@ exports[`tree events should partially check parent if not all children checked 2
     </li>
   </ul>
   <style>
-    .indent-1{padding-left:1em}.indent-2{padding-left:2em}.indent-3{padding-left:3em}
+    
+                .react-tree-view .indent-1{padding-left:1em}
+                .react-tree-view .indent-1.no-open-button{padding-left:2em}
+                .react-tree-view .indent-2{padding-left:2em}
+                .react-tree-view .indent-2.no-open-button{padding-left:3em}
+                .react-tree-view .indent-3{padding-left:3em}
+                .react-tree-view .indent-3.no-open-button{padding-left:4em}
   </style>
 </div>
 `;

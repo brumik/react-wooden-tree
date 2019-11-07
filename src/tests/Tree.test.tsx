@@ -149,9 +149,9 @@ function childrenTypeSelector(li: ReactTestRendererJSON, type: string): ReactTes
 function childrenSelector(li: ReactTestRendererJSON, button: string): ReactTestRendererJSON {
     switch (button) {
         case 'expand':
-            return childrenClassSelector(li, 'ExpandButton');
+            return childrenClassSelector(li, 'expand-button');
         case 'check':
-            return childrenClassSelector(li, 'CheckboxButton');
+            return childrenClassSelector(li, 'checkbox-button');
         case 'text':
             return childrenTypeSelector(li, 'span');
         default:

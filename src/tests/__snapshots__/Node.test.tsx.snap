@@ -2,15 +2,15 @@
 
 exports[`node should add custom class 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable custom-class"
+  className="indent-0 no-open-button selectable custom-class"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -23,15 +23,15 @@ exports[`node should add custom class 1`] = `
 
 exports[`node should color the node icon with hex color 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-circle"
+    className="icon fa fa-circle"
     style={
       Object {
         "color": "#F5F5F5",
@@ -48,11 +48,11 @@ exports[`node should color the node icon with hex color 1`] = `
 
 exports[`node should display custom icon 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="Icon fa fa-custom-icon"
+    className="icon fa fa-custom-icon"
     style={Object {}}
   />
   <span
@@ -65,11 +65,11 @@ exports[`node should display custom icon 1`] = `
 
 exports[`node should display custom image as icon 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <img
-    className="NodeIconImage"
+    className="icon image"
     src="https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png"
   />
   <span
@@ -82,19 +82,19 @@ exports[`node should display custom image as icon 1`] = `
 
 exports[`node should display error lazy loading icon 1`] = `
 <li
-  className="indent-0 Selectable"
+  className="indent-0 selectable"
   data-id="0"
 >
   <i
-    className="fa-exclamation-triangle Icon ExpandButton"
+    className="fa-exclamation-triangle icon expand-button"
     onClick={[Function]}
   />
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -107,19 +107,19 @@ exports[`node should display error lazy loading icon 1`] = `
 
 exports[`node should display loading icon 1`] = `
 <li
-  className="indent-0 Selectable"
+  className="indent-0 selectable"
   data-id="0"
 >
   <i
-    className="fa fa-spinner fa-spin Icon ExpandButton"
+    className="fa fa-spinner fa-spin icon expand-button"
     onClick={[Function]}
   />
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -132,15 +132,15 @@ exports[`node should display loading icon 1`] = `
 
 exports[`node should display partially checked icon 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square Icon CheckboxButton"
+    className="fa fa-square icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -153,18 +153,18 @@ exports[`node should display partially checked icon 1`] = `
 
 exports[`node should display unique selected icon 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable selected"
+  className="indent-0 no-open-button selectable selected"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
     className="icon icon-selected"
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -177,15 +177,15 @@ exports[`node should display unique selected icon 1`] = `
 
 exports[`node should display warning icon when undefined 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-question-circle Icon CheckboxButton"
+    className="fa fa-question-circle icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -198,15 +198,15 @@ exports[`node should display warning icon when undefined 1`] = `
 
 exports[`node should indicate changed checked node (icon and class) 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable changed-checkbox"
+  className="indent-0 no-open-button selectable changed-checkbox"
   data-id="0"
 >
   <i
-    className="fa fa-check-square Icon CheckboxButton"
+    className="fa fa-check-square icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -219,18 +219,18 @@ exports[`node should indicate changed checked node (icon and class) 1`] = `
 
 exports[`node should indicate selected node (icon and class) 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable selected"
+  className="indent-0 no-open-button selectable selected"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
     className="fa fa-check"
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -243,7 +243,7 @@ exports[`node should indicate selected node (icon and class) 1`] = `
 
 exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <span
@@ -256,19 +256,19 @@ exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
 
 exports[`node should not render children nodes if collapsed 1`] = `
 <li
-  className="indent-0 Selectable"
+  className="indent-0 selectable"
   data-id="0"
 >
   <i
-    className="fa fa-angle-right Icon ExpandButton"
+    className="fa fa-angle-right icon expand-button"
     onClick={[Function]}
   />
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -281,15 +281,15 @@ exports[`node should not render children nodes if collapsed 1`] = `
 
 exports[`node should not render empty children 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -302,15 +302,15 @@ exports[`node should not render empty children 1`] = `
 
 exports[`node should recolor both node icon ad icon background with color names 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-circle"
+    className="icon fa fa-circle"
     style={
       Object {
         "backgroundColor": "green",
@@ -328,15 +328,15 @@ exports[`node should recolor both node icon ad icon background with color names 
 
 exports[`node should recolor the default icon color and background with rgba colors 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={
       Object {
         "backgroundColor": "rgba(90,60,90,1)",
@@ -354,15 +354,15 @@ exports[`node should recolor the default icon color and background with rgba col
 
 exports[`node should recolor the node icon background with rgb color 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-circle"
+    className="icon fa fa-circle"
     style={
       Object {
         "backgroundColor": "rgb(100,255,100)",
@@ -379,15 +379,15 @@ exports[`node should recolor the node icon background with rgb color 1`] = `
 
 exports[`node should render basic node 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <span
@@ -401,19 +401,19 @@ exports[`node should render basic node 1`] = `
 exports[`node should render children nodes if expanded 1`] = `
 Array [
   <li
-    className="indent-0 Selectable"
+    className="indent-0 selectable"
     data-id="0"
 >
     <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
     />
     <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
     />
     <i
-        className="Icon fa fa-ban fa-fw"
+        className="icon fa fa-ban fa-fw"
         style={Object {}}
     />
     <span
@@ -423,15 +423,15 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
+    className="indent-1 no-open-button selectable"
     data-id="0.0"
 >
     <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
     />
     <i
-        className="Icon fa fa-ban fa-fw"
+        className="icon fa fa-ban fa-fw"
         style={Object {}}
     />
     <span
@@ -441,15 +441,15 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
+    className="indent-1 no-open-button selectable"
     data-id="0.1"
 >
     <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
     />
     <i
-        className="Icon fa fa-ban fa-fw"
+        className="icon fa fa-ban fa-fw"
         style={Object {}}
     />
     <span
@@ -464,19 +464,19 @@ Array [
 exports[`node should render expanded node with children 1`] = `
 Array [
   <li
-    className="indent-0 Selectable"
+    className="indent-0 selectable"
     data-id="0"
 >
     <i
-        className="fa fa-angle-down Icon ExpandButton"
+        className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
     />
     <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
     />
     <i
-        className="Icon fa fa-ban fa-fw"
+        className="icon fa fa-ban fa-fw"
         style={Object {}}
     />
     <span
@@ -486,15 +486,15 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
+    className="indent-1 no-open-button selectable"
     data-id="0.0"
 >
     <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
     />
     <i
-        className="Icon fa fa-ban fa-fw"
+        className="icon fa fa-ban fa-fw"
         style={Object {}}
     />
     <span
@@ -504,15 +504,15 @@ Array [
     </span>
 </li>,
   <li
-    className="indent-1 NoOpenButton Selectable"
+    className="indent-1 no-open-button selectable"
     data-id="0.1"
 >
     <i
-        className="fa fa-square-o Icon CheckboxButton"
+        className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
     />
     <i
-        className="Icon fa fa-ban fa-fw"
+        className="icon fa fa-ban fa-fw"
         style={Object {}}
     />
     <span
@@ -526,15 +526,15 @@ Array [
 
 exports[`node should render switched node and checkbox icon 1`] = `
 <li
-  className="indent-0 NoOpenButton Selectable"
+  className="indent-0 no-open-button selectable"
   data-id="0"
 >
   <i
-    className="Icon fa fa-ban fa-fw"
+    className="icon fa fa-ban fa-fw"
     style={Object {}}
   />
   <i
-    className="fa fa-square-o Icon CheckboxButton"
+    className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
   />
   <span
