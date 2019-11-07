@@ -14,7 +14,7 @@ export class ExpandButton extends React.Component<ExpandButtonProps, {}> {
             icon = this.props.expandIcon;
         }
 
-        let cName = icon + ' Icon ExpandButton';
+        let cName = icon + ' icon expand-button';
 
         return (
             <i className={cName} onClick={() => this.props.onChange(!this.props.expanded)} />
