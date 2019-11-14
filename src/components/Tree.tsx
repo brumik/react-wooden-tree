@@ -45,7 +45,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @returns {HierarchicalNodeProps[]} The new filled tree.
      */
     public static initHierarchicalTree(tree: HierarchicalNodeProps[], parentID: string = ''): HierarchicalNodeProps[] {
-        let treeCopy = tree.slice();
+        let treeCopy = [...tree];
 
         for (let i = 0; i < treeCopy.length; i++) {
             if ( parentID === '' ) {
@@ -54,7 +54,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
                 treeCopy[i].nodeId = parentID + '.' + i;
             }
 
-            if ( treeCopy[i].state == null ) {
+            if ( !treeCopy[i].state ) {
                 treeCopy[i].state = {};
             }
 
