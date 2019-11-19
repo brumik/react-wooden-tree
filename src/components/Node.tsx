@@ -64,7 +64,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
         let NodeClasses = 'indent-' + this.getItemIndentSize();
 
         // Checkbox
-        const checkbox = !this.props.hideCheckbox && this.context.showCheckbox ? (
+        const checkbox = !this.props.hideCheckbox && this.props.checkable && this.context.showCheckbox ? (
             <CheckboxButton
                 onChange={this.handleCheckChange}
                 checked={this.props.state.checked}
