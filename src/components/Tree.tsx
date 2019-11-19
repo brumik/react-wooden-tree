@@ -495,7 +495,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
                 let parent = Tree.nodeSelector(this.props.data, parents[i]);
                 state = this.parentCheckboxState(parent.nodes, state, changedChildId);
 
-                if ( parent.state.checked !== checked && parent.checkable !== false ) {
+                if ( parent.state.checked !== state && parent.checkable !== false ) {
                     this.addCommandToQueue(parents[i], ActionTypes.CHECKED, state);
                 }
                 changedChildId = parents[i];
