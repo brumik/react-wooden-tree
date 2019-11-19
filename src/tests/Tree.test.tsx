@@ -560,7 +560,7 @@ describe('tree events', () => {
         check.props.onClick();
 
         // Check self, parent and two children
-        expect(changeCounter).toEqual(5);
+        expect(changeCounter).toEqual(4);
 
         node.update(
             <Tree
