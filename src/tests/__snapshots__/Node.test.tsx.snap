@@ -14,10 +14,13 @@ exports[`node should add custom class 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -39,10 +42,13 @@ exports[`node should color the node icon with hex color 1`] = `
     }
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -56,10 +62,13 @@ exports[`node should display custom icon 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -73,10 +82,13 @@ exports[`node should display custom image as icon 1`] = `
     src="https://www.wpsuperstars.net/wp-content/uploads/2015/01/59.png"
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -98,10 +110,13 @@ exports[`node should display error lazy loading icon 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -123,10 +138,13 @@ exports[`node should display loading icon 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -144,10 +162,13 @@ exports[`node should display partially checked icon 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -168,10 +189,13 @@ exports[`node should display unique selected icon 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -189,10 +213,13 @@ exports[`node should display warning icon when undefined 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -210,10 +237,13 @@ exports[`node should indicate changed checked node (icon and class) 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -234,10 +264,13 @@ exports[`node should indicate selected node (icon and class) 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -247,10 +280,13 @@ exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
   data-id="0"
 >
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -272,10 +308,13 @@ exports[`node should not render children nodes if collapsed 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -293,10 +332,13 @@ exports[`node should not render empty children 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -319,10 +361,13 @@ exports[`node should recolor both node icon ad icon background with color names 
     }
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -345,10 +390,13 @@ exports[`node should recolor the default icon color and background with rgba col
     }
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -370,10 +418,13 @@ exports[`node should recolor the node icon background with rgb color 1`] = `
     }
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -391,10 +442,13 @@ exports[`node should render basic node 1`] = `
     style={Object {}}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
 
@@ -417,10 +471,13 @@ Array [
         style={Object {}}
     />
     <span
+        dangerouslySetInnerHTML={
+            Object {
+                "__html": "Rendered Node",
+              }
+        }
         onClick={[Function]}
-    >
-        Rendered Node
-    </span>
+    />
 </li>,
   <li
     className="indent-1 no-open-button selectable"
@@ -435,10 +492,13 @@ Array [
         style={Object {}}
     />
     <span
+        dangerouslySetInnerHTML={
+            Object {
+                "__html": "Sub Node 0",
+              }
+        }
         onClick={[Function]}
-    >
-        Sub Node 0
-    </span>
+    />
 </li>,
   <li
     className="indent-1 no-open-button selectable"
@@ -453,10 +513,13 @@ Array [
         style={Object {}}
     />
     <span
+        dangerouslySetInnerHTML={
+            Object {
+                "__html": "Sub Node 1",
+              }
+        }
         onClick={[Function]}
-    >
-        Sub Node 1
-    </span>
+    />
 </li>,
 ]
 `;
@@ -480,10 +543,13 @@ Array [
         style={Object {}}
     />
     <span
+        dangerouslySetInnerHTML={
+            Object {
+                "__html": "Rendered Node",
+              }
+        }
         onClick={[Function]}
-    >
-        Rendered Node
-    </span>
+    />
 </li>,
   <li
     className="indent-1 no-open-button selectable"
@@ -498,10 +564,13 @@ Array [
         style={Object {}}
     />
     <span
+        dangerouslySetInnerHTML={
+            Object {
+                "__html": "Sub Node 0",
+              }
+        }
         onClick={[Function]}
-    >
-        Sub Node 0
-    </span>
+    />
 </li>,
   <li
     className="indent-1 no-open-button selectable"
@@ -516,10 +585,13 @@ Array [
         style={Object {}}
     />
     <span
+        dangerouslySetInnerHTML={
+            Object {
+                "__html": "Sub Node 1",
+              }
+        }
         onClick={[Function]}
-    >
-        Sub Node 1
-    </span>
+    />
 </li>,
 ]
 `;
@@ -538,9 +610,12 @@ exports[`node should render switched node and checkbox icon 1`] = `
     onClick={[Function]}
   />
   <span
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Rendered Node",
+      }
+    }
     onClick={[Function]}
-  >
-    Rendered Node
-  </span>
+  />
 </li>
 `;
