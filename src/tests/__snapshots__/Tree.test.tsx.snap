@@ -22,10 +22,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 0",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 0
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable changed-checkbox"
@@ -44,10 +47,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 1",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 1
-      </span>
+      />
     </li>
     <li
       className="indent-1 selectable changed-checkbox"
@@ -66,10 +72,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable changed-checkbox selected"
@@ -87,10 +96,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable changed-checkbox"
@@ -105,10 +117,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.1
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable changed-checkbox"
@@ -123,10 +138,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.2",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.2
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable changed-checkbox"
@@ -141,10 +159,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.1
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -163,10 +184,13 @@ exports[`tree events should check parent if all children checked 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 2",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 2
-      </span>
+      />
     </li>
   </ul>
   <style>
@@ -199,10 +223,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 0",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 0
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -217,10 +244,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 1",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 1
-      </span>
+      />
     </li>
     <li
       className="indent-1 selectable"
@@ -235,10 +265,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable selected"
@@ -252,10 +285,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -266,10 +302,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.1
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -280,10 +319,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.2",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.2
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable"
@@ -294,10 +336,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.1
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -312,10 +357,13 @@ exports[`tree events should match failed lazy load 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 2",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 2
-      </span>
+      />
     </li>
   </ul>
   <style>
@@ -348,10 +396,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 0",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 0
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -366,10 +417,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 1",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 1
-      </span>
+      />
     </li>
     <li
       className="indent-1 selectable"
@@ -384,10 +438,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable selected"
@@ -401,10 +458,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -415,10 +475,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.1
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -429,10 +492,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.2",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.2
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable"
@@ -443,10 +509,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.1
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -461,10 +530,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 2",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 2
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable"
@@ -475,10 +547,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Sub Parent 0",
+          }
+        }
         onClick={[Function]}
-      >
-        Sub Parent 0
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable"
@@ -489,10 +564,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Sub Parent 1",
+          }
+        }
         onClick={[Function]}
-      >
-        Sub Parent 1
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable"
@@ -503,10 +581,13 @@ exports[`tree events should match lazy loaded nodes 1`] = `
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Sub Parent 2",
+          }
+        }
         onClick={[Function]}
-      >
-        Sub Parent 2
-      </span>
+      />
     </li>
   </ul>
   <style>
@@ -543,10 +624,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 0",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 0
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable changed-checkbox"
@@ -565,10 +649,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 1",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 1
-      </span>
+      />
     </li>
     <li
       className="indent-1 selectable changed-checkbox"
@@ -587,10 +674,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable changed-checkbox selected"
@@ -608,10 +698,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -626,10 +719,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.1
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -644,10 +740,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.2",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.2
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable"
@@ -662,10 +761,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.1
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -684,10 +786,13 @@ exports[`tree events should partially check parent if not all children checked 1
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 2",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 2
-      </span>
+      />
     </li>
   </ul>
   <style>
@@ -724,10 +829,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 0",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 0
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable changed-checkbox"
@@ -746,10 +854,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 1",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 1
-      </span>
+      />
     </li>
     <li
       className="indent-1 selectable changed-checkbox"
@@ -768,10 +879,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable changed-checkbox selected"
@@ -789,10 +903,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.0",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.0
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -807,10 +924,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.1
-      </span>
+      />
     </li>
     <li
       className="indent-2 no-open-button selectable"
@@ -825,10 +945,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.0.2",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.0.2
-      </span>
+      />
     </li>
     <li
       className="indent-1 no-open-button selectable changed-checkbox"
@@ -843,10 +966,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Child 1.1",
+          }
+        }
         onClick={[Function]}
-      >
-        Child 1.1
-      </span>
+      />
     </li>
     <li
       className="indent-0 selectable"
@@ -865,10 +991,13 @@ exports[`tree events should partially check parent if not all children checked 2
         style={Object {}}
       />
       <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Parent 2",
+          }
+        }
         onClick={[Function]}
-      >
-        Parent 2
-      </span>
+      />
     </li>
   </ul>
   <style>

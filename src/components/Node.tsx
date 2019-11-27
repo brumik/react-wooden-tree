@@ -169,7 +169,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
                     {icon1}
                     {selectedIcon}
                     {icon2}
-                    <span onClick={this.handleSelected}>{this.props.text}</span>
+                    <span onClick={this.handleSelected} dangerouslySetInnerHTML={{ __html: this.props.text }} />
                 </li>
                 {sublist}
             </React.Fragment>

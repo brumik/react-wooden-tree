@@ -12,7 +12,7 @@ export function generator(): HierarchicalNodeProps[] {
                 {text: 'Child 5 - LazyLoadable - Fails', lazyLoad: true, attr: {'data-random': 'random'}}
             ]
         },
-        {text: 'Parent 2 - Not expanded', state: {expanded: false, checked: false},
+        {text: '<strong>Parent 2</strong> - Not expanded', state: {expanded: false, checked: false},
             nodes: [
                 {text: 'Child 1 - Custom Icon', icon: 'fa fa-stop'},
                 {text: 'Child 2 - No icon specified', classes: 'custom-class'},
