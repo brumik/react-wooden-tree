@@ -424,7 +424,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param value The new value.
      */
     private addCommandToQueue(nodeId: string, type: string, value: any): void {
-        this.commandQueue.push({nodeId: nodeId, type: type, value: value});
+        this.commandQueue.push({nodeId: nodeId, type: this.props.actionPrefix + type, value: value});
     }
 
     /**
@@ -435,7 +435,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param value The new value.
      */
     private sendSignleCommand(nodeId: string, type: string, value: any): void {
-        this.props.callbacks.onDataChange([{nodeId: nodeId, type: type, value: value}]);
+        this.props.callbacks.onDataChange([{nodeId: nodeId, type: this.props.actionPrefix + type, value: value}]);
     }
 
     /**
@@ -649,6 +649,7 @@ Tree.defaultProps = {
 
     // Other
     connectedNode: undefined,
+    actionPrefix: '',
 
     // Callbacks
     callbacks: {
