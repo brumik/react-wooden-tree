@@ -57,6 +57,9 @@ export interface TreeProps {
     /** Determines which version to use (redux or non) */
     connectedNode?: React.ComponentType<NodeProps>;
 
+    /** Gives a prefix for the redux action commands */
+    actionPrefix?: string;
+
     callbacks: {
         // Callbacks
         /**
