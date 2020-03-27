@@ -24,7 +24,6 @@
     "jest",
     "src/setupTests.ts",
     "src/tests",
-    "benchmark",
-    "demo-app"
+    "demo"
   ]
 }

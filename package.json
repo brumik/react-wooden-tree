@@ -31,7 +31,8 @@
     "coverage": "react-scripts-ts test --mapCoverage --env=jsdom --coverage",
     "build": "webpack -p",
     "docs": "typedoc --out docs --name 'React Wodden Tree' --target es6 --excludePrivate --excludeProtected --excludeExternals --mode file src/**/{Tree,types}.tsx",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

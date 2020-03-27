@@ -23,17 +23,26 @@ module.exports = {
                 enforce: 'pre',
                 test: /\.(ts|tsx)$/,
                 loader: 'tslint-loader',
-                exclude: /node_modules/
+                exclude: [
+                    /node_modules/,
+                    /demo/
+                ]
             },
             {
                 test: /\.(js|jsx)$/,
                 use: 'babel-loader',
-                exclude: /node_modules/
+                exclude: [
+                    /node_modules/,
+                    /demo/
+                ]
             },
             {
-                test: /\.(ts|tsx)?$/,
+                test: /\.(ts|tsx)$/,
                 loader: 'ts-loader',
-                exclude: /node_modules/
+                exclude: [
+                    /node_modules/,
+                    /demo/
+                ]
             },
             {
                 test: /\.css$/,
