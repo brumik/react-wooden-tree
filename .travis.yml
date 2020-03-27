@@ -1,17 +1,17 @@
+dist: xenial
+os: linux
 language: node_js
-node_js:
-- '7'
 cache:
   directories:
-  - node_modules
-sudo: false
-notifications:
-  email: false
-deploy:
-  provider: npm
-  email: levente.berky@gmail.com
-  api_key:
-    secure: fjmCmDwbghzimETTFM9GammIe44EtZgnNs8Hmw+6bqzrxMGklZNLBJvk11X5iCCJMKkgtOQkDg+SSVAUYgj36ktmTTms1azCdrduJUTBanGVRHpuwtMAXVLHgCtzjcR9N6/DUHjli8QzsQOqudckMEkI06Mq/hhOQ3HHf/MN1HXw+vqI64vOpYQaG7gIKOKg/4ReYP5QeZAGAqoYHtJH35ZZeF2vYhLdIe3p0ly3yN5X5+4BVJLmdRsZsP2MhHO8hEABkieFBBb6ctSssrjimnscFGvhwcz0Tr1JRbzDaKDsejiI2WKPcsNd3CJHDr+gPRKWXk3C2sZ5OUh8FEvEMbezzHS9x96jksDwyiqLyF/jilhJhPr132Ke32MGxtqbLKdesQok+5+WfGTkzlwEPOkcAf0QrvEitfNynIhVTIY2KLf68OrRanbd5rQ4PkqJETKSHozq3Y5I+SgamiBCCuldxJPeZLNl0I+O1r8shwdjEVQGcvj38ZYCk8NrP87mFBoajNIVsiloqwv5WtjCBKEN87tYg2M8hhjEKhd1atyMb9v24oNhn2d+0PG4zywjOGy/497MFHd3CZkWk0R7uWve8yMldiR2iTymfvjmZK0kOn8X9zt0+0TSrFw0BxfrsXKibId6H15gbHaxamY53PxXzlynM7+/xIDiUvv1zr8=
-  on:
-    tags: true
-  skip_cleanup: true
+    - node_modules
+node_js:
+  - 8
+jobs:
+  include:
+    - stage: release
+      node_js: lts/*
+      deploy:
+        provider: script
+        cleanup: false
+        script:
+          - npx semantic-release
