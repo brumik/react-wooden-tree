@@ -17,6 +17,7 @@ export interface TreeState {
 export const ActionTypes = {
     EXPANDED: 'state.expanded',
     CHECKED: 'state.checked',
+    CHECKED_DIRECTLY: 'state.checked_directly',
     DISABLED: 'state.disabled',
     SELECTED: 'state.selected',
     CHILD_NODES: 'child_nodes',

@@ -432,7 +432,7 @@ describe('tree events', () => {
 
         let check = childrenSelector(liSelector(node, '1'), 'check');
         check.props.onClick();
-        expect(changeCounter).toEqual(1);
+        expect(changeCounter).toEqual(2);
         expect(lastChange).toMatchObject(['1', 'state.checked', true]);
     });
 
@@ -452,7 +452,7 @@ describe('tree events', () => {
 
         let check = childrenSelector(liSelector(node, '1'), 'check');
         check.props.onClick();
-        expect(changeCounter).toEqual(6);
+        expect(changeCounter).toEqual(7);
 
         // Last change check
         expect(lastChange[1]).toMatch('state.checked');
@@ -475,7 +475,7 @@ describe('tree events', () => {
 
         let check = childrenSelector(liSelector(node, '1.0.0'), 'check');
         check.props.onClick();
-        expect(changeCounter).toEqual(3);
+        expect(changeCounter).toEqual(4);
 
         // Last change check
         expect(lastChange[1]).toMatch('state.checked');
@@ -513,7 +513,7 @@ describe('tree events', () => {
         check.props.onClick();
 
         // Check self, parent and two children + self, parent
-        expect(changeCounter).toEqual(7);
+        expect(changeCounter).toEqual(9);
 
         node.update(
             <Tree
@@ -560,7 +560,7 @@ describe('tree events', () => {
         check.props.onClick();
 
         // Check self, parent and two children
-        expect(changeCounter).toEqual(4);
+        expect(changeCounter).toEqual(6);
 
         node.update(
             <Tree
