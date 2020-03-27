@@ -1,2 +1,2 @@
 import { NodeProps, Node } from '../../../../src/index';
-export declare const ConnectedNode: import("react-redux").ConnectedComponentClass<typeof Node, Pick<NodeProps, "selectedIcon" | "image" | "text" | "loading" | "nodeId" | "nodes" | "state" | "checkable" | "hideCheckbox" | "selectable" | "lazyLoad" | "attr" | "icon" | "iconColor" | "iconBackground" | "classes"> & NodeProps>;
+export declare const ConnectedNode: import("react-redux").ConnectedComponent<typeof Node, Pick<NodeProps, "nodeId" | "text" | "nodes" | "state" | "checkable" | "hideCheckbox" | "selectable" | "selectedIcon" | "lazyLoad" | "loading" | "attr" | "icon" | "iconColor" | "iconBackground" | "image" | "classes"> & NodeProps>;
