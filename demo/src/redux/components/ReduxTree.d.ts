@@ -1,3 +1,2 @@
-/// <reference types="react" />
-import { TreeProps } from '../../../../src/index';
-export declare const ReduxTree: import("react").ComponentClass<TreeProps, {}>;
+import { Tree } from '../../../../src/index';
+export declare const ReduxTree: import("react-redux").ConnectedComponent<typeof Tree, Pick<import("../../../../src").TreeProps, "connectedNode" | "selectedIcon" | "checkedIcon" | "partiallyCheckedIcon" | "uncheckedIcon" | "expandIcon" | "collapseIcon" | "loadingIcon" | "errorIcon" | "showCheckbox" | "hierarchicalCheck" | "checkboxFirst" | "multiSelect" | "preventDeselect" | "allowReselect" | "showIcon" | "showImage" | "nodeIcon" | "changedCheckboxClass" | "selectedClass" | "actionPrefix" | "callbacks">>;

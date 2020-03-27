@@ -195,6 +195,8 @@ exports[`tree events should check parent if all children checked 1`] = `
   </ul>
   <style>
     
+                .react-tree-view .indent-0{padding-left:0em}
+                .react-tree-view .indent-0.no-open-button{padding-left:1em}
                 .react-tree-view .indent-1{padding-left:1em}
                 .react-tree-view .indent-1.no-open-button{padding-left:2em}
                 .react-tree-view .indent-2{padding-left:2em}
@@ -368,6 +370,8 @@ exports[`tree events should match failed lazy load 1`] = `
   </ul>
   <style>
     
+                .react-tree-view .indent-0{padding-left:0em}
+                .react-tree-view .indent-0.no-open-button{padding-left:1em}
                 .react-tree-view .indent-1{padding-left:1em}
                 .react-tree-view .indent-1.no-open-button{padding-left:2em}
                 .react-tree-view .indent-2{padding-left:2em}
@@ -592,6 +596,8 @@ exports[`tree events should match lazy loaded nodes 1`] = `
   </ul>
   <style>
     
+                .react-tree-view .indent-0{padding-left:0em}
+                .react-tree-view .indent-0.no-open-button{padding-left:1em}
                 .react-tree-view .indent-1{padding-left:1em}
                 .react-tree-view .indent-1.no-open-button{padding-left:2em}
                 .react-tree-view .indent-2{padding-left:2em}
@@ -797,6 +803,8 @@ exports[`tree events should partially check parent if not all children checked 1
   </ul>
   <style>
     
+                .react-tree-view .indent-0{padding-left:0em}
+                .react-tree-view .indent-0.no-open-button{padding-left:1em}
                 .react-tree-view .indent-1{padding-left:1em}
                 .react-tree-view .indent-1.no-open-button{padding-left:2em}
                 .react-tree-view .indent-2{padding-left:2em}
@@ -1002,6 +1010,8 @@ exports[`tree events should partially check parent if not all children checked 2
   </ul>
   <style>
     
+                .react-tree-view .indent-0{padding-left:0em}
+                .react-tree-view .indent-0.no-open-button{padding-left:1em}
                 .react-tree-view .indent-1{padding-left:1em}
                 .react-tree-view .indent-1.no-open-button{padding-left:2em}
                 .react-tree-view .indent-2{padding-left:2em}

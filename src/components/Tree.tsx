@@ -334,7 +334,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
     private static generateIndentCSS(depth: number): string {
         let cssRules: string = '';
         let indentSize = 1;
-        for (let i = 1; i < depth; i++) {
+        for (let i = 0; i < depth; i++) {
             cssRules += `
             .react-tree-view .indent-${i}{padding-left:${indentSize * i}em}
             .react-tree-view .indent-${i}.no-open-button{padding-left:${indentSize * i + 1}em}`;
