@@ -1,13 +1,13 @@
 {
   "name": "react-wooden-tree",
-  "version": "2.0.12",
+  "version": "0.0.0-development",
   "private": false,
   "description": "Tree view component for react.",
   "main": "./dist/react-wooden-tree.js",
   "types": "./dist/src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brumik/react-wooden-tree.git"
+    "url": "https://github.com/brumik/react-wooden-tree.git"
   },
   "keywords": [
     "tree",
@@ -22,15 +22,16 @@
   },
   "homepage": "https://github.com/brumik/react-wooden-tree#readme",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "scripts": {
     "start": "webpack-dev-server --config demo/webpack.config.js --mode development",
     "test": "react-scripts-ts test --env=jsdom",
     "coverage": "react-scripts-ts test --mapCoverage --env=jsdom --coverage",
     "build": "webpack -p",
-    "docs": "typedoc --out docs --name 'React Wodden Tree' --target es6 --excludePrivate --excludeProtected --excludeExternals --mode file src/**/{Tree,types}.tsx"
+    "docs": "typedoc --out docs --name 'React Wodden Tree' --target es6 --excludePrivate --excludeProtected --excludeExternals --mode file src/**/{Tree,types}.tsx",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -53,6 +54,7 @@
     "react-test-renderer": "^16.8.6",
     "react-wooden-tree": "file:./",
     "redux": "^4.0.1",
+    "semantic-release": "^17.0.4",
     "serve": "^11.0.0",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.0.0",
@@ -68,6 +70,11 @@
       "src/**/*.{js,jsx,tsx}",
       "!<rootDir>/node_modules/",
       "!<rootDir>/path/to/dir/"
+    ]
+  },
+  "release": {
+    "branches": [
+      "master"
     ]
   }
 }
