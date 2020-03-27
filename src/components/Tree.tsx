@@ -482,6 +482,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {string} nodeId The element which checkbox was changed.
      */
     private handleCheckboxChange = (checked: boolean, nodeId: string): void => {
+        this.addCommandToQueue(nodeId, ActionTypes.CHECKED_DIRECTLY, checked);
         this.addCommandToQueue(nodeId, ActionTypes.CHECKED, checked);
 
         if ( this.props.hierarchicalCheck ) {
