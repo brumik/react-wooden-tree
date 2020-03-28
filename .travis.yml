@@ -10,8 +10,6 @@ jobs:
   include:
     - stage: release
       node_js: lts/*
-      before_deploy:
-        - npm run build
       deploy:
         provider: script
         cleanup: false
