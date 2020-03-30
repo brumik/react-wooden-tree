@@ -337,7 +337,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         for (let i = 0; i < depth; i++) {
             cssRules += `
             .react-tree-view .indent-${i}{padding-left:${indentSize * i}em}
-            .react-tree-view .indent-${i}.no-open-button{padding-left:${indentSize * i + 1}em}`;
+            .react-tree-view .indent-${i}.no-open-button{padding-left:calc(${indentSize * i + indentSize}em + 4px)}`;
         }
         return cssRules;
     }
