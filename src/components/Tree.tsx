@@ -343,10 +343,10 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
         for (let i = 0; i < depth; i++) {
             cssRules += `
             .react-tree-view .indent-${i} {
-                padding-left: calc(${indentSize} * ${i});
+                padding-left: calc((${indentSize}) * ${i});
             }
             .react-tree-view .indent-${i}.no-open-button {
-                padding-left: calc(${indentSize} * ${i} + ${chevronSize});
+                padding-left: calc((${indentSize}) * ${i} + (${chevronSize}));
             }
             `;
         }
