@@ -653,7 +653,7 @@ Tree.defaultProps = {
     collapseIcon: 'fa fa-angle-down',
     expandIcon: 'fa fa-angle-right',
     loadingIcon: 'fa fa-spinner fa-spin',
-    errorIcon: 'fa fa-fw fa-exclamation',
+    errorIcon: 'fa fa-exclamation',
     selectedIcon: 'fa fa-check',
 
     // Styling

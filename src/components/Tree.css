@@ -2,12 +2,12 @@
     list-style: none;
 }
 .react-tree-view .icon {
-    min-width: 1em;
+    display: inline-block;
     padding-right: 4px;
-    box-sizing: border-box;
+    width: calc(1em + 4px);
 }
-.react-tree-view .icon.image {
-    width: 1em;
+.react-tree-view i.icon {
+    text-align: center;
 }
 .react-tree-view .selectable {
     cursor: pointer;
