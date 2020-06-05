@@ -64,13 +64,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The props interface for the tree component.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -86,6 +79,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="treeprops.html#actionprefix" class="tsd-kind-icon">action<wbr>Prefix</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="treeprops.html#allowreselect" class="tsd-kind-icon">allow<wbr>Reselect</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="treeprops.html#callbacks" class="tsd-kind-icon">callbacks</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="treeprops.html#changedcheckboxclass" class="tsd-kind-icon">changed<wbr>Checkbox<wbr>Class</a></li>
@@ -116,19 +110,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="actionprefix" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> action<wbr>Prefix</h3>
+					<div class="tsd-signature tsd-kind-icon">action<wbr>Prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L61">components/types.tsx:61</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="allowreselect" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> allow<wbr>Reselect</h3>
 					<div class="tsd-signature tsd-kind-icon">allow<wbr>Reselect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L24">components/types.tsx:24</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L24">components/types.tsx:24</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Used with preventDeselect allows to fire selected event on selected node.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="callbacks" class="tsd-anchor"></a>
@@ -136,28 +135,56 @@
 					<div class="tsd-signature tsd-kind-icon">callbacks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L60">components/types.tsx:60</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L63">components/types.tsx:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> lazy<wbr>Load<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>The function which will be called when a lazily loadable node is
-										expanded first time.</p>
-									</div>
-									<dl class="tsd-comment-tags">
-										<dt>param</dt>
-										<dd><p>The node of the node which has to be loaded.</p>
-										</dd>
-										<dt>returns</dt>
-										<dd><p>Promise about the children of the given node.</p>
-										</dd>
-									</dl>
-								</div>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> generate<wbr>IndentCSS<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>depth: <span class="tsd-signature-type">number</span></h5>
+													</li>
+													<li>
+														<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+														<ul class="tsd-parameters">
+															<li class="tsd-parameter-siganture">
+																<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+																	<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+																</ul>
+																<ul class="tsd-descriptions">
+																	<li class="tsd-description">
+																		<h4 class="tsd-parameters-title">Parameters</h4>
+																		<ul class="tsd-parameters">
+																			<li>
+																				<h5>depth: <span class="tsd-signature-type">number</span></h5>
+																			</li>
+																		</ul>
+																		<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> lazy<wbr>Load<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
@@ -179,17 +206,6 @@
 							</li>
 							<li class="tsd-parameter">
 								<h5>on<wbr>Data<wbr>Change<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>All changes made in the tree will be propagated upwards.
-										Every time the tree changes the node&#39;s data the callback will be fired.</p>
-									</div>
-									<dl class="tsd-comment-tags">
-										<dt>param</dt>
-										<dd><p>Array of commands: [nodeId, type, value].</p>
-										</dd>
-									</dl>
-								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
@@ -218,14 +234,9 @@
 					<div class="tsd-signature tsd-kind-icon">changed<wbr>Checkbox<wbr>Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L52">components/types.tsx:52</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L52">components/types.tsx:52</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Extra class for the changed checkbox nodes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="checkboxfirst" class="tsd-anchor"></a>
@@ -233,14 +244,9 @@
 					<div class="tsd-signature tsd-kind-icon">checkbox<wbr>First<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L16">components/types.tsx:16</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L16">components/types.tsx:16</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Determines if the node icon or the checkbox is the first.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="checkedicon" class="tsd-anchor"></a>
@@ -248,14 +254,9 @@
 					<div class="tsd-signature tsd-kind-icon">checked<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L34">components/types.tsx:34</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L34">components/types.tsx:34</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The checkbox-checked icon.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="collapseicon" class="tsd-anchor"></a>
@@ -263,14 +264,9 @@
 					<div class="tsd-signature tsd-kind-icon">collapse<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L40">components/types.tsx:40</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L40">components/types.tsx:40</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The icon for collapsing parents.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="connectednode" class="tsd-anchor"></a>
@@ -278,14 +274,9 @@
 					<div class="tsd-signature tsd-kind-icon">connected<wbr>Node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ComponentType</span><span class="tsd-signature-symbol">&lt;</span><a href="nodeprops.html" class="tsd-signature-type">NodeProps</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L58">components/types.tsx:58</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L58">components/types.tsx:58</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Determines which version to use (redux or non)</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="data" class="tsd-anchor"></a>
@@ -293,14 +284,9 @@
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="treedatatype.html" class="tsd-signature-type">TreeDataType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L8">components/types.tsx:8</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L8">components/types.tsx:8</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The definitions of the tree nodes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="erroricon" class="tsd-anchor"></a>
@@ -308,14 +294,9 @@
 					<div class="tsd-signature tsd-kind-icon">error<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L46">components/types.tsx:46</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L46">components/types.tsx:46</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The icon displayed when lazyLoading went wrong.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="expandicon" class="tsd-anchor"></a>
@@ -323,14 +304,9 @@
 					<div class="tsd-signature tsd-kind-icon">expand<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L42">components/types.tsx:42</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L42">components/types.tsx:42</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The icon for expanding parents.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="hierarchicalcheck" class="tsd-anchor"></a>
@@ -338,14 +314,9 @@
 					<div class="tsd-signature tsd-kind-icon">hierarchical<wbr>Check<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L14">components/types.tsx:14</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L14">components/types.tsx:14</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If enabled parent and children are reflecting each other changes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="loadingicon" class="tsd-anchor"></a>
@@ -353,14 +324,9 @@
 					<div class="tsd-signature tsd-kind-icon">loading<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L44">components/types.tsx:44</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L44">components/types.tsx:44</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The loading icon when loading data with ajax.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="multiselect" class="tsd-anchor"></a>
@@ -368,14 +334,9 @@
 					<div class="tsd-signature tsd-kind-icon">multi<wbr>Select<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L20">components/types.tsx:20</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L20">components/types.tsx:20</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Determines if multiple nodes can be selected.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="nodeicon" class="tsd-anchor"></a>
@@ -383,14 +344,9 @@
 					<div class="tsd-signature tsd-kind-icon">node<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L32">components/types.tsx:32</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L32">components/types.tsx:32</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Default icon for nodes without it.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="partiallycheckedicon" class="tsd-anchor"></a>
@@ -398,14 +354,9 @@
 					<div class="tsd-signature tsd-kind-icon">partially<wbr>Checked<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L38">components/types.tsx:38</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L38">components/types.tsx:38</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The checkbox-partially selected icon.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="preventdeselect" class="tsd-anchor"></a>
@@ -413,14 +364,9 @@
 					<div class="tsd-signature tsd-kind-icon">prevent<wbr>Deselect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L22">components/types.tsx:22</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L22">components/types.tsx:22</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Determines if can be deselected all nodes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="selectedclass" class="tsd-anchor"></a>
@@ -428,14 +374,9 @@
 					<div class="tsd-signature tsd-kind-icon">selected<wbr>Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L54">components/types.tsx:54</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L54">components/types.tsx:54</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Extra class for the selected nodes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="selectedicon" class="tsd-anchor"></a>
@@ -443,14 +384,9 @@
 					<div class="tsd-signature tsd-kind-icon">selected<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L48">components/types.tsx:48</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L48">components/types.tsx:48</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The icon for selected nodes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="showcheckbox" class="tsd-anchor"></a>
@@ -458,14 +394,9 @@
 					<div class="tsd-signature tsd-kind-icon">show<wbr>Checkbox<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L12">components/types.tsx:12</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L12">components/types.tsx:12</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Option: whenever the checkboxes are displayed.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="showicon" class="tsd-anchor"></a>
@@ -473,14 +404,9 @@
 					<div class="tsd-signature tsd-kind-icon">show<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L28">components/types.tsx:28</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L28">components/types.tsx:28</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Determines if the icons are showed in nodes.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="showimage" class="tsd-anchor"></a>
@@ -488,14 +414,9 @@
 					<div class="tsd-signature tsd-kind-icon">show<wbr>Image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L30">components/types.tsx:30</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L30">components/types.tsx:30</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Determines if images are preferred to the icons.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="uncheckedicon" class="tsd-anchor"></a>
@@ -503,14 +424,9 @@
 					<div class="tsd-signature tsd-kind-icon">unchecked<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/9d00da1/src/components/types.tsx#L36">components/types.tsx:36</a></li>
+							<li>Defined in <a href="https://github.com/brumik/react-wooden-tree/blob/0f33a69/src/components/types.tsx#L36">components/types.tsx:36</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The checkbox-unchecked icon.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -565,6 +481,9 @@
 					<li class="current tsd-kind-interface">
 						<a href="treeprops.html" class="tsd-kind-icon">Tree<wbr>Props</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="treeprops.html#actionprefix" class="tsd-kind-icon">action<wbr>Prefix</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="treeprops.html#allowreselect" class="tsd-kind-icon">allow<wbr>Reselect</a>
 							</li>

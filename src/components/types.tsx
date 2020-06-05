@@ -78,6 +78,15 @@ export interface TreeProps {
          * @returns {Promise<NodeProps[]>} Promise about the children of the given node.
          */
         lazyLoad?: (node: NodeProps) => Promise<TreeDataType>;
+
+        /**
+         * The function will override Tree.generateIndentCSS to generate custom css.
+         *
+         * @param {number} depth Maximum indent level to generate css for
+         * @param {function} callback Relacement function to generate css for a given depth
+         * @returns {string} CSS
+         */
+        generateIndentCSS?: (depth: number, callback?: (depth: number) => string) => string;
     };
 }
 

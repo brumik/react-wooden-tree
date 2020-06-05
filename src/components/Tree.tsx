@@ -329,16 +329,28 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * Generates the css classes for indenting the nodes.
      *
      * @param {number} depth Max depth of the tree. This is how many classes will be generated.
-     * @returns {string} CSS: .indent-X{padding-left:X*15px}
+     * @returns {string} CSS for .indent-X with and without .no-open-button
      */
-    private static generateIndentCSS(depth: number): string {
+    private static generateIndentCSS(depth: number, callback?: (depth: number) => string): string {
+        if (callback) {
+            return callback(depth);
+        }
+
         let cssRules: string = '';
-        let indentSize = 1;
+        const indentSize = '1em';
+        const chevronSize = '1em + 4px';
+
         for (let i = 0; i < depth; i++) {
             cssRules += `
-            .react-tree-view .indent-${i}{padding-left:${indentSize * i}em}
-            .react-tree-view .indent-${i}.no-open-button{padding-left:calc(${indentSize * i + indentSize}em + 4px)}`;
+            .react-tree-view .indent-${i} {
+                padding-left: calc((${indentSize}) * ${i});
+            }
+            .react-tree-view .indent-${i}.no-open-button {
+                padding-left: calc((${indentSize}) * ${i} + (${chevronSize}));
+            }
+            `;
         }
+
         return cssRules;
     }
 
@@ -357,7 +369,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
                     </ul>
                 </ParentDataContext.Provider>
                 <style>
-                    {Tree.generateIndentCSS(Tree.getDepth(this.props.data))}
+                    {Tree.generateIndentCSS(Tree.getDepth(this.props.data), this.props.callbacks.generateIndentCSS)}
                 </style>
             </div>
         );
@@ -641,7 +653,7 @@ Tree.defaultProps = {
     collapseIcon: 'fa fa-angle-down',
     expandIcon: 'fa fa-angle-right',
     loadingIcon: 'fa fa-spinner fa-spin',
-    errorIcon: 'fa fa-fw fa-exclamation',
+    errorIcon: 'fa fa-exclamation',
     selectedIcon: 'fa fa-check',
 
     // Styling
@@ -656,5 +668,6 @@ Tree.defaultProps = {
     callbacks: {
         onDataChange: null,
         lazyLoad: null,
-    }
+        generateIndentCSS: null,
+    },
 };

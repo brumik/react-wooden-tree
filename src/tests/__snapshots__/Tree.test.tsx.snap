@@ -195,14 +195,34 @@ exports[`tree events should check parent if all children checked 1`] = `
   </ul>
   <style>
     
-                .react-tree-view .indent-0{padding-left:0em}
-                .react-tree-view .indent-0.no-open-button{padding-left:calc(1em + 4px)}
-                .react-tree-view .indent-1{padding-left:1em}
-                .react-tree-view .indent-1.no-open-button{padding-left:calc(2em + 4px)}
-                .react-tree-view .indent-2{padding-left:2em}
-                .react-tree-view .indent-2.no-open-button{padding-left:calc(3em + 4px)}
-                .react-tree-view .indent-3{padding-left:3em}
-                .react-tree-view .indent-3.no-open-button{padding-left:calc(4em + 4px)}
+                .react-tree-view .indent-0 {
+                    padding-left: calc((1em) * 0);
+                }
+                .react-tree-view .indent-0.no-open-button {
+                    padding-left: calc((1em) * 0 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-1 {
+                    padding-left: calc((1em) * 1);
+                }
+                .react-tree-view .indent-1.no-open-button {
+                    padding-left: calc((1em) * 1 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-2 {
+                    padding-left: calc((1em) * 2);
+                }
+                .react-tree-view .indent-2.no-open-button {
+                    padding-left: calc((1em) * 2 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-3 {
+                    padding-left: calc((1em) * 3);
+                }
+                .react-tree-view .indent-3.no-open-button {
+                    padding-left: calc((1em) * 3 + (1em + 4px));
+                }
+                
   </style>
 </div>
 `;
@@ -351,7 +371,7 @@ exports[`tree events should match failed lazy load 1`] = `
       data-id="2"
     >
       <i
-        className="fa fa-fw fa-exclamation icon expand-button"
+        className="fa fa-exclamation icon expand-button"
         onClick={[Function]}
       />
       <i
@@ -370,14 +390,34 @@ exports[`tree events should match failed lazy load 1`] = `
   </ul>
   <style>
     
-                .react-tree-view .indent-0{padding-left:0em}
-                .react-tree-view .indent-0.no-open-button{padding-left:calc(1em + 4px)}
-                .react-tree-view .indent-1{padding-left:1em}
-                .react-tree-view .indent-1.no-open-button{padding-left:calc(2em + 4px)}
-                .react-tree-view .indent-2{padding-left:2em}
-                .react-tree-view .indent-2.no-open-button{padding-left:calc(3em + 4px)}
-                .react-tree-view .indent-3{padding-left:3em}
-                .react-tree-view .indent-3.no-open-button{padding-left:calc(4em + 4px)}
+                .react-tree-view .indent-0 {
+                    padding-left: calc((1em) * 0);
+                }
+                .react-tree-view .indent-0.no-open-button {
+                    padding-left: calc((1em) * 0 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-1 {
+                    padding-left: calc((1em) * 1);
+                }
+                .react-tree-view .indent-1.no-open-button {
+                    padding-left: calc((1em) * 1 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-2 {
+                    padding-left: calc((1em) * 2);
+                }
+                .react-tree-view .indent-2.no-open-button {
+                    padding-left: calc((1em) * 2 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-3 {
+                    padding-left: calc((1em) * 3);
+                }
+                .react-tree-view .indent-3.no-open-button {
+                    padding-left: calc((1em) * 3 + (1em + 4px));
+                }
+                
   </style>
 </div>
 `;
@@ -596,14 +636,34 @@ exports[`tree events should match lazy loaded nodes 1`] = `
   </ul>
   <style>
     
-                .react-tree-view .indent-0{padding-left:0em}
-                .react-tree-view .indent-0.no-open-button{padding-left:calc(1em + 4px)}
-                .react-tree-view .indent-1{padding-left:1em}
-                .react-tree-view .indent-1.no-open-button{padding-left:calc(2em + 4px)}
-                .react-tree-view .indent-2{padding-left:2em}
-                .react-tree-view .indent-2.no-open-button{padding-left:calc(3em + 4px)}
-                .react-tree-view .indent-3{padding-left:3em}
-                .react-tree-view .indent-3.no-open-button{padding-left:calc(4em + 4px)}
+                .react-tree-view .indent-0 {
+                    padding-left: calc((1em) * 0);
+                }
+                .react-tree-view .indent-0.no-open-button {
+                    padding-left: calc((1em) * 0 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-1 {
+                    padding-left: calc((1em) * 1);
+                }
+                .react-tree-view .indent-1.no-open-button {
+                    padding-left: calc((1em) * 1 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-2 {
+                    padding-left: calc((1em) * 2);
+                }
+                .react-tree-view .indent-2.no-open-button {
+                    padding-left: calc((1em) * 2 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-3 {
+                    padding-left: calc((1em) * 3);
+                }
+                .react-tree-view .indent-3.no-open-button {
+                    padding-left: calc((1em) * 3 + (1em + 4px));
+                }
+                
   </style>
 </div>
 `;
@@ -803,14 +863,34 @@ exports[`tree events should partially check parent if not all children checked 1
   </ul>
   <style>
     
-                .react-tree-view .indent-0{padding-left:0em}
-                .react-tree-view .indent-0.no-open-button{padding-left:calc(1em + 4px)}
-                .react-tree-view .indent-1{padding-left:1em}
-                .react-tree-view .indent-1.no-open-button{padding-left:calc(2em + 4px)}
-                .react-tree-view .indent-2{padding-left:2em}
-                .react-tree-view .indent-2.no-open-button{padding-left:calc(3em + 4px)}
-                .react-tree-view .indent-3{padding-left:3em}
-                .react-tree-view .indent-3.no-open-button{padding-left:calc(4em + 4px)}
+                .react-tree-view .indent-0 {
+                    padding-left: calc((1em) * 0);
+                }
+                .react-tree-view .indent-0.no-open-button {
+                    padding-left: calc((1em) * 0 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-1 {
+                    padding-left: calc((1em) * 1);
+                }
+                .react-tree-view .indent-1.no-open-button {
+                    padding-left: calc((1em) * 1 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-2 {
+                    padding-left: calc((1em) * 2);
+                }
+                .react-tree-view .indent-2.no-open-button {
+                    padding-left: calc((1em) * 2 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-3 {
+                    padding-left: calc((1em) * 3);
+                }
+                .react-tree-view .indent-3.no-open-button {
+                    padding-left: calc((1em) * 3 + (1em + 4px));
+                }
+                
   </style>
 </div>
 `;
@@ -1010,14 +1090,34 @@ exports[`tree events should partially check parent if not all children checked 2
   </ul>
   <style>
     
-                .react-tree-view .indent-0{padding-left:0em}
-                .react-tree-view .indent-0.no-open-button{padding-left:calc(1em + 4px)}
-                .react-tree-view .indent-1{padding-left:1em}
-                .react-tree-view .indent-1.no-open-button{padding-left:calc(2em + 4px)}
-                .react-tree-view .indent-2{padding-left:2em}
-                .react-tree-view .indent-2.no-open-button{padding-left:calc(3em + 4px)}
-                .react-tree-view .indent-3{padding-left:3em}
-                .react-tree-view .indent-3.no-open-button{padding-left:calc(4em + 4px)}
+                .react-tree-view .indent-0 {
+                    padding-left: calc((1em) * 0);
+                }
+                .react-tree-view .indent-0.no-open-button {
+                    padding-left: calc((1em) * 0 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-1 {
+                    padding-left: calc((1em) * 1);
+                }
+                .react-tree-view .indent-1.no-open-button {
+                    padding-left: calc((1em) * 1 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-2 {
+                    padding-left: calc((1em) * 2);
+                }
+                .react-tree-view .indent-2.no-open-button {
+                    padding-left: calc((1em) * 2 + (1em + 4px));
+                }
+                
+                .react-tree-view .indent-3 {
+                    padding-left: calc((1em) * 3);
+                }
+                .react-tree-view .indent-3.no-open-button {
+                    padding-left: calc((1em) * 3 + (1em + 4px));
+                }
+                
   </style>
 </div>
 `;

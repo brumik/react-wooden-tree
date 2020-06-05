@@ -53,7 +53,12 @@ module.exports = {
             },
         ]
     },
-    resolve: {extensions: ['.js', '.ts','.tsx', '.css']},
+    resolve: {
+        extensions: ['.js', '.ts','.tsx', '.css'],
+        alias: {
+            'react-wooden-tree': 'src/'
+        }
+    },
     externals: {
         'react': {
             commonjs: 'react',
