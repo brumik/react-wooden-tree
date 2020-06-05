@@ -83,9 +83,10 @@ export interface TreeProps {
          * The function will override Tree.generateIndentCSS to generate custom css.
          *
          * @param {number} depth Maximum indent level to generate css for
+         * @param {function} callback Relacement function to generate css for a given depth
          * @returns {string} CSS
          */
-        generateIndentCSS?: (depth: number) => string;
+        generateIndentCSS?: (depth: number, callback?: (depth: number) => string) => string;
     };
 }
 

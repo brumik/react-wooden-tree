@@ -331,9 +331,9 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
      * @param {number} depth Max depth of the tree. This is how many classes will be generated.
      * @returns {string} CSS for .indent-X with and without .no-open-button
      */
-    private static generateIndentCSS(depth: number, props: any): string {
-        if (props?.callbacks?.generateIndentCSS) {
-            return props.callbacks.generateIndentCSS(depth);
+    private static generateIndentCSS(depth: number, callback?: (depth: number) => string): string {
+        if (callback) {
+            return callback(depth);
         }
 
         let cssRules: string = '';
@@ -369,7 +369,7 @@ export class Tree extends React.PureComponent<TreeProps, {}> {
                     </ul>
                 </ParentDataContext.Provider>
                 <style>
-                    {Tree.generateIndentCSS(Tree.getDepth(this.props.data), this.props)}
+                    {Tree.generateIndentCSS(Tree.getDepth(this.props.data), this.props.callbacks.generateIndentCSS)}
                 </style>
             </div>
         );
