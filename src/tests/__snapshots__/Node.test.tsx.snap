@@ -8,6 +8,8 @@ exports[`node should add custom class 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -20,6 +22,8 @@ exports[`node should add custom class 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -32,6 +36,8 @@ exports[`node should color the node icon with hex color 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-circle"
@@ -48,6 +54,8 @@ exports[`node should color the node icon with hex color 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -68,6 +76,8 @@ exports[`node should display custom icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -88,6 +98,8 @@ exports[`node should display custom image as icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -100,10 +112,14 @@ exports[`node should display error lazy loading icon 1`] = `
   <i
     className="fa-exclamation-triangle icon expand-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -116,6 +132,8 @@ exports[`node should display error lazy loading icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -128,10 +146,14 @@ exports[`node should display loading icon 1`] = `
   <i
     className="fa fa-spinner fa-spin icon expand-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -144,6 +166,8 @@ exports[`node should display loading icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -156,6 +180,8 @@ exports[`node should display partially checked icon 1`] = `
   <i
     className="fa fa-square icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -168,6 +194,8 @@ exports[`node should display partially checked icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -180,6 +208,8 @@ exports[`node should display unique selected icon 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon icon-selected"
@@ -195,6 +225,8 @@ exports[`node should display unique selected icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -207,6 +239,8 @@ exports[`node should display warning icon when undefined 1`] = `
   <i
     className="fa fa-question-circle icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -219,6 +253,8 @@ exports[`node should display warning icon when undefined 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -231,6 +267,8 @@ exports[`node should indicate changed checked node (icon and class) 1`] = `
   <i
     className="fa fa-check-square icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -243,6 +281,8 @@ exports[`node should indicate changed checked node (icon and class) 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -255,6 +295,8 @@ exports[`node should indicate selected node (icon and class) 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="fa fa-check"
@@ -270,6 +312,8 @@ exports[`node should indicate selected node (icon and class) 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -286,6 +330,8 @@ exports[`node should not display any icon (checkbox, icon, expand icon) 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -298,10 +344,14 @@ exports[`node should not render children nodes if collapsed 1`] = `
   <i
     className="fa fa-angle-right icon expand-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -314,6 +364,8 @@ exports[`node should not render children nodes if collapsed 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -326,6 +378,8 @@ exports[`node should not render empty children 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -338,6 +392,8 @@ exports[`node should not render empty children 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -350,6 +406,8 @@ exports[`node should recolor both node icon ad icon background with color names 
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-circle"
@@ -367,6 +425,8 @@ exports[`node should recolor both node icon ad icon background with color names 
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -379,6 +439,8 @@ exports[`node should recolor the default icon color and background with rgba col
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -396,6 +458,8 @@ exports[`node should recolor the default icon color and background with rgba col
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -408,6 +472,8 @@ exports[`node should recolor the node icon background with rgb color 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-circle"
@@ -424,6 +490,8 @@ exports[`node should recolor the node icon background with rgb color 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -436,6 +504,8 @@ exports[`node should render basic node 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <i
     className="icon fa fa-ban fa-fw"
@@ -448,6 +518,8 @@ exports[`node should render basic node 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;
@@ -461,10 +533,14 @@ Array [
     <i
         className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="icon fa fa-ban fa-fw"
@@ -477,6 +553,8 @@ Array [
               }
         }
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
 </li>,
   <li
@@ -486,6 +564,8 @@ Array [
     <i
         className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="icon fa fa-ban fa-fw"
@@ -498,6 +578,8 @@ Array [
               }
         }
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
 </li>,
   <li
@@ -507,6 +589,8 @@ Array [
     <i
         className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="icon fa fa-ban fa-fw"
@@ -519,6 +603,8 @@ Array [
               }
         }
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
 </li>,
 ]
@@ -533,10 +619,14 @@ Array [
     <i
         className="fa fa-angle-down icon expand-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="icon fa fa-ban fa-fw"
@@ -549,6 +639,8 @@ Array [
               }
         }
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
 </li>,
   <li
@@ -558,6 +650,8 @@ Array [
     <i
         className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="icon fa fa-ban fa-fw"
@@ -570,6 +664,8 @@ Array [
               }
         }
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
 </li>,
   <li
@@ -579,6 +675,8 @@ Array [
     <i
         className="fa fa-square-o icon checkbox-button"
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
     <i
         className="icon fa fa-ban fa-fw"
@@ -591,6 +689,8 @@ Array [
               }
         }
         onClick={[Function]}
+        onKeyPress={[Function]}
+        tabIndex={0}
     />
 </li>,
 ]
@@ -608,6 +708,8 @@ exports[`node should render switched node and checkbox icon 1`] = `
   <i
     className="fa fa-square-o icon checkbox-button"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
   <span
     dangerouslySetInnerHTML={
@@ -616,6 +718,8 @@ exports[`node should render switched node and checkbox icon 1`] = `
       }
     }
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex={0}
   />
 </li>
 `;

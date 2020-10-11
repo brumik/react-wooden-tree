@@ -67,6 +67,7 @@ export class Node extends React.PureComponent<NodeProps, {}> {
         const checkbox = !this.props.hideCheckbox && this.context.showCheckbox ? (
             <CheckboxButton
                 onChange={this.handleCheckChange}
+                checkable={this.props.checkable}
                 checked={this.props.state.checked}
                 checkedIcon={this.context.checkedIcon}
                 partiallyCheckedIcon={this.context.partiallyCheckedIcon}
@@ -169,7 +170,12 @@ export class Node extends React.PureComponent<NodeProps, {}> {
                     {icon1}
                     {selectedIcon}
                     {icon2}
-                    <span onClick={this.handleSelected} dangerouslySetInnerHTML={{ __html: this.props.text }} />
+                    <span
+                        tabIndex={this.props.selectable ? 0 : -1}
+                        onClick={this.handleSelected}
+                        onKeyPress={this.handleSelected}
+                        dangerouslySetInnerHTML={{ __html: this.props.text }}
+                    />
                 </li>
                 {sublist}
             </React.Fragment>
