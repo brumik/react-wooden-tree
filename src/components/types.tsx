@@ -232,6 +232,7 @@ export interface CheckboxButtonOnChangeType {
 export interface CheckboxButtonProps {
     onChange: (checked: boolean) => void;
     checked: boolean;
+    checkable: boolean;
     checkedIcon: string;
     partiallyCheckedIcon: string;
     uncheckedIcon: string;

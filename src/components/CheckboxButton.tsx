@@ -33,7 +33,12 @@ export class CheckboxButton extends React.Component<CheckboxButtonProps, {}> {
         let cName = icon + ' icon checkbox-button';
 
         return (
-            <i className={cName} onClick={() => this.props.onChange(switchVal)} />
+            <i
+                tabIndex={this.props.checkable ? 0 : -1}
+                className={cName}
+                onClick={() => this.props.onChange(switchVal)}
+                onKeyPress={() => this.props.onChange(switchVal)}
+            />
         );
     }
 }
